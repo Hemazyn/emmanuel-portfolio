@@ -1,0 +1,88 @@
+export const certificationsData = [
+  {
+    id: 1,
+    title: "Responsive Web Design",
+    issuer: "freeCodeCamp",
+    issuerLogo: "🏕️",
+    issueDate: "2023",
+    credentialId: "fcc-rwd-2023",
+    credentialUrl: "https://www.freecodecamp.org/certification/hemazyn/responsive-web-design",
+    description: "Comprehensive certification covering HTML5, CSS3, Flexbox, CSS Grid, and responsive design principles for building mobile-first websites.",
+    skills: ["HTML5", "CSS3", "Flexbox", "CSS Grid", "Responsive Design"],
+    type: "certification",
+    featured: true,
+  },
+  {
+    id: 2,
+    title: "JavaScript Algorithms and Data Structures",
+    issuer: "freeCodeCamp",
+    issuerLogo: "🏕️",
+    issueDate: "2023",
+    credentialId: "fcc-js-2023",
+    credentialUrl: "https://www.freecodecamp.org/certification/hemazyn/javascript-algorithms-and-data-structures",
+    description: "In-depth certification covering JavaScript fundamentals, ES6, regular expressions, debugging, data structures, algorithm scripting, and OOP.",
+    skills: ["JavaScript", "ES6+", "Algorithms", "Data Structures", "OOP"],
+    type: "certification",
+    featured: true,
+  },
+  {
+    id: 3,
+    title: "Front End Development Libraries",
+    issuer: "freeCodeCamp",
+    issuerLogo: "🏕️",
+    issueDate: "2023",
+    credentialId: "fcc-fedl-2023",
+    credentialUrl: "https://www.freecodecamp.org/certification/hemazyn/front-end-development-libraries",
+    description: "Advanced certification covering Bootstrap, jQuery, Sass, React, and Redux for building modern frontend applications.",
+    skills: ["React", "Redux", "Bootstrap", "Sass", "jQuery"],
+    type: "certification",
+    featured: true,
+  },
+  {
+    id: 4,
+    title: "Certificate of Recognition",
+    issuer: "Arit Developer Circle",
+    issuerLogo: "🏆",
+    issueDate: "May 2025",
+    credentialId: "adc-hackathon-2025",
+    credentialUrl: "#",
+    description: "Recognition for outstanding performance and innovative solutions demonstrated during the Arit Developer Circle Hackathon.",
+    skills: ["Problem Solving", "Team Collaboration", "Innovation", "Rapid Prototyping"],
+    type: "achievement",
+    featured: true,
+  },
+]
+
+export const certificationStats = [
+  { label: "Certifications", value: "4+", icon: "📜" },
+  { label: "Learning Hours", value: "500+", icon: "⏱️" },
+  { label: "Skills Verified", value: "15+", icon: "✅" },
+  { label: "Achievements", value: "5+", icon: "🏆" },
+]
+
+export const learningPlatforms = [
+  {
+    name: "freeCodeCamp",
+    icon: "🏕️",
+    url: "https://www.freecodecamp.org/hemazyn",
+    description: "Open source learning platform",
+  },
+  {
+    name: "Udemy",
+    icon: "🎓",
+    url: "#",
+    description: "Online courses marketplace",
+  },
+  {
+    name: "YouTube",
+    icon: "▶️",
+    url: "#",
+    description: "Video tutorials and guides",
+  },
+  {
+    name: "MDN Web Docs",
+    icon: "📚",
+    url: "https://developer.mozilla.org",
+    description: "Web development documentation",
+  },
+]
