@@ -1,4 +1,4 @@
-import { oyato1, oyato2, oyato3, oyato4, oyato5, spactrapay1, spactrapay2, spactrapay3, spactrapay4, omavon1, omavon2, omavon3, omavon4, omavon5, taskflow1, taskflow2, taskflow3 } from "../../public/project_image"
+import { oyato1, oyato2, oyato3, oyato4, oyato5, spactrapay1, spactrapay2, spactrapay3, spactrapay4, omavon1, omavon2, omavon3, omavon4, omavon5, taskflow1, taskflow2, taskflow3, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6 } from "../../public/project_image"
 
 export const projectCategories = [
   { id: "all", name: "All" },
@@ -74,7 +74,7 @@ export const projectsData = [
     category: "e-commerce",
     subtitle: "Multi-category rental marketplace",
     description: "A rental marketplace for cars, apartments, equipment, and services. Anytime, anywhere, anything — RentAll brings the world of rentals to your fingertips.",
-    images: ["/images/projects/oyato-1.jpg", "/images/projects/oyato-2.jpg", "/images/projects/oyato-3.jpg"],
+    images: [rent1, rent2].map(img),
     liveUrl: "https://myrentallapp.com/",
     githubUrl: null,
     technologies: ["Next.js", "React", "Tailwind CSS"],
@@ -87,10 +87,10 @@ export const projectsData = [
     category: "landing",
     subtitle: "Embroidery digitizing service website",
     description: "A professional website for a premium embroidery digitizing service. Flat rate pricing, fast turnaround, and 100% satisfaction guaranteed. Built to establish trust and drive conversions.",
-    images: ["/images/projects/oyato-1.jpg", "/images/projects/oyato-2.jpg", "/images/projects/oyato-3.jpg"],
+    images: [digi1, digi2, digi3, digi4, digi5, digi6].map(img),
     liveUrl: "https://digipros-one.vercel.app/",
     githubUrl: null,
-    technologies: ["Next.js", "Tailwind CSS", "Framer Motion"],
+    technologies: ["Next.js", "Tailwind CSS"],
     featured: false,
   },
   {
