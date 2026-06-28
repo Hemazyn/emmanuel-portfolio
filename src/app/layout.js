@@ -1,6 +1,6 @@
 import { Inter, Sora, Fira_Code } from "next/font/google"
-import { ThemeProvider } from "@/components/layout/ThemeProvider"
 import "./globals.css"
+import ClientLayout from "@/components/layout/ClientLayout"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -65,7 +65,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${inter.variable} ${sora.variable} ${firaCode.variable} antialiased`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   )

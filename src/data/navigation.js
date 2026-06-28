@@ -4,7 +4,6 @@ export const navLinks = [
   { name: "Experience", href: "#experience" },
   { name: "Projects", href: "#projects" },
   { name: "Skills", href: "#skills" },
-  { name: "Certifications", href: "#certifications" },
   { name: "Contact", href: "#contact" },
 ]
 
@@ -33,11 +32,11 @@ export const socialLinks = [
 
 export const personalInfo = {
   name: "Emmanuel Tofunmi",
-  role: "Frontend React & Next.js Expert",
+  role: "Frontend Engineer",
   email: "hemazyn@gmail.com",
   phone: "+2349019487450",
   location: "Lagos, Nigeria",
-  website: "https://devemma.netlify.app",
+  website: "https://iamtofunmi.vercel.app/",
   resumeUrl: "/resume/emmanuel-tofunmi-resume.pdf",
   resumeFileName: "Emmanuel-Tofunmi-Resume.pdf",
 }

@@ -1,213 +1,142 @@
 "use client"
-import { motion } from "framer-motion"
-import { ArrowRight, Download, Github, Linkedin, Twitter, Mail, MapPin, Sparkles, Code2, Braces, Terminal } from "lucide-react"
-import Button from "@/components/ui/Button"
-import { AnimatedLetters } from "@/components/ui/AnimatedText"
-import { GradientOrbs, FloatingShapes, GridBackground, ScrollIndicator } from "@/components/ui/BackgroundEffects"
-import StatusBadge from "@/components/ui/StatusBadge"
-import { personalInfo, socialLinks } from "@/data/navigation"
+import { useRef } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { ArrowRight, Download } from "lucide-react"
+import { personalInfo } from "@/data/navigation"
 
-const socialIcons = { Github, Linkedin, Twitter, Mail }
+const revealVariants = {
+  hidden: {
+    y: "100%",
+  },
+  visible: (delay) => ({
+    y: "0%",
+    transition: {
+      duration: 0.8,
+      delay,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+}
+
+const fadeUp = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+    filter: "blur(8px)",
+  },
+  visible: (delay) => ({
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.7,
+      delay,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+}
 
 export default function Hero() {
+  const sectionRef = useRef(null)
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  })
+
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+  const y = useTransform(scrollYProgress, [0, 0.6], [0, -60])
+  const scale = useTransform(scrollYProgress, [0, 0.6], [1, 0.97])
+
+  const handleScroll = (e, id) => {
+    e.preventDefault()
+    const el = document.getElementById(id)
+    if (el) {
+      const offset = 80
+      const top = el.getBoundingClientRect().top + window.pageYOffset - offset
+      window.scrollTo({ top, behavior: "smooth" })
+    }
+  }
+
   return (
-    <section id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden">
-      <GridBackground />
-      <GradientOrbs />
-      <FloatingShapes />
-      <div className="section-container relative z-10 pt-32 pb-32">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div className="order-2 text-center lg:order-1 lg:text-left">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-6 flex justify-center lg:justify-start">
-              <StatusBadge status="available" />
-            </motion.div>
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="text-dark-400 dark:text-light-400 mb-4 flex items-center justify-center gap-2 text-lg md:text-xl lg:justify-start">
-              <span className="animate-bounce-slow inline-block">👋</span>
-              Hello, I&apos;m
-            </motion.p>
-            <h1 className="font-heading mb-4 text-4xl leading-tight font-bold sm:text-5xl md:text-6xl lg:text-7xl">
-              <AnimatedLetters text="Emmanuel" className="text-dark dark:text-light" delay={0.2} />
-              <br />
-              <AnimatedLetters text="Tofunmi" className="gradient-text" delay={0.6} />
-            </h1>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 1 }} className="mb-6">
-              <p className="text-dark dark:text-light flex flex-wrap items-center justify-center gap-2 text-xl font-medium md:text-2xl lg:justify-start">
-                <Sparkles className="text-primary-500 h-5 w-5" />
-                <span>Frontend</span>
-                <span className="text-primary-500">React & Next.js</span>
-                <span>Expert</span>
-              </p>
-            </motion.div>
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 1.1 }} className="text-dark-400 dark:text-light-400 mx-auto mb-8 max-w-xl text-base leading-relaxed md:text-lg lg:mx-0">
-              Results-driven Frontend Developer with <span className="text-primary-500 font-semibold">4+ years</span> of experience crafting responsive, user-friendly web applications. Passionate about transforming designs into pixel-perfect, performant interfaces that deliver exceptional user experiences.
-            </motion.p>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 1.2 }} className="text-dark-400 dark:text-light-400 mb-8 flex items-center justify-center gap-2 lg:justify-start">
-              <MapPin className="text-primary-500 h-4 w-4" />
-              <span className="text-sm">{personalInfo.location}</span>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 1.3 }} className="mb-10 flex flex-wrap justify-center gap-4 lg:justify-start">
-              <Button
-                variant="primary"
-                size="lg"
-                icon={ArrowRight}
-                iconPosition="right"
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault()
-                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-                }}
-              >
-                Get in Touch
-              </Button>
-              <Button variant="secondary" size="lg" icon={Download} href={personalInfo.resumeUrl} download={personalInfo.resumeFileName}>
-                Download CV
-              </Button>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 1.4 }} className="flex items-center justify-center gap-3 lg:justify-start">
-              <span className="text-dark-400 dark:text-light-400 text-sm">Find me on:</span>
-              <div className="flex items-center gap-2">
-                {socialLinks.map((social, index) => {
-                  const Icon = socialIcons[social.icon]
-                  return (
-                    <motion.a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3, delay: 1.5 + index * 0.1 }} whileHover={{ scale: 1.1, y: -2 }} whileTap={{ scale: 0.95 }} className="bg-light-200 dark:bg-dark-300 border-light-300 dark:border-dark-400 hover:border-primary-500 hover:shadow-glow group flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-300" aria-label={social.name}>
-                      <Icon className="text-dark-400 dark:text-light-400 group-hover:text-primary-500 h-4 w-4 transition-colors" />
-                    </motion.a>
-                  )
-                })}
-              </div>
-            </motion.div>
-          </div>
-          <div className="order-1 flex justify-center lg:order-2">
-            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.5, type: "spring" }} className="relative w-full max-w-md">
-              <motion.div
-                animate={{
-                  boxShadow: ["0 0 30px rgba(16, 185, 129, 0.2)", "0 0 60px rgba(16, 185, 129, 0.4)", "0 0 30px rgba(16, 185, 129, 0.2)"],
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
-                className="from-primary-500 to-primary-600 absolute -inset-1 rounded-2xl bg-linear-to-r opacity-75 blur-sm"
-              />
-              <div className="border-dark-400 bg-dark-200 relative overflow-hidden rounded-2xl border shadow-2xl">
-                <div className="bg-dark-300 border-dark-400 flex items-center justify-between border-b px-4 py-3">
-                  <div className="flex items-center gap-2">
-                    <motion.div whileHover={{ scale: 1.2 }} className="h-3 w-3 cursor-pointer rounded-full bg-red-500" />
-                    <motion.div whileHover={{ scale: 1.2 }} className="h-3 w-3 cursor-pointer rounded-full bg-yellow-500" />
-                    <motion.div whileHover={{ scale: 1.2 }} className="h-3 w-3 cursor-pointer rounded-full bg-green-500" />
-                  </div>
-                  <span className="text-light-400 font-mono text-xs">developer.js</span>
-                  <div className="w-16" />
-                </div>
-                <div className="min-h-80 space-y-3 p-6 font-mono text-sm">
-                  <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }} className="flex items-center gap-2">
-                    <span className="text-dark-500 select-none">1</span>
-                    <span className="text-purple-400">const</span>
-                    <span className="text-light">developer</span>
-                    <span className="text-primary-400">=</span>
-                    <span className="text-yellow-400">{"{"}</span>
-                  </motion.div>
-                  <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1 }} className="flex items-center gap-2 pl-6">
-                    <span className="text-dark-500 select-none">2</span>
-                    <span className="text-light-400">name:</span>
-                    <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }} className="text-green-400">
-                      &quot;Emmanuel Tofunmi&quot;
-                    </motion.span>
-                    <span className="text-light-400">,</span>
-                  </motion.div>
-                  <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.3 }} className="flex items-center gap-2 pl-6">
-                    <span className="text-dark-500 select-none">3</span>
-                    <span className="text-light-400">role:</span>
-                    <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="text-green-400">
-                      &quot;Frontend Developer&quot;
-                    </motion.span>
-                    <span className="text-light-400">,</span>
-                  </motion.div>
-                  <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.6 }} className="flex items-start gap-2 pl-6">
-                    <span className="text-dark-500 select-none">4</span>
-                    <span className="text-light-400">skills:</span>
-                    <span className="text-yellow-400">[</span>
-                  </motion.div>
-                  <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.8 }} className="flex flex-wrap items-center gap-2 pl-12">
-                    <span className="text-dark-500 select-none">5</span>
-                    {["React", "Next.js", "TypeScript", "Vue"].map((skill, i) => (
-                      <motion.span key={skill} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 2 + i * 0.15 }} whileHover={{ scale: 1.1, color: "#10b981" }} className="cursor-pointer text-green-400 transition-colors">
-                        &quot;{skill}&quot;{i < 3 && ","}
-                      </motion.span>
-                    ))}
-                  </motion.div>
-                  <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 2.6 }} className="flex items-center gap-2 pl-6">
-                    <span className="text-dark-500 select-none">6</span>
-                    <span className="text-yellow-400">]</span>
-                    <span className="text-light-400">,</span>
-                  </motion.div>
-                  <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 2.8 }} className="flex items-center gap-2 pl-6">
-                    <span className="text-dark-500 select-none">7</span>
-                    <span className="text-light-400">experience:</span>
-                    <motion.span whileHover={{ scale: 1.1 }} className="cursor-pointer text-orange-400">
-                      4
-                    </motion.span>
-                    <span className="text-light-400">,</span>
-                  </motion.div>
-                  <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 3 }} className="flex items-center gap-2 pl-6">
-                    <span className="text-dark-500 select-none">8</span>
-                    <span className="text-light-400">available:</span>
-                    <motion.span animate={{ opacity: [1, 0.5, 1] }} transition={{ duration: 1.5, repeat: Infinity }} className="text-primary-400">
-                      true
-                    </motion.span>
-                    <span className="text-light-400">,</span>
-                  </motion.div>
-                  <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 3.2 }} className="flex items-center gap-2">
-                    <span className="text-dark-500 select-none">9</span>
-                    <span className="text-yellow-400">{"}"}</span>
-                    <span className="text-light-400">;</span>
-                    <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ duration: 0.8, repeat: Infinity }} className="bg-primary-500 ml-1 inline-block h-5 w-2" />
-                  </motion.div>
-                </div>
-                <div className="bg-dark-300 border-dark-400 flex items-center gap-2 border-t px-4 py-2">
-                  <Terminal className="text-primary-500 h-4 w-4" />
-                  <span className="text-light-400 font-mono text-xs">Ready to collaborate</span>
-                  <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ duration: 1, repeat: Infinity }} className="text-primary-500">
-                    _
-                  </motion.span>
-                </div>
-              </div>
-              <motion.div initial={{ opacity: 0, x: -30, y: -20 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 3.5 }} whileHover={{ scale: 1.05, y: -5 }} className="glass absolute -top-4 -left-4 cursor-pointer rounded-xl px-3 py-2 shadow-lg">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">⚛️</span>
-                  <span className="text-dark dark:text-light text-sm font-bold">React.js</span>
-                </div>
-              </motion.div>
+    <section ref={sectionRef} id="home" className="relative flex min-h-[max(600px,30vh)] items-center overflow-hidden">
+      {/* Background */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="grid-pattern absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse at 30% 50%, rgba(16,185,129,0.08), transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(16,185,129,0.04), transparent 40%)",
+          }}
+        />
 
-              <motion.div initial={{ opacity: 0, x: 30, y: -20 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 3.7 }} whileHover={{ scale: 1.05, y: -5 }} className="glass absolute -top-4 -right-4 cursor-pointer rounded-xl px-3 py-2 shadow-lg">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">▲</span>
-                  <span className="text-dark dark:text-light text-sm font-bold">Next.js</span>
-                </div>
-              </motion.div>
-
-              <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.9 }} whileHover={{ scale: 1.05, y: -5 }} className="glass absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-xl px-4 py-2 shadow-lg">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">🚀</span>
-                  <span className="text-dark dark:text-light text-sm font-bold">50+ Projects</span>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 2 }} className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-4">
-          {[
-            { icon: "🎯", label: "Detail", desc: "Oriented" },
-            { icon: "🚀", label: "Fast", desc: "Delivery" },
-            { icon: "💡", label: "Creative", desc: "Solutions" },
-            { icon: "🤝", label: "Team", desc: "Player" },
-          ].map((item, index) => (
-            <motion.div key={item.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 2.1 + index * 0.1 }} whileHover={{ scale: 1.05, y: -5 }} className="glass border-light-300 dark:border-dark-400 hover:border-primary-500/50 hover:shadow-glow cursor-pointer rounded-2xl border p-6 text-center transition-all duration-300">
-              <p className="mb-2 text-3xl md:text-4xl">{item.icon}</p>
-              <p className="gradient-text text-lg font-bold">{item.label}</p>
-              <p className="text-dark-400 dark:text-light-400 text-sm">{item.desc}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+        <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }} className="from-primary-500/40 absolute top-1/3 left-0 hidden h-px w-32 origin-left bg-linear-to-r to-transparent lg:block" />
+        <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.6, ease: [0.22, 1, 0.36, 1] }} className="from-primary-500/40 absolute right-0 bottom-1/3 hidden h-px w-32 origin-right bg-linear-to-l to-transparent lg:block" />
       </div>
-      <ScrollIndicator />
+
+      {/* Content */}
+      <motion.div style={{ opacity, y, scale }} className="relative z-10 container mx-auto px-4 py-32 sm:py-36 lg:py-40 xl:px-0">
+        <div className="mx-auto max-w-5xl">
+          {/* Status */}
+          <motion.div custom={0.1} variants={fadeUp} initial="hidden" animate="visible" className="mb-6 flex items-center gap-3 sm:mb-8">
+            <span className="relative flex h-2 w-2">
+              <span className="bg-primary-400 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
+              <span className="bg-primary-500 relative inline-flex h-2 w-2 rounded-full" />
+            </span>
+            <span className="text-dark-400 dark:text-light-400 font-mono text-[10px] tracking-[0.3em] uppercase sm:text-[11px]">Available for work</span>
+          </motion.div>
+
+          {/* Headline */}
+          <div className="mb-4 space-y-0.5 sm:mb-6 sm:space-y-1">
+            <div className="overflow-hidden">
+              <motion.h1 custom={0.2} variants={revealVariants} initial="hidden" animate="visible" className="font-heading text-dark dark:text-light text-[clamp(2rem,6vw,5.5rem)] leading-[1.05] font-semibold tracking-tight">
+                I&apos;m Emmanuel
+              </motion.h1>
+            </div>
+
+            <div className="overflow-hidden">
+              <motion.h2 custom={0.35} variants={revealVariants} initial="hidden" animate="visible" className="font-heading text-[clamp(2rem,6vw,5.5rem)] leading-[1.05] font-semibold tracking-tight">
+                <span className="text-primary-600 dark:text-primary-400">Frontend Engineer</span>
+                <span className="text-dark/30 dark:text-light/30"> for modern web products</span>
+              </motion.h2>
+            </div>
+          </div>
+
+          {/* Description */}
+          <motion.p custom={0.55} variants={fadeUp} initial="hidden" animate="visible" className="text-dark-400 dark:text-light-400 mb-8 max-w-2xl text-sm leading-relaxed sm:text-base">
+            I design and build product-grade interfaces for CRM systems, admin dashboards, high-end websites, and embedded widgets — focused on performance, usability, and polished user experience.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div custom={0.7} variants={fadeUp} initial="hidden" animate="visible" className="flex flex-wrap items-center gap-3 sm:gap-4">
+            <a href="#contact" onClick={(e) => handleScroll(e, "contact")} className="group bg-primary-600 hover:bg-primary-700 hover:shadow-glow inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 sm:px-6 sm:py-3">
+              Let&apos;s work together
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+
+            <a href={personalInfo.resumeUrl} download={personalInfo.resumeFileName} className="border-dark/10 text-dark hover:border-primary-500/50 hover:text-primary-600 dark:border-light/10 dark:text-light dark:hover:border-primary-500/50 dark:hover:text-primary-400 inline-flex items-center gap-2 rounded-full border bg-transparent px-5 py-2.5 text-sm font-medium transition-all duration-300 sm:px-6 sm:py-3">
+              <Download className="h-4 w-4" />
+              Resume
+            </a>
+          </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.6 }} className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 sm:bottom-8">
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="flex flex-col items-center gap-2"
+        >
+          <span className="text-dark-400/40 dark:text-light-400/40 font-mono text-[9px] tracking-[0.35em] uppercase">Scroll</span>
+          <div className="from-primary-500/60 h-6 w-px bg-linear-to-b to-transparent sm:h-8" />
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

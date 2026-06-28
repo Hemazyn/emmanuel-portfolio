@@ -1,9 +1,32 @@
 "use client"
 import { motion } from "framer-motion"
-import { Github, Linkedin, Twitter, Mail, MapPin, Phone, ArrowUpRight, Heart } from "lucide-react"
+import { ArrowUpRight, Github, Linkedin, Mail, MapPin, Twitter } from "lucide-react"
 import { navLinks, socialLinks, personalInfo } from "@/data/navigation"
 
-const iconMap = { Github, Linkedin, Twitter, Mail }
+const iconMap = {
+  Github,
+  Linkedin,
+  Twitter,
+  Mail,
+}
+
+const fadeUp = {
+  hidden: {
+    opacity: 0,
+    y: 16,
+    filter: "blur(8px)",
+  },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.5,
+      delay,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+}
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -12,15 +35,11 @@ export default function Footer() {
     e.preventDefault()
     const targetId = href.replace("#", "")
     const element = document.getElementById(targetId)
+
     if (element) {
       const offset = 80
-      const elementPosition = element.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - offset
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      })
+      const top = element.getBoundingClientRect().top + window.pageYOffset - offset
+      window.scrollTo({ top, behavior: "smooth" })
     }
   }
 
@@ -29,104 +48,85 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-light-100 dark:bg-dark-100 border-light-300 dark:border-dark-400 relative border-t">
-      <div className="grid-pattern absolute inset-0 opacity-50" />
+    <footer className="bg-light-100 dark:bg-dark-100 border-light-300 dark:border-dark-400 relative overflow-hidden border-t">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="grid-pattern absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" />
+      </div>
 
-      <div className="section-container relative">
-        <div className="py-12 md:py-16">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="lg:col-span-1">
-              <a href="#home" onClick={(e) => handleNavClick(e, "#home")} className="mb-4 inline-block">
+      <div className="relative z-10 container mx-auto px-4 xl:px-0">
+        <div className="py-14">
+          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:gap-8">
+            {/* Brand */}
+            <motion.div custom={0.05} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <a href="#home" onClick={(e) => handleNavClick(e, "#home")} className="inline-block">
                 <span className="font-heading text-2xl font-bold">
                   <span className="text-dark dark:text-light">Dev</span>
                   <span className="gradient-text">Emma</span>
                 </span>
               </a>
-              <p className="text-dark-400 dark:text-light-400 mb-6 text-sm leading-relaxed">Results-driven Frontend Developer with 4+ years of experience building scalable web applications using React.js and Next.js.</p>
 
-              <div className="flex items-center gap-3">
-                {socialLinks.map((social, index) => {
-                  const Icon = iconMap[social.icon]
-                  return (
-                    <motion.a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: index * 0.1 }} whileHover={{ scale: 1.1, y: -2 }} whileTap={{ scale: 0.95 }} className="bg-light-200 dark:bg-dark-300 border-light-300 dark:border-dark-400 hover:border-primary-500 hover:shadow-glow group flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-300" aria-label={social.name}>
-                      <Icon className="text-dark-400 dark:text-light-400 group-hover:text-primary-500 h-4 w-4 transition-colors" />
-                    </motion.a>
-                  )
-                })}
+              <p className="text-dark-400 dark:text-light-400 mt-4 max-w-sm text-sm leading-relaxed">Frontend engineer building clean, scalable interfaces for modern products, dashboards, and high-quality web experiences.</p>
+
+              <a href={`mailto:${personalInfo.email}`} className="text-primary-600 dark:text-primary-400 mt-5 inline-flex items-center gap-2 text-sm font-medium transition-colors duration-300 hover:opacity-80">
+                {personalInfo.email}
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </motion.div>
+
+            {/* Navigation */}
+            <motion.div custom={0.1} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <p className="text-dark-400 dark:text-light-400 font-mono text-[11px] tracking-[0.28em] uppercase">Navigation</p>
+
+              <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3">
+                {navLinks.map((link) => (
+                  <a key={link.name} href={link.href} onClick={(e) => handleNavClick(e, link.href)} className="text-dark dark:text-light hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-colors duration-300">
+                    {link.name}
+                  </a>
+                ))}
+
+                <a href={personalInfo.resumeUrl} download={personalInfo.resumeFileName} className="text-dark dark:text-light hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-colors duration-300">
+                  Resume
+                </a>
               </div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}>
-              <h3 className="text-dark dark:text-light font-heading mb-4 text-lg font-bold">Quick Links</h3>
-              <ul className="space-y-3">
-                {navLinks.slice(0, 5).map((link) => (
-                  <li key={link.name}>
-                    <a href={link.href} onClick={(e) => handleNavClick(e, link.href)} className="text-dark-400 dark:text-light-400 hover:text-primary-500 group inline-flex items-center gap-1 text-sm transition-colors duration-300">
-                      {link.name}
-                      <ArrowUpRight className="h-3 w-3 translate-x-1 -translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+            {/* Contact / socials */}
+            <motion.div custom={0.15} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <p className="text-dark-400 dark:text-light-400 font-mono text-[11px] tracking-[0.28em] uppercase">Presence</p>
 
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }}>
-              <h3 className="text-dark dark:text-light font-heading mb-4 text-lg font-bold">Explore</h3>
-              <ul className="space-y-3">
-                {navLinks.slice(5).map((link) => (
-                  <li key={link.name}>
-                    <a href={link.href} onClick={(e) => handleNavClick(e, link.href)} className="text-dark-400 dark:text-light-400 hover:text-primary-500 group inline-flex items-center gap-1 text-sm transition-colors duration-300">
-                      {link.name}
-                      <ArrowUpRight className="h-3 w-3 translate-x-1 -translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" />
-                    </a>
-                  </li>
-                ))}
-                <li>
-                  <a href={personalInfo.resumeUrl} download className="text-dark-400 dark:text-light-400 hover:text-primary-500 group inline-flex items-center gap-1 text-sm transition-colors duration-300">
-                    Download Resume
-                    <ArrowUpRight className="h-3 w-3 translate-x-1 -translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" />
-                  </a>
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }}>
-              <h3 className="text-dark dark:text-light font-heading mb-4 text-lg font-bold">Contact</h3>
-              <ul className="space-y-4">
-                <li>
-                  <a href={`mailto:${personalInfo.email}`} className="text-dark-400 dark:text-light-400 hover:text-primary-500 group flex items-start gap-3 text-sm transition-colors duration-300">
-                    <Mail className="group-hover:text-primary-500 mt-0.5 h-4 w-4 transition-colors" />
-                    <span>{personalInfo.email}</span>
-                  </a>
-                </li>
-                <li>
-                  <a href={`tel:${personalInfo.phone}`} className="text-dark-400 dark:text-light-400 hover:text-primary-500 group flex items-start gap-3 text-sm transition-colors duration-300">
-                    <Phone className="group-hover:text-primary-500 mt-0.5 h-4 w-4 transition-colors" />
-                    <span>{personalInfo.phone}</span>
-                  </a>
-                </li>
-                <li className="text-dark-400 dark:text-light-400 flex items-start gap-3 text-sm">
-                  <MapPin className="mt-0.5 h-4 w-4" />
+              <div className="mt-4 space-y-3">
+                <div className="text-dark-400 dark:text-light-400 flex items-center gap-2 text-sm">
+                  <MapPin className="text-primary-500 h-4 w-4" />
                   <span>{personalInfo.location}</span>
-                </li>
-              </ul>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  {socialLinks.map((social) => {
+                    const Icon = iconMap[social.icon]
+                    if (!Icon) return null
+
+                    return (
+                      <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="border-light-300 text-dark-400 hover:border-primary-500/25 hover:text-primary-600 dark:border-dark-400 dark:bg-dark-200/70 dark:text-light-400 dark:hover:text-primary-400 flex h-9 w-9 items-center justify-center rounded-xl border bg-white/70 transition-all duration-300" aria-label={social.name}>
+                        <Icon className="h-4 w-4" />
+                      </a>
+                    )
+                  })}
+                </div>
+              </div>
             </motion.div>
           </div>
-        </div>
 
-        <div className="border-light-300 dark:border-dark-400 border-t py-6">
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="text-dark-400 dark:text-light-400 text-center text-sm md:text-left">
-              © {currentYear} Emmanuel Tofunmi. Built with <Heart className="inline h-3 w-3 fill-red-500 text-red-500" /> and Next.js
-            </motion.p>
+          {/* Bottom bar */}
+          <motion.div custom={0.2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="border-light-300 dark:border-dark-400 mt-12 flex flex-col items-start justify-between gap-4 border-t pt-6 sm:flex-row sm:items-center">
+            <p className="text-dark-400 dark:text-light-400 text-sm">© {currentYear} Emmanuel Tofunmi. Designed and built with care.</p>
 
-            <motion.button initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }} onClick={scrollToTop} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="text-dark-400 dark:text-light-400 hover:text-primary-500 group flex items-center gap-2 text-sm transition-colors duration-300">
-              Back to Top
-              <span className="bg-light-200 dark:bg-dark-300 border-light-300 dark:border-dark-400 group-hover:border-primary-500 group-hover:shadow-glow flex h-8 w-8 items-center justify-center rounded-lg border transition-all duration-300">
+            <button type="button" onClick={scrollToTop} className="text-dark dark:text-light hover:text-primary-600 dark:hover:text-primary-400 inline-flex items-center gap-2 text-sm transition-colors duration-300">
+              Back to top
+              <span className="border-light-300 dark:border-dark-400 dark:bg-dark-200/70 flex h-8 w-8 items-center justify-center rounded-lg border bg-white/70">
                 <ArrowUpRight className="h-4 w-4 -rotate-45" />
               </span>
-            </motion.button>
-          </div>
+            </button>
+          </motion.div>
         </div>
       </div>
     </footer>

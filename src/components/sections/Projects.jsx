@@ -1,13 +1,43 @@
 "use client"
-import { useState, useMemo } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Sparkles, Rocket } from "lucide-react"
+import { useMemo, useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
+import { ArrowUpRight, Github } from "lucide-react"
 import SectionHeader from "@/components/ui/SectionHeader"
-import ProjectCard from "@/components/ui/ProjectCard"
 import ProjectModal from "@/components/ui/ProjectModal"
-import CategoryFilter from "@/components/ui/CategoryFilter"
-import Button from "@/components/ui/Button"
-import { projectsData, projectCategories, projectStats } from "@/data/projects"
+import { projectsData, projectCategories } from "@/data/projects"
+
+const fadeUp = {
+  hidden: {
+    opacity: 0,
+    y: 16,
+    filter: "blur(8px)",
+  },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.5,
+      delay,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+}
+
+function getCategoryValue(category) {
+  if (typeof category === "string") return category
+  return category.id || category.value || category.slug || "all"
+}
+
+function getCategoryLabel(category) {
+  if (typeof category === "string") return category === "all" ? "All" : category
+  return category.name || category.label || "Category"
+}
+
+function getCategoryName(categoryId) {
+  const match = projectCategories.find((cat) => getCategoryValue(cat) === categoryId)
+  return match ? getCategoryLabel(match) : categoryId
+}
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("all")
@@ -16,13 +46,11 @@ export default function Projects() {
   const [showAll, setShowAll] = useState(false)
 
   const filteredProjects = useMemo(() => {
-    if (activeCategory === "all") {
-      return projectsData
-    }
-    return projectsData.filter((project) => project.category === activeCategory)
+    if (activeCategory === "all") return projectsData
+    return projectsData.filter((p) => p.category === activeCategory)
   }, [activeCategory])
 
-  const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 6)
+  const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 4)
 
   const handleViewDetails = (project) => {
     setSelectedProject(project)
@@ -35,79 +63,119 @@ export default function Projects() {
   }
 
   return (
-    <section id="projects" className="section-padding relative overflow-hidden">
-      <div className="dot-pattern absolute inset-0 opacity-30" />
-      <div className="bg-primary-500/10 absolute top-1/4 -right-32 h-96 w-96 rounded-full blur-3xl" />
-      <div className="bg-primary-500/5 absolute bottom-1/4 -left-32 h-96 w-96 rounded-full blur-3xl" />
+    <section id="projects" className="relative overflow-hidden py-20">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="dot-pattern absolute inset-0 opacity-[0.08] dark:opacity-[0.05]" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse at 20% 20%, rgba(16,185,129,0.04), transparent 35%)",
+          }}
+        />
+      </div>
 
-      <div className="section-container relative z-10">
-        <SectionHeader badge="Portfolio" title={{ main: "Featured", highlight: "Projects" }} subtitle="A showcase of my recent work and creative projects that demonstrate my skills and expertise" />
+      <div className="relative z-10 container mx-auto px-4 xl:px-0">
+        <SectionHeader title={{ main: "Selected", highlight: "work" }} subtitle="Product interfaces, platforms, and websites I've built for clients and companies." />
 
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-12 grid grid-cols-2 gap-4 md:grid-cols-4">
-          {projectStats.map((stat, index) => (
-            <motion.div key={stat.label} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: index * 0.1 }} className="glass border-light-300 dark:border-dark-400 rounded-xl border p-4 text-center">
-              <p className="gradient-text mb-1 text-2xl font-bold md:text-3xl">{stat.value}</p>
-              <p className="text-dark-400 dark:text-light-400 text-xs md:text-sm">{stat.label}</p>
-            </motion.div>
-          ))}
+        <motion.div custom={0.05} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="scrollbar-hide mb-8 flex gap-2 overflow-x-auto pb-1">
+          {projectCategories.map((category) => {
+            const value = getCategoryValue(category)
+            const label = getCategoryLabel(category)
+            const isActive = activeCategory === value
+
+            return (
+              <button
+                key={value}
+                type="button"
+                onClick={() => {
+                  setActiveCategory(value)
+                  setShowAll(false)
+                }}
+                className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs transition-all duration-300 ${isActive ? "border-primary-500/20 bg-primary-500/10 text-primary-600 dark:text-primary-400" : "border-light-300 text-dark-400 hover:border-primary-500/20 hover:text-primary-600 dark:border-dark-400 dark:bg-dark-200/70 dark:text-light-400 dark:hover:text-primary-400 bg-white/70"}`}
+              >
+                {label}
+              </button>
+            )
+          })}
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }} className="mb-10">
-          <CategoryFilter
-            categories={projectCategories}
-            activeCategory={activeCategory}
-            onCategoryChange={(category) => {
-              setActiveCategory(category)
-              setShowAll(false)
-            }}
-          />
-        </motion.div>
-
-        <motion.div layout className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <motion.div layout className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <AnimatePresence mode="popLayout">
-            {displayedProjects.map((project, index) => (
-              <motion.div key={project.id} layout initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ duration: 0.3 }} className={project.size === "large" ? "md:col-span-2" : ""}>
-                <ProjectCard {...project} index={index} onViewDetails={() => handleViewDetails(project)} />
-              </motion.div>
+            {displayedProjects.map((project) => (
+              <motion.article key={project.id} layout initial={{ opacity: 0, y: 14, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }} onClick={() => handleViewDetails(project)} className="group border-light-300 hover:border-primary-500/20 dark:border-dark-400 dark:bg-dark-200/75 cursor-pointer overflow-hidden rounded-2xl border bg-white/75 transition-all duration-300">
+                <div className="border-light-300 bg-light-100 dark:border-dark-400 dark:bg-dark-300 relative aspect-video overflow-hidden border-b">
+                  {project.images?.[0] ? (
+                    <img src={project.images[0]} alt={project.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.12),transparent_40%)]">
+                      <span className="text-dark-400/40 dark:text-light-400/35 font-mono text-[10px] tracking-[0.28em] uppercase">Preview</span>
+                    </div>
+                  )}
+
+                  <div className="absolute top-3 left-3">
+                    <span className="text-dark-400 dark:border-light/10 dark:bg-dark/70 dark:text-light-400 rounded-full border border-white/20 bg-white/80 px-2.5 py-1 text-[10px] font-medium backdrop-blur-sm">{getCategoryName(project.category)}</span>
+                  </div>
+
+                  <div className="absolute top-3 right-3 flex items-center gap-2 opacity-100 transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100">
+                    {project.liveUrl && (
+                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-dark-400 hover:text-primary-600 dark:border-light/10 dark:bg-dark/70 dark:text-light-400 dark:hover:text-primary-400 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/80 backdrop-blur-sm transition-colors" aria-label={`Visit ${project.title}`}>
+                        <ArrowUpRight className="h-3.5 w-3.5" />
+                      </a>
+                    )}
+
+                    {project.githubUrl && (
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-dark-400 hover:text-primary-600 dark:border-light/10 dark:bg-dark/70 dark:text-light-400 dark:hover:text-primary-400 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/80 backdrop-blur-sm transition-colors" aria-label={`${project.title} repository`}>
+                        <Github className="h-3.5 w-3.5" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                <div className="p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <h3 className="font-heading text-dark dark:text-light text-sm font-semibold sm:text-base">{project.title}</h3>
+
+                      {project.subtitle && <p className="text-primary-600 dark:text-primary-400 mt-1 text-[11px] sm:text-xs">{project.subtitle}</p>}
+                    </div>
+
+                    {project.featured && <span className="text-primary-600/60 dark:text-primary-400/60 shrink-0 font-mono text-[9px] tracking-[0.2em] uppercase">Featured</span>}
+                  </div>
+
+                  <p className="text-dark-400 dark:text-light-400 mt-2 line-clamp-2 text-xs leading-relaxed sm:text-sm">{project.description}</p>
+
+                  {!!project.technologies?.length && (
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {project.technologies.slice(0, 3).map((tech) => (
+                        <span key={tech} className="border-dark/6 bg-light-200/80 text-dark-400 dark:border-light/6 dark:bg-dark-300/80 dark:text-light-400 rounded-full border px-2 py-0.5 text-[10px]">
+                          {tech}
+                        </span>
+                      ))}
+
+                      {project.technologies.length > 3 && <span className="border-primary-500/15 bg-primary-500/8 text-primary-600 dark:text-primary-400 rounded-full border px-2 py-0.5 text-[10px]">+{project.technologies.length - 3}</span>}
+                    </div>
+                  )}
+                </div>
+              </motion.article>
             ))}
           </AnimatePresence>
         </motion.div>
 
         {filteredProjects.length === 0 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-12 text-center">
-            <Sparkles className="text-primary-500/50 mx-auto mb-4 h-12 w-12" />
-            <p className="text-dark-400 dark:text-light-400">No projects found in this category.</p>
-          </motion.div>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-dark-400 dark:text-light-400 py-10 text-center text-sm">
+            No projects in this category.
+          </motion.p>
         )}
 
-        {filteredProjects.length > 6 && !showAll && (
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mt-10 text-center">
-            <Button variant="secondary" onClick={() => setShowAll(true)} icon={Rocket}>
-              Show All Projects ({filteredProjects.length})
-            </Button>
-          </motion.div>
-        )}
-
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mt-16 text-center">
-          <div className="glass border-light-300 dark:border-dark-400 inline-flex flex-col items-center gap-4 rounded-2xl border px-6 py-4 sm:flex-row">
-            <div className="flex items-center gap-2">
-              <Sparkles className="text-primary-500 h-5 w-5" />
-              <p className="text-dark dark:text-light font-medium">Interested in working together?</p>
-            </div>
-            <Button
-              variant="primary"
-              size="sm"
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault()
-                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-              }}
-            >
-              Let&apos;s Talk
-            </Button>
+        {filteredProjects.length > 4 && (
+          <div className="mt-8 text-center">
+            <button type="button" onClick={() => setShowAll((prev) => !prev)} className="border-dark/10 text-dark hover:border-primary-500/30 hover:text-primary-600 dark:border-light/10 dark:text-light dark:hover:border-primary-500/30 dark:hover:text-primary-400 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300">
+              {showAll ? "Show less" : `View all (${filteredProjects.length})`}
+            </button>
           </div>
-        </motion.div>
+        )}
       </div>
+
       <ProjectModal project={selectedProject} isOpen={isModalOpen} onClose={handleCloseModal} />
     </section>
   )

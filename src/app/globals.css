@@ -47,6 +47,11 @@
   --shadow-inner-glow: inset 0 0 20px rgba(16, 185, 129, 0.1);
 }
 
+a,
+button {
+  cursor: pointer;
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;

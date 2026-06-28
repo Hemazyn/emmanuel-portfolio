@@ -1,219 +1,127 @@
 "use client"
 import { motion } from "framer-motion"
-import { User, GraduationCap, MapPin, Mail, Phone, Calendar, Code2, Heart, Target, Sparkles, ArrowRight, Download } from "lucide-react"
+import { ArrowRight, Download, Mail, MapPin } from "lucide-react"
 import SectionHeader from "@/components/ui/SectionHeader"
-import TechBadge, { TechProgress } from "@/components/ui/TechBadge"
-import Button from "@/components/ui/Button"
-import { aboutData } from "@/data/about"
 import { personalInfo } from "@/data/navigation"
+
+const fadeUp = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+    filter: "blur(8px)",
+  },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.65,
+      delay,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+}
+
+const serviceAreas = ["CRM Systems", "Admin Dashboards", "Web Platforms", "High-end Websites", "Embedded Widgets", "Design Systems"]
+
+const selectedStack = ["React", "Next.js", "TypeScript", "JavaScript", "Vite", "Tailwind CSS", "SCSS", "Styled Components", "Framer Motion", "Git", "Figma", "REST APIs", "GraphQL"]
 
 export default function About() {
   return (
-    <section id="about" className="section-padding relative overflow-hidden">
-      <div className="dot-pattern absolute inset-0 opacity-30" />
+    <section id="about" className="relative overflow-hidden py-20">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="dot-pattern absolute inset-0 opacity-[0.12] dark:opacity-[0.07]" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse at 20% 20%, rgba(16,185,129,0.05), transparent 40%), radial-gradient(ellipse at 80% 80%, rgba(16,185,129,0.04), transparent 40%)",
+          }}
+        />
+      </div>
 
-      <div className="section-container relative z-10">
-        <SectionHeader badge="About Me" title={{ main: "Get to Know", highlight: "Me Better" }} subtitle="A passionate developer who loves creating beautiful and functional web experiences" />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-4">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="bento-item row-span-2 md:col-span-2 lg:col-span-2">
-            <div className="mb-4 flex items-center gap-2">
-              <div className="bg-primary-500/10 flex h-10 w-10 items-center justify-center rounded-xl">
-                <User className="text-primary-500 h-5 w-5" />
+      <div className="relative z-10 container mx-auto px-4 xl:px-0">
+        <SectionHeader title={{ main: "A quick look at", highlight: "what I do" }} />
+
+        <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
+          {/* Main card */}
+          <motion.div custom={0.05} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} className="glass rounded-3xl p-6 sm:p-8">
+            <p className="text-primary-600 dark:text-primary-400 font-mono text-[11px] tracking-[0.3em] uppercase">About me</p>
+
+            <h3 className="font-heading text-dark dark:text-light mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">I build product interfaces that are clear, scalable, and easy to use.</h3>
+
+            <div className="text-dark-400 dark:text-light-400 mt-5 space-y-4 text-sm leading-relaxed sm:text-base">
+              <p>I’m a frontend engineer focused on building polished user interfaces for modern digital products. My work covers CRM systems, admin dashboards, internal tools, high-end websites, and embedded widgets.</p>
+
+              <p>I care about clean implementation, thoughtful motion, strong usability, and the details that make products feel reliable and well crafted.</p>
+            </div>
+
+            <div className="mt-7">
+              <p className="text-dark-400 dark:text-light-400 font-mono text-[11px] tracking-[0.28em] uppercase">What I build</p>
+
+              <div className="mt-3 flex flex-wrap gap-2.5">
+                {serviceAreas.map((item, index) => (
+                  <motion.span key={item} custom={0.12 + index * 0.04} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="border-primary-500/15 bg-primary-500/8 text-primary-600 dark:text-primary-400 rounded-full border px-3 py-1.5 text-sm">
+                    {item}
+                  </motion.span>
+                ))}
               </div>
-              <h3 className="text-dark dark:text-light font-heading text-xl font-bold">Who I Am</h3>
             </div>
 
-            <h4 className="text-primary-500 mb-4 text-lg font-semibold">{aboutData.intro.title}</h4>
-
-            <div className="text-dark-400 dark:text-light-400 space-y-4 text-sm leading-relaxed">
-              {aboutData.intro.description.split("\n\n").map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
-            </div>
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              {aboutData.intro.highlights.map((highlight, index) => (
-                <motion.div key={index} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }} className="flex items-center gap-2 text-sm">
-                  <Sparkles className="text-primary-500 h-4 w-4 shrink-0" />
-                  <span className="text-dark dark:text-light">{highlight}</span>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button
-                variant="primary"
-                size="sm"
-                icon={ArrowRight}
-                iconPosition="right"
-                href="#contact"
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <a
+                href="#projects"
                 onClick={(e) => {
                   e.preventDefault()
-                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+                  document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
                 }}
+                className="group bg-primary-600 hover:bg-primary-700 hover:shadow-glow inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-all duration-300"
               >
-                Let&apos;s Talk
-              </Button>
-              <Button variant="outline" size="sm" icon={Download} href={personalInfo.resumeUrl} download>
+                View Projects
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+
+              <a href={personalInfo.resumeUrl} download={personalInfo.resumeFileName} className="border-dark/10 text-dark hover:border-primary-500/40 hover:text-primary-600 dark:border-light/10 dark:text-light dark:hover:border-primary-500/40 dark:hover:text-primary-400 inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-300">
+                <Download className="h-4 w-4" />
                 Resume
-              </Button>
+              </a>
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }} className="bento-item">
-            <div className="mb-4 flex items-center gap-2">
-              <div className="bg-primary-500/10 flex h-8 w-8 items-center justify-center rounded-lg">
-                <Mail className="text-primary-500 h-4 w-4" />
-              </div>
-              <h3 className="text-dark dark:text-light font-heading text-lg font-bold">Contact Info</h3>
-            </div>
+          {/* Side card */}
+          <motion.div custom={0.12} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} className="glass rounded-3xl p-6 sm:p-7">
+            <p className="text-primary-600 dark:text-primary-400 font-mono text-[11px] tracking-[0.3em] uppercase">Snapshot</p>
 
-            <div className="space-y-3">
-              <a href={`mailto:${aboutData.personalInfo.email}`} className="text-dark-400 dark:text-light-400 hover:text-primary-500 group flex items-center gap-3 text-sm transition-colors">
-                <Mail className="group-hover:text-primary-500 h-4 w-4" />
-                <span className="truncate">{aboutData.personalInfo.email}</span>
+            <div className="mt-5 space-y-4">
+              <div className="border-dark/8 dark:border-light/8 flex items-start justify-between gap-4 border-b pb-4">
+                <span className="text-dark-400 dark:text-light-400 text-sm">Focus</span>
+                <span className="text-dark dark:text-light text-right text-sm font-medium">Product UI & Frontend Systems</span>
+              </div>
+
+              <div className="border-dark/8 dark:border-light/8 flex items-start justify-between gap-4 border-b pb-4">
+                <span className="text-dark-400 dark:text-light-400 text-sm">Location</span>
+                <span className="text-dark dark:text-light text-sm font-medium">{personalInfo.location}</span>
+              </div>
+
+              <a href={`mailto:${personalInfo.email}`} className="group text-dark-400 hover:text-primary-600 dark:text-light-400 dark:hover:text-primary-400 flex items-center gap-3 pt-1 text-sm transition-colors duration-300">
+                <Mail className="h-4 w-4" />
+                <span className="truncate">{personalInfo.email}</span>
               </a>
-              <a href={`tel:${aboutData.personalInfo.phone}`} className="text-dark-400 dark:text-light-400 hover:text-primary-500 group flex items-center gap-3 text-sm transition-colors">
-                <Phone className="group-hover:text-primary-500 h-4 w-4" />
-                <span>{aboutData.personalInfo.phone}</span>
-              </a>
+
               <div className="text-dark-400 dark:text-light-400 flex items-center gap-3 text-sm">
                 <MapPin className="text-primary-500 h-4 w-4" />
-                <span>{aboutData.personalInfo.location}</span>
+                <span>{personalInfo.location}</span>
               </div>
             </div>
-          </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }} className="bento-item">
-            <div className="mb-4 flex items-center gap-2">
-              <div className="bg-primary-500/10 flex h-8 w-8 items-center justify-center rounded-lg">
-                <GraduationCap className="text-primary-500 h-4 w-4" />
-              </div>
-              <h3 className="text-dark dark:text-light font-heading text-lg font-bold">Education</h3>
-            </div>
+            <div className="border-dark/8 dark:border-light/8 mt-7 border-t pt-6">
+              <p className="text-dark-400 dark:text-light-400 font-mono text-[11px] tracking-[0.28em] uppercase">Selected stack</p>
 
-            <div className="space-y-2">
-              <h4 className="text-dark dark:text-light font-semibold">{aboutData.education.degree}</h4>
-              <p className="text-dark-400 dark:text-light-400 text-sm">{aboutData.education.institution}</p>
-              <div className="text-primary-500 flex items-center gap-2 text-xs">
-                <Calendar className="h-3 w-3" />
-                <span>{aboutData.education.period}</span>
-              </div>
-              <span className="bg-primary-500/10 text-primary-500 mt-2 inline-block rounded-full px-2 py-1 text-xs">{aboutData.education.status}</span>
-            </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }} className="bento-item md:col-span-2">
-            <div className="mb-4 flex items-center gap-2">
-              <div className="bg-primary-500/10 flex h-8 w-8 items-center justify-center rounded-lg">
-                <Code2 className="text-primary-500 h-4 w-4" />
-              </div>
-              <h3 className="text-dark dark:text-light font-heading text-lg font-bold">Tech Stack</h3>
-            </div>
-
-            <div className="mb-4">
-              <p className="text-dark-400 dark:text-light-400 mb-2 text-xs font-medium tracking-wider uppercase">Frontend</p>
-              <div className="flex flex-wrap gap-2">
-                {aboutData.techStack.frontend.map((tech, index) => (
-                  <TechBadge key={tech.name} name={tech.name} icon={tech.icon} level={tech.level} index={index} showLevel />
+              <div className="mt-3 flex flex-wrap gap-2">
+                {selectedStack.map((tech, index) => (
+                  <motion.span key={tech} custom={0.18 + index * 0.02} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="border-dark/10 bg-light-100 text-dark-400 dark:border-light/10 dark:bg-dark-200 dark:text-light-400 rounded-full border px-3 py-1.5 text-sm">
+                    {tech}
+                  </motion.span>
                 ))}
-              </div>
-            </div>
-
-            <div className="mb-4">
-              <p className="text-dark-400 dark:text-light-400 mb-2 text-xs font-medium tracking-wider uppercase">Styling</p>
-              <div className="flex flex-wrap gap-2">
-                {aboutData.techStack.styling.map((tech, index) => (
-                  <TechBadge key={tech.name} name={tech.name} icon={tech.icon} level={tech.level} index={index} showLevel />
-                ))}
-              </div>
-            </div>
-            <div>
-              <p className="text-dark-400 dark:text-light-400 mb-2 text-xs font-medium tracking-wider uppercase">Tools & Platforms</p>
-              <div className="flex flex-wrap gap-2">
-                {aboutData.techStack.tools.map((tech, index) => (
-                  <TechBadge key={tech.name} name={tech.name} icon={tech.icon} level={tech.level} index={index} showLevel />
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.4 }} className="bento-item lg:col-span-2">
-            <div className="mb-4 flex items-center gap-2">
-              <div className="bg-primary-500/10 flex h-8 w-8 items-center justify-center rounded-lg">
-                <Target className="text-primary-500 h-4 w-4" />
-              </div>
-              <h3 className="text-dark dark:text-light font-heading text-lg font-bold">Core Values</h3>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              {aboutData.coreValues.map((value, index) => (
-                <motion.div key={value.title} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }} className="bg-light-200 dark:bg-dark-300 border-light-300 dark:border-dark-400 hover:border-primary-500/50 rounded-xl border p-3 transition-all duration-300">
-                  <span className="mb-2 block text-2xl">{value.icon}</span>
-                  <h4 className="text-dark dark:text-light mb-1 text-sm font-semibold">{value.title}</h4>
-                  <p className="text-dark-400 dark:text-light-400 text-xs">{value.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.5 }} className="bento-item">
-            <div className="mb-4 flex items-center gap-2">
-              <div className="bg-primary-500/10 flex h-8 w-8 items-center justify-center rounded-lg">
-                <Heart className="text-primary-500 h-4 w-4" />
-              </div>
-              <h3 className="text-dark dark:text-light font-heading text-lg font-bold">Fun Facts</h3>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2">
-              {aboutData.funFacts.map((fact, index) => (
-                <motion.div key={index} initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.2, delay: 0.6 + index * 0.05 }} whileHover={{ scale: 1.05 }} className="bg-light-200 dark:bg-dark-300 flex items-center gap-2 rounded-lg p-2 text-sm">
-                  <span>{fact.emoji}</span>
-                  <span className="text-dark-400 dark:text-light-400 text-xs">{fact.text}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.6 }} className="bento-item">
-            <div className="mb-4 flex items-center gap-2">
-              <div className="bg-primary-500/10 flex h-8 w-8 items-center justify-center rounded-lg">
-                <Target className="text-primary-500 h-4 w-4" />
-              </div>
-              <h3 className="text-dark dark:text-light font-heading text-lg font-bold">Current Focus</h3>
-            </div>
-
-            <ul className="space-y-2">
-              {aboutData.currentFocus.map((focus, index) => (
-                <motion.li key={index} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }} className="text-dark-400 dark:text-light-400 flex items-start gap-2 text-sm">
-                  <ArrowRight className="text-primary-500 mt-0.5 h-4 w-4 shrink-0" />
-                  <span>{focus}</span>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.7 }} className="bento-item md:col-span-2 lg:col-span-2">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div>
-                <h3 className="text-dark dark:text-light font-heading mb-2 text-lg font-bold">Languages I Speak</h3>
-                <div className="flex flex-wrap gap-2">
-                  {aboutData.personalInfo.languages.map((language, index) => (
-                    <span key={index} className="bg-primary-500/10 text-primary-500 border-primary-500/20 rounded-full border px-3 py-1 text-sm">
-                      {language}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-dark dark:text-light font-heading mb-2 text-lg font-bold">Interests</h3>
-                <div className="flex flex-wrap gap-2">
-                  {aboutData.personalInfo.interests.map((interest, index) => (
-                    <span key={index} className="bg-light-200 dark:bg-dark-300 text-dark-400 dark:text-light-400 border-light-300 dark:border-dark-400 rounded-full border px-3 py-1 text-sm">
-                      {interest}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
           </motion.div>
