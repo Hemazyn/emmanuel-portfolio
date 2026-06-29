@@ -1,4 +1,4 @@
-import { oyato1, oyato2, oyato3, oyato4, oyato5, spactrapay1, spactrapay2, spactrapay3, spactrapay4, omavon1, omavon2, omavon3, omavon4, omavon5, taskflow1, taskflow2, taskflow3, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6 } from "../../public/project_image"
+import { oyato1, oyato2, oyato3, oyato4, oyato5, spactrapay1, spactrapay2, spactrapay3, spactrapay4, omavon1, omavon2, omavon3, omavon4, omavon5, taskflow1, taskflow2, taskflow3, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, tip1, tip2, tip3 } from "../../public/project_image"
 
 export const projectCategories = [
   { id: "all", name: "All" },
@@ -100,7 +100,7 @@ export const projectsData = [
     category: "tool",
     subtitle: "Real-time weather application",
     description: "A clean, fast weather forecast app with real-time data, location search, and responsive design.",
-    images: ["/images/projects/oyato-1.jpg", "/images/projects/oyato-2.jpg", "/images/projects/oyato-3.jpg"],
+    images: [weather1, weather2, weather3].map(img),
     liveUrl: "https://wforecast.vercel.app/",
     githubUrl: null,
     technologies: ["React", "Tailwind CSS", "Weather API"],
@@ -113,8 +113,8 @@ export const projectsData = [
     category: "tool",
     subtitle: "Interview preparation platform",
     description: "A study tool for preparing for tech interviews with curated questions, topics, and practice resources.",
-    images: ["/images/projects/oyato-1.jpg", "/images/projects/oyato-2.jpg", "/images/projects/oyato-3.jpg"],
-    liveUrl: "https://tech-interview-steel.vercel.app/",
+    images: [tip1, tip2, tip3].map(img),
+    liveUrl: "https://tipprep.vercel.app/",
     githubUrl: null,
     technologies: ["React", "Tailwind CSS"],
     featured: false,
