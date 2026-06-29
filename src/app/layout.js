@@ -18,17 +18,48 @@ const firaCode = Fira_Code({
 })
 
 export const metadata = {
-  title: "Emmanuel Tofunmi | Frontend React & Next.js Expert",
-  description: "Results-driven Frontend Developer with 4+ years of experience building scalable web and mobile applications using React.js, Next.js, and modern JavaScript frameworks.",
-  keywords: ["Frontend Developer", "React.js", "Next.js", "JavaScript", "Web Developer", "Lagos", "Nigeria"],
+  title: "Emmanuel Tofunmi | Frontend Engineer",
+  description: "Frontend engineer building product-grade interfaces for CRM systems, admin dashboards, fintech platforms, high-end websites, and embedded widgets. Based in Lagos, Nigeria.",
+  keywords: ["Frontend Engineer", "React Developer", "Next.js Developer", "Vue.js Developer", "TypeScript", "JavaScript", "UI Engineer", "Web Developer", "CRM Development", "Admin Dashboard", "Fintech Frontend", "Lagos", "Nigeria", "Remote Frontend Developer"],
   authors: [{ name: "Emmanuel Tofunmi" }],
+  creator: "Emmanuel Tofunmi",
+  metadataBase: new URL("https://iamtofunmi.vercel.app"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Emmanuel Tofunmi | Frontend React & Next.js Expert",
-    description: "Results-driven Frontend Developer with 4+ years of experience building scalable web and mobile applications.",
-    url: "https://devemma.netlify.app",
-    siteName: "Emmanuel Tofunmi Portfolio",
+    title: "Emmanuel Tofunmi | Frontend Engineer",
+    description: "Frontend engineer building product-grade interfaces for CRM systems, admin dashboards, fintech platforms, and high-end websites.",
+    url: "https://iamtofunmi.vercel.app",
+    siteName: "Emmanuel Tofunmi",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Emmanuel Tofunmi — Frontend Engineer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Emmanuel Tofunmi | Frontend Engineer",
+    description: "Frontend engineer building product-grade interfaces for CRM systems, admin dashboards, fintech platforms, and high-end websites.",
+    creator: "@hemazyn",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 }
 
