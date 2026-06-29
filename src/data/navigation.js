@@ -37,6 +37,6 @@ export const personalInfo = {
   phone: "+2349019487450",
   location: "Lagos, Nigeria",
   website: "https://iamtofunmi.vercel.app/",
-  resumeUrl: "/resume/emmanuel-tofunmi-resume.pdf",
-  resumeFileName: "Emmanuel-Tofunmi-Resume.pdf",
+  resumeUrl: "/resume/Immanu'el_cv.pdf",
+  resumeFileName: "Immanuel_Tofunmi.pdf",
 }
