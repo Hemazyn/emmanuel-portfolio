@@ -18,6 +18,9 @@ import omavon5 from "../project_image/omavon5.png"
 import taskflow1 from "../project_image/taskflow1.png"
 import taskflow2 from "../project_image/taskflow2.png"
 import taskflow3 from "../project_image/taskflow3.png"
+import taskflow4 from "../project_image/tasflow4.png"
+import taskflow5 from "../project_image/tasflow5.png"
+import taskflow6 from "../project_image/tasflow6.png"
 
 import rent1 from "../project_image/rent1.png"
 import rent2 from "../project_image/rent2.png"
@@ -37,4 +40,4 @@ import tip1 from "../project_image/tip1.png"
 import tip2 from "../project_image/tip2.png"
 import tip3 from "../project_image/tip3.png"
 
-export { oyato1, oyato2, oyato3, oyato4, oyato5, spactrapay1, spactrapay2, spactrapay3, spactrapay4, omavon1, omavon2, omavon3, omavon4, omavon5, taskflow1, taskflow2, taskflow3, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, tip1, tip2, tip3 }
+export { oyato1, oyato2, oyato3, oyato4, oyato5, spactrapay1, spactrapay2, spactrapay3, spactrapay4, omavon1, omavon2, omavon3, omavon4, omavon5, taskflow1, taskflow2, taskflow3, taskflow4, taskflow5, taskflow6, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, tip1, tip2, tip3 }

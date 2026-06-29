@@ -1,4 +1,4 @@
-import { oyato1, oyato2, oyato3, oyato4, oyato5, spactrapay1, spactrapay2, spactrapay3, spactrapay4, omavon1, omavon2, omavon3, omavon4, omavon5, taskflow1, taskflow2, taskflow3, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, tip1, tip2, tip3 } from "../../public/project_image"
+import { oyato1, oyato2, oyato3, oyato4, oyato5, spactrapay1, spactrapay2, spactrapay3, spactrapay4, omavon1, omavon2, omavon3, omavon4, omavon5, taskflow1, taskflow2, taskflow3, taskflow4, taskflow5, taskflow6, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, tip1, tip2, tip3 } from "../../public/project_image"
 
 export const projectCategories = [
   { id: "all", name: "All" },
@@ -61,7 +61,7 @@ export const projectsData = [
     category: "crm",
     subtitle: "Errand & service management CRM",
     description: "A CRM platform for managing everyday errands — market runs, grocery shopping, meal prep, and cleaning services. Includes a full admin dashboard for operations, scheduling, and client management.",
-    images: [taskflow1, taskflow2, taskflow3].map(img),
+    images: [taskflow1, taskflow2, taskflow3, taskflow4, taskflow5, taskflow6].map(img),
     liveUrl: "https://taskflow-errand.vercel.app/",
     githubUrl: null,
     technologies: ["Next.js", "React", "Tailwind CSS", "REST APIs"],
