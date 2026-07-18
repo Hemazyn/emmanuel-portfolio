@@ -24,6 +24,10 @@
     <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/License-MIT-22c55e?style=flat-square&labelColor=1a1a1a" />
     <img src="https://img.shields.io/badge/License-MIT-22c55e?style=flat-square&labelColor=f1f5f9" alt="License" />
   </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/Vitest-6E9F18?style=flat-square&logo=vitest&labelColor=1a1a1a" />
+    <img src="https://img.shields.io/badge/Vitest-6E9F18?style=flat-square&logo=vitest&labelColor=f1f5f9" alt="Vitest" />
+  </picture>
   <br />
   <br />
 </div>
@@ -32,7 +36,7 @@
 
 > **Product-grade interfaces for CRM systems, admin dashboards, fintech platforms, high-end websites, and embedded widgets.**
 
-A polished, performant, and accessible single-page portfolio built with Next.js 16, React 19, TypeScript, and Tailwind CSS v4. Designed to showcase engineering process, project work, and technical depth through a narrative-driven experience.
+A polished, performant, accessible, and tested single-page portfolio built with Next.js 16, React 19, TypeScript, and Tailwind CSS v4. Designed to showcase engineering process, project work, and technical depth through a narrative-driven experience.
 
 **[View Live Site →](https://iamtofunmi.vercel.app/)**
 
@@ -72,6 +76,8 @@ A polished, performant, and accessible single-page portfolio built with Next.js 
 - **Reusable UI Components** — `SectionBackground`, `SectionHeader`, `JsonLd`, `ProjectModal`, `AnimatedSection`, and other composable primitives
 - **Framer Motion** — Orchestrated micro-interactions, layout animations, staggered reveals, and gesture responses
 - **Responsive Design** — Mobile-first layout that scales from 320px to 2560px without breakpoint regressions
+- **Server/Client Component Split** — Static sections (About, Skills, Footer) use a server wrapper with a client interactive child, reducing client JavaScript by keeping data-fetching and static content on the server
+- **Image Optimization** — All project images use `next/image` with `fill`, `sizes`, and `loading="lazy"` for optimal Core Web Vitals
 
 ### SEO & Accessibility
 - **JSON-LD Structured Data** — Person + WebSite schemas via `@graph` for rich search results
@@ -96,6 +102,7 @@ A polished, performant, and accessible single-page portfolio built with Next.js 
 | **Icons**           | [Lucide React](https://lucide.dev/)                                        |
 | **Theme**           | [next-themes](https://github.com/pacocoursey/next-themes)                  |
 | **Fonts**           | Inter (body), Sora (headings), Fira Code (monospace) via `next/font`       |
+| **Testing**         | [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/react) + [jsdom](https://github.com/jsdom/jsdom) |
 | **Linting**         | ESLint with `eslint-config-next` (Core Web Vitals rules)                   |
 | **Formatting**      | Prettier with `prettier-plugin-tailwindcss`                                |
 | **Build Tool**      | Next.js built-in compiler with React Compiler enabled                      |
@@ -126,8 +133,9 @@ Pages/Components
 ### Data Flow
 
 - **Static Data Layer** — All content lives in `src/data/` as typed TypeScript exports (projects, experience, skills, navigation, contact, case studies)
-- **Client Components** — Interactive sections (Hero, About, Experience, Projects, Case Studies, Skills, Contact) use `"use client"` for animation and state
-- **Server Components** — Layout shell and content aggregator (`HomeContent`) remain server-rendered for optimal performance
+- **Server/Client Split Pattern** — Sections like About, Skills, and Footer follow a server-wrapper pattern: the outer `About.tsx`, `Skills.tsx`, and `Footer.tsx` are server components that import static data and pass it to client children (`AboutContent.tsx`, `SkillsContent.tsx`, `FooterContent.tsx`) that handle animations and interactivity
+- **Client Components** — Interactive elements (Hero carousel, Experience timeline, Project modal, Case Studies accordions) use `"use client"` for animation and state
+- **Server Components** — Layout shell, content aggregator (`HomeContent`), and data-passing wrappers remain server-rendered for optimal performance
 - **Shared Animations** — Reusable Framer Motion variants in `src/lib/animations.ts` eliminate duplication across 6+ components
 
 ---
@@ -138,6 +146,7 @@ Pages/Components
 emmanuel-portfolio/
 ├── public/
 │   ├── project_image/          # Project screenshots and images
+│   ├── resume/                 # Resume PDF download
 │   ├── manifest.json           # PWA web manifest
 │   └── favicon.ico             # Favicon
 ├── src/
@@ -149,23 +158,34 @@ emmanuel-portfolio/
 │   │   ├── not-found.tsx       # Custom 404 page
 │   │   ├── sitemap.ts          # Dynamic sitemap generation
 │   │   └── robots.ts           # Robots.txt configuration
+│   ├── __tests__/
+│   │   ├── utils.test.ts       # Unit tests for utility functions
+│   │   └── components/
+│   │       └── ui/
+│   │           └── SectionBackground.test.tsx  # Component render tests
 │   ├── components/
-│   │   ├── layout/             # Navbar, Footer, ThemeToggle, ThemeProvider, ClientLayout
-│   │   ├── sections/           # Hero, About, Experience, Projects, CaseStudies, Skills, Contact, HomeContent
-│   │   └── ui/                 # Reusable primitives (SectionHeader, SectionBackground, AnimatedSection,
-│   │                             ProjectModal, JsonLd, Preloader, Card, Button, etc.)
+│   │   ├── layout/             # Navbar, Footer (server) + FooterContent (client),
+│   │   │                         ThemeToggle, ThemeProvider, ClientLayout
+│   │   ├── sections/           # Hero, About, Experience, Projects, CaseStudies,
+│   │   │                         Skills, Contact, HomeContent
+│   │   └── ui/                 # Reusable primitives (SectionHeader, SectionBackground,
+│   │                             AnimatedSection, ProjectModal, JsonLd, Preloader,
+│   │                             Card, Button, TechBadge, etc.)
 │   ├── data/
 │   │   ├── navigation.ts       # Nav links, social links, personal info
 │   │   ├── projects.ts         # Project data with categories and images
 │   │   ├── experience.ts       # Work experience and stats
 │   │   ├── skills.ts           # Skill narrative and highlights
 │   │   ├── case-studies.ts     # Detailed project case studies
+│   │   ├── about.ts            # About section content
 │   │   └── contact.ts          # Contact info and methods
 │   ├── hooks/
 │   │   └── useScrollspy.ts     # Active section tracking hook
 │   └── lib/
 │       ├── animations.ts       # Shared Framer Motion variants and easing constants
 │       └── utils.ts            # Utility functions (cn, formatDate, scrollToSection, truncateText)
+├── vitest.config.ts            # Vitest configuration with React + path aliases
+├── vitest.setup.ts             # Test environment setup (jest-dom matchers)
 ├── tsconfig.json               # TypeScript strict configuration
 ├── next.config.mjs             # Next.js with React Compiler
 ├── eslint.config.mjs           # ESLint with Core Web Vitals rules
@@ -214,6 +234,8 @@ npm start
 | `npm run dev`     | Start the development server with HMR            |
 | `npm run build`   | Create an optimized production build              |
 | `npm start`       | Start the production server                       |
+| `npm test`        | Run all tests with Vitest                        |
+| `npm run test:watch` | Run tests in watch mode                       |
 | `npm run lint`    | Run ESLint with Core Web Vitals rules             |
 
 ---
@@ -255,10 +277,17 @@ Left: availability badges, copy-to-clipboard email, and direct action buttons (e
 - Canonical URL, publisher, and author metadata
 - 15+ targeted keywords for frontend engineering search terms
 
+### Testing
+- **Vitest** with jsdom environment for fast, native-ESM test execution
+- **React Testing Library** for component render and interaction tests
+- **jest-dom matchers** for accessible DOM assertions (`toBeInTheDocument`, `toHaveClass`, `toHaveAttribute`)
+- **Path alias support** via `vite-tsconfig-paths` for `@/` imports in tests
+
 ### Performance Optimizations
 - **React Compiler** enabled for automatic memoization
 - **TypeScript strict mode** for compile-time error prevention
 - **Shared animation variants** reduce bundle duplication
+- **next/image** with `fill`, `sizes`, and `loading="lazy"` for optimized image delivery
 - **CSS-based dark mode** via Tailwind's `dark:` variant — no runtime style computation
 - **Semantic HTML** foundation for accessibility and SEO
 
@@ -318,6 +347,16 @@ The underlying source code — component architecture, animation system, and des
   <a href="https://www.linkedin.com/in/devemma/"><b>LinkedIn</b></a> ·
   <a href="https://x.com/imanuel_tofunmi"><b>X (Twitter)</b></a> ·
   <a href="mailto:hemazyn@gmail.com"><b>Email</b></a>
+</div>
+
+---
+
+<div align="center">
+  <sub>Built with Next.js 16, React 19, TypeScript, and Tailwind CSS v4.</sub>
+  <br />
+  <sub>Tested with Vitest and React Testing Library.</sub>
+  <br />
+  <sub>Design & Development by <a href="https://github.com/hemazyn">Emmanuel Tofunmi</a></sub>
 </div>
 
 ---
