@@ -2,6 +2,7 @@
 import { useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { ArrowUpRight, Github } from "lucide-react"
+import Image from "next/image"
 import SectionHeader from "@/components/ui/SectionHeader"
 import SectionBackground from "@/components/ui/SectionBackground"
 import ProjectModal from "@/components/ui/ProjectModal"
@@ -87,7 +88,7 @@ export default function Projects() {
               <motion.article key={project.id} layout initial={{ opacity: 0, y: 14, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }} onClick={() => handleViewDetails(project)} className="group border-light-300 hover:border-primary-500/20 dark:border-dark-400 dark:bg-dark-200/75 cursor-pointer overflow-hidden rounded-2xl border bg-white/75 transition-all duration-300">
                 <div className="border-light-300 bg-light-100 dark:border-dark-400 dark:bg-dark-300 relative aspect-video overflow-hidden border-b">
                   {project.images?.[0] ? (
-                    <img src={project.images[0]} alt={project.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+                    <Image src={project.images[0]} alt={project.title} fill className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw" />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.12),transparent_40%)]">
                       <span className="text-dark-400/40 dark:text-light-400/35 font-mono text-[10px] tracking-[0.28em] uppercase">Preview</span>

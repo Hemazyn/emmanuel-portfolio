@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, ExternalLink, Github, ChevronLeft, ChevronRight, Layers } from "lucide-react"
+import Image from "next/image"
 
 interface ProjectData {
   id: number
@@ -74,19 +75,22 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               <div className="border-light-300 bg-light-100 dark:border-dark-400 dark:bg-dark-300 relative aspect-16/10 overflow-hidden border-b">
                 {images.length > 0 ? (
                   <AnimatePresence mode="wait">
-                    <motion.img
+                    <motion.div
                       key={activeImage}
-                      src={images[activeImage]}
-                      alt={`${project.title} — ${activeImage + 1}`}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.25 }}
-                      className="h-full w-full object-contain"
-                      onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                        e.currentTarget.style.display = "none"
-                      }}
-                    />
+                      className="relative h-full w-full"
+                    >
+                      <Image
+                        src={images[activeImage]}
+                        alt={`${project.title} — ${activeImage + 1}`}
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 768px) 100vw, 672px"
+                      />
+                    </motion.div>
                   </AnimatePresence>
                 ) : (
                   <div className="flex h-full w-full items-center justify-center">
