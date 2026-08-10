@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, ExternalLink, Github, ChevronLeft, ChevronRight, Layers } from "lucide-react"
 import Image from "next/image"
@@ -25,24 +25,52 @@ interface ProjectModalProps {
   onClose: () => void
 }
 
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+
 export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
   const [activeImage, setActiveImage] = useState(0)
+  const dialogRef = useRef<HTMLDivElement>(null)
+
+  // Active image resets to the first slide whenever the modal opens with a new
+  // project (the component is remounted with a key from the parent).
 
   useEffect(() => {
-    setActiveImage(0)
-  }, [project])
+    if (!isOpen) return
 
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose()
+    const previouslyFocused = document.activeElement as HTMLElement | null
+    const dialog = dialogRef.current
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose()
+        return
+      }
+      if (e.key !== "Tab" || !dialog) return
+
+      // Trap focus inside the dialog.
+      const focusables = Array.from(dialog.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR))
+      if (focusables.length === 0) return
+      const first = focusables[0]
+      const last = focusables[focusables.length - 1]
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
     }
-    if (isOpen) {
-      window.addEventListener("keydown", handleEsc)
-      document.body.style.overflow = "hidden"
-    }
+
+    dialog?.focus()
+    document.addEventListener("keydown", handleKeyDown)
+    document.body.style.overflow = "hidden"
+
     return () => {
-      window.removeEventListener("keydown", handleEsc)
+      document.removeEventListener("keydown", handleKeyDown)
       document.body.style.overflow = ""
+      previouslyFocused?.focus?.()
     }
   }, [isOpen, onClose])
 
@@ -63,10 +91,21 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
           {/* Backdrop */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="bg-dark/60 dark:bg-dark/80 absolute inset-0 backdrop-blur-sm" onClick={onClose} />
 
-          {/* Modal */}
-          <motion.div initial={{ opacity: 0, y: 20, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 16, scale: 0.97 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] as const }} className="border-light-300 dark:border-dark-400 dark:bg-dark-200 relative z-10 max-h-[80vh] w-full max-w-2xl overflow-hidden rounded-[22px] border bg-white shadow-2xl">
+          {/* Dialog */}
+          <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-title"
+            tabIndex={-1}
+            initial={{ opacity: 0, y: 20, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.97 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] as const }}
+            className="border-light-300 dark:border-dark-400 dark:bg-dark-200 relative z-10 max-h-[80vh] w-full max-w-2xl overflow-hidden rounded-[22px] border bg-white shadow-2xl outline-none"
+          >
             {/* Close */}
-            <button type="button" onClick={onClose} className="text-dark-400 hover:text-dark dark:border-dark-400 dark:bg-dark-300/90 dark:text-light-400 dark:hover:text-light absolute top-3 right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/80 backdrop-blur-sm transition-colors">
+            <button type="button" onClick={onClose} aria-label="Close project details" className="text-dark-400 hover:text-dark dark:border-dark-400 dark:bg-dark-300/90 dark:text-light-400 dark:hover:text-light absolute top-3 right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/80 backdrop-blur-sm transition-colors">
               <X className="h-4 w-4" />
             </button>
 
@@ -85,7 +124,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     >
                       <Image
                         src={images[activeImage]}
-                        alt={`${project.title} — ${activeImage + 1}`}
+                        alt={`${project.title} — screenshot ${activeImage + 1}`}
                         fill
                         className="object-contain"
                         sizes="(max-width: 768px) 100vw, 672px"
@@ -101,18 +140,18 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 {/* Carousel controls */}
                 {hasMultipleImages && (
                   <>
-                    <button type="button" onClick={prevImage} className="text-dark-400 hover:text-dark dark:border-light/10 dark:bg-dark/70 dark:text-light-400 dark:hover:text-light absolute top-1/2 left-3 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/80 backdrop-blur-sm transition-colors">
+                    <button type="button" onClick={prevImage} aria-label="Previous image" className="text-dark-400 hover:text-dark dark:border-light/10 dark:bg-dark/70 dark:text-light-400 dark:hover:text-light absolute top-1/2 left-3 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/80 backdrop-blur-sm transition-colors">
                       <ChevronLeft className="h-4 w-4" />
                     </button>
 
-                    <button type="button" onClick={nextImage} className="text-dark-400 hover:text-dark dark:border-light/10 dark:bg-dark/70 dark:text-light-400 dark:hover:text-light absolute top-1/2 right-3 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/80 backdrop-blur-sm transition-colors">
+                    <button type="button" onClick={nextImage} aria-label="Next image" className="text-dark-400 hover:text-dark dark:border-light/10 dark:bg-dark/70 dark:text-light-400 dark:hover:text-light absolute top-1/2 right-3 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/80 backdrop-blur-sm transition-colors">
                       <ChevronRight className="h-4 w-4" />
                     </button>
 
                     {/* Dots */}
                     <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
                       {images.map((_, i) => (
-                        <button key={i} type="button" onClick={() => setActiveImage(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === activeImage ? "bg-primary-500 w-5" : "w-1.5 bg-white/50 hover:bg-white/70"}`} />
+                        <button key={i} type="button" onClick={() => setActiveImage(i)} aria-label={`Go to image ${i + 1}`} aria-current={i === activeImage} className={`h-1.5 rounded-full transition-all duration-300 ${i === activeImage ? "bg-primary-500 w-5" : "w-1.5 bg-white/50 hover:bg-white/70"}`} />
                       ))}
                     </div>
                   </>
@@ -124,7 +163,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 {/* Header */}
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <h2 className="font-heading text-dark dark:text-light text-lg font-semibold sm:text-xl">{project.title}</h2>
+                    <h2 id="project-modal-title" className="font-heading text-dark dark:text-light text-lg font-semibold sm:text-xl">{project.title}</h2>
 
                     {project.subtitle && <p className="text-primary-600 dark:text-primary-400 mt-1 text-sm">{project.subtitle}</p>}
                   </div>

@@ -26,7 +26,7 @@ export const socialLinks = [
   },
   {
     name: "Email",
-    href: "mailto:hemazyn@gmail.com",
+    href: "mailto:immanueltofunmi@gmail.com",
     icon: "Mail",
   },
 ]
@@ -34,7 +34,7 @@ export const socialLinks = [
 export const personalInfo = {
   name: "Emmanuel Tofunmi",
   role: "Frontend Engineer",
-  email: "hemazyn@gmail.com",
+  email: "immanueltofunmi@gmail.com",
   phone: "+2349019487450",
   location: "Lagos, Nigeria",
   website: "https://iamtofunmi.vercel.app/",

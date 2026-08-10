@@ -2,6 +2,7 @@
 import { motion } from "framer-motion"
 import { ArrowUpRight, Github, Linkedin, Mail, MapPin, Twitter } from "lucide-react"
 import { fadeUp } from "@/lib/animations"
+import { smoothScrollTo } from "@/lib/utils"
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Github,
@@ -31,13 +32,7 @@ export default function FooterContent({
 }: FooterContentProps) {
   const handleNavClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault()
-    const targetId = href.replace("#", "")
-    const element = document.getElementById(targetId)
-    if (element) {
-      const offset = 80
-      const top = element.getBoundingClientRect().top + window.pageYOffset - offset
-      window.scrollTo({ top, behavior: "smooth" })
-    }
+    smoothScrollTo(href.replace("#", ""))
   }
 
   const scrollToTop = () => {

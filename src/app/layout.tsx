@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Inter, Sora, Fira_Code } from "next/font/google"
+import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 import ClientLayout from "@/components/layout/ClientLayout"
 import JsonLd from "@/components/ui/JsonLd"
@@ -59,21 +60,12 @@ export const metadata: Metadata = {
     siteName: "Emmanuel Tofunmi",
     locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Emmanuel Tofunmi — Frontend Engineer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
     creator: "@hemazyn",
-    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -87,7 +79,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/icon",
+    apple: "/apple-icon",
   },
   manifest: "/manifest.json",
   appleWebApp: {
@@ -130,14 +123,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             givenName: "Emmanuel",
             familyName: "Tofunmi",
             jobTitle: "Frontend Engineer",
-            email: "hemazyn@gmail.com",
+            email: "immanueltofunmi@gmail.com",
             telephone: "+2349019487450",
             url: BASE_URL,
-            sameAs: [
-              "https://github.com/hemazyn",
-              "https://linkedin.com/in/hemazyn",
-              "https://twitter.com/hemazyn",
-            ],
+            sameAs: ["https://github.com/Hemazyn", "https://www.linkedin.com/in/devemma", "https://x.com/imanuel_tofunmi"],
             address: {
               addressLocality: "Lagos",
               addressCountry: "NG",
@@ -145,6 +134,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         <ClientLayout>{children}</ClientLayout>
+        <Analytics />
       </body>
     </html>
   )

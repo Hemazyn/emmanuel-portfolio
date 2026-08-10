@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Download } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn, smoothScrollTo } from "@/lib/utils"
 import ThemeToggle from "./ThemeToggle"
 import { navLinks, personalInfo } from "@/data/navigation"
 import useScrollspy from "@/hooks/useScrollspy"
@@ -75,13 +75,7 @@ export default function Navbar() {
 
   const handleNavClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault()
-    const targetId = href.replace("#", "")
-    const element = document.getElementById(targetId)
-    if (element) {
-      const offset = 80
-      const top = element.getBoundingClientRect().top + window.pageYOffset - offset
-      window.scrollTo({ top, behavior: "smooth" })
-    }
+    smoothScrollTo(href.replace("#", ""))
     setIsOpen(false)
   }
 

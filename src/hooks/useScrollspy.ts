@@ -5,7 +5,10 @@ export default function useScrollspy(sectionIds: string[], offset: number = 100)
   const [activeId, setActiveId] = useState("");
 
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const computeActive = () => {
+      ticking = false;
       const scrollPosition = window.scrollY + offset;
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
@@ -21,8 +24,14 @@ export default function useScrollspy(sectionIds: string[], offset: number = 100)
       setActiveId(sectionIds[0]);
     };
 
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(computeActive);
+    };
+
+    computeActive();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [sectionIds, offset]);
 

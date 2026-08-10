@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { ArrowRight, Download } from "lucide-react"
 import { personalInfo } from "@/data/navigation"
 import { fadeUp, revealVariants, EASE_OUT } from "@/lib/animations"
+import { smoothScrollTo } from "@/lib/utils"
 
 export default function Hero() {
   const sectionRef = useRef(null)
@@ -19,12 +20,7 @@ export default function Hero() {
 
   const handleScroll = (e: React.MouseEvent, id: string) => {
     e.preventDefault()
-    const el = document.getElementById(id)
-    if (el) {
-      const offset = 80
-      const top = el.getBoundingClientRect().top + window.pageYOffset - offset
-      window.scrollTo({ top, behavior: "smooth" })
-    }
+    smoothScrollTo(id)
   }
 
   return (

@@ -1,13 +1,14 @@
 "use client"
-import { useState, useEffect, useMemo, useCallback } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 
 const headlineWords = "Building interfaces that perform at scale.".split(" ")
 const sublineWords = "Preparing your experience...".split(" ")
 
-function useRandomDelays(words: string[], base: number, step: number, jitter: number) {
-  return useMemo(() => words.map((_, i) => base + i * step + Math.random() * jitter), [words.length])
-}
+// Stagger delays computed once at module scope — Math.random() is not pure, so it
+// must not run inside a render (react-hooks/purity).
+const headlineDelays = headlineWords.map((_, i) => 0.1 + i * 0.06 + Math.random() * 0.1)
+const sublineDelays = sublineWords.map((_, i) => 0.85 + i * 0.09 + Math.random() * 0.06)
 
 const corners = [
   {
@@ -36,22 +37,41 @@ const corners = [
   },
 ]
 
+const PRELOADER_KEY = "preloader-seen"
+
 export default function Preloader({ onComplete }: { onComplete: () => void }) {
   const [phase, setPhase] = useState("enter")
   const shouldReduceMotion = useReducedMotion()
-
-  const headlineDelays = useRandomDelays(headlineWords, 0.1, 0.06, 0.1)
-  const sublineDelays = useRandomDelays(sublineWords, 0.85, 0.09, 0.06)
 
   const handleExit = useCallback(() => {
     setPhase("exit")
   }, [])
 
   useEffect(() => {
-    const minDuration = shouldReduceMotion ? 800 : 2800
+    // Only play the intro once per browser session; every later load goes straight
+    // to the content. This keeps LCP/LCP-time healthy for returning visitors.
+    let hasSeen = false
+    try {
+      hasSeen = typeof window !== "undefined" && sessionStorage.getItem(PRELOADER_KEY) === "1"
+    } catch {
+      // sessionStorage can be unavailable (private mode) — fall through to showing.
+    }
+
+    if (hasSeen) {
+      onComplete()
+      return
+    }
+
+    try {
+      sessionStorage.setItem(PRELOADER_KEY, "1")
+    } catch {
+      // Ignore storage failures — the preloader still plays once this visit.
+    }
+
+    const minDuration = shouldReduceMotion ? 400 : 1600
     const timer = setTimeout(handleExit, minDuration)
     return () => clearTimeout(timer)
-  }, [shouldReduceMotion, handleExit])
+  }, [shouldReduceMotion, handleExit, onComplete])
 
   const wordVariants = {
     hidden: {
@@ -90,7 +110,13 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
   return (
     <AnimatePresence mode="wait" onExitComplete={onComplete}>
       {phase === "enter" && (
-        <motion.div key="preloader" exit={{ opacity: 0 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }} className="bg-light dark:bg-dark fixed inset-0 z-9999 flex items-center overflow-hidden px-6">
+        <motion.div
+          key="preloader"
+          aria-hidden="true"
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
+          className="bg-light dark:bg-dark fixed inset-0 z-9999 flex items-center overflow-hidden px-6"
+        >
           {/* Background atmosphere */}
           <div className="pointer-events-none absolute inset-0">
             <div className="grid-pattern absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" />
@@ -138,15 +164,15 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
                 <span className="text-dark-400 dark:text-light-400 font-mono text-[10px] tracking-[0.35em] uppercase sm:text-[11px]">Portfolio</span>
               </motion.div>
 
-              {/* Headline */}
+              {/* Headline — a plain div, not a heading, to keep a single h1 in the document */}
               <div className="overflow-hidden">
-                <h1 className="font-heading text-dark dark:text-light text-3xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+                <div className="font-heading text-dark dark:text-light text-3xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
                   {headlineWords.map((word, i) => (
                     <motion.span key={`h-${i}`} custom={headlineDelays[i]} variants={wordVariants} initial="hidden" animate="visible" exit="exit" className="mr-[0.28em] inline-block will-change-transform">
                       {word === "scale." ? <span className="text-primary-600 dark:text-primary-400">{word}</span> : word}
                     </motion.span>
                   ))}
-                </h1>
+                </div>
               </div>
 
               {/* Subline */}

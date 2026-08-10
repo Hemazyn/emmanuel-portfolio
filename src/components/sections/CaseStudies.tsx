@@ -6,6 +6,7 @@ import SectionHeader from "@/components/ui/SectionHeader"
 import SectionBackground from "@/components/ui/SectionBackground"
 import { caseStudies, type CaseStudy } from "@/data/case-studies"
 import { fadeUp } from "@/lib/animations"
+import { smoothScrollTo } from "@/lib/utils"
 
 export default function CaseStudies() {
   const [expandedId, setExpandedId] = useState<number | null>(null)
@@ -138,7 +139,7 @@ export default function CaseStudies() {
                           href="#projects"
                           onClick={(e) => {
                             e.preventDefault()
-                            document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
+                            smoothScrollTo("projects")
                           }}
                           className="border-dark/10 text-dark hover:border-primary-500/30 hover:text-primary-600 dark:border-light/10 dark:text-light dark:hover:text-primary-400 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300"
                         >

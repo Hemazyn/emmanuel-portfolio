@@ -102,7 +102,8 @@ A polished, performant, accessible, and tested single-page portfolio built with 
 | **Icons**           | [Lucide React](https://lucide.dev/)                                        |
 | **Theme**           | [next-themes](https://github.com/pacocoursey/next-themes)                  |
 | **Fonts**           | Inter (body), Sora (headings), Fira Code (monospace) via `next/font`       |
-| **Testing**         | [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/react) + [jsdom](https://github.com/jsdom/jsdom) |
+| **Testing**         | [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/react) + [jsdom](https://github.com/jsdom/jsdom) + [Playwright](https://playwright.dev/) (E2E) |
+| **CI/CD**           | [GitHub Actions](https://github.com/features/actions) — lint, typecheck, unit tests, coverage, E2E, build |
 | **Linting**         | ESLint with `eslint-config-next` (Core Web Vitals rules)                   |
 | **Formatting**      | Prettier with `prettier-plugin-tailwindcss`                                |
 | **Build Tool**      | Next.js built-in compiler with React Compiler enabled                      |
@@ -279,7 +280,9 @@ Left: availability badges, copy-to-clipboard email, and direct action buttons (e
 
 ### Testing
 - **Vitest** with jsdom environment for fast, native-ESM test execution
-- **React Testing Library** for component render and interaction tests
+- **React Testing Library** for component render and interaction tests (unit + integration)
+- **Playwright** E2E tests for critical user flows (navigation, project modal, accordion, theme)
+- **V8 coverage** reporting with per-component quality gates (`npm run test:coverage`)
 - **jest-dom matchers** for accessible DOM assertions (`toBeInTheDocument`, `toHaveClass`, `toHaveAttribute`)
 - **Path alias support** via `vite-tsconfig-paths` for `@/` imports in tests
 
@@ -289,6 +292,10 @@ Left: availability badges, copy-to-clipboard email, and direct action buttons (e
 - **Shared animation variants** reduce bundle duplication
 - **next/image** with `fill`, `sizes`, and `loading="lazy"` for optimized image delivery
 - **CSS-based dark mode** via Tailwind's `dark:` variant — no runtime style computation
+- **Preloader plays once per session** (sessionStorage-gated) and respects `prefers-reduced-motion`
+- **MotionConfig `reducedMotion="user"`** globally disables animations for reduced-motion users
+- **Generated OG image, favicon, and apple icon** via `ImageResponse` (no missing assets)
+- **Security headers** (CSP, X-Frame-Options, Permissions-Policy) via `next.config.mjs`
 - **Semantic HTML** foundation for accessibility and SEO
 
 ---
@@ -321,6 +328,10 @@ The project uses a custom design token system built on Tailwind CSS v4 with CSS 
 
 The site is deployed on **Vercel** with automatic deployments from the `main` branch.
 
+### CI/CD
+
+A GitHub Actions workflow (`.github/workflows/ci.yml`) runs on every push and pull request: **lint → typecheck → unit tests → coverage → E2E (Playwright) → production build**. Analytics run through [Vercel Analytics](https://vercel.com/analytics) (Web Vitals, no config required).
+
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/hemazyn/emmanuel-portfolio)
 
 ### Environment Variables
@@ -346,7 +357,7 @@ The underlying source code — component architecture, animation system, and des
   <a href="https://github.com/hemazyn"><b>GitHub</b></a> ·
   <a href="https://www.linkedin.com/in/devemma/"><b>LinkedIn</b></a> ·
   <a href="https://x.com/imanuel_tofunmi"><b>X (Twitter)</b></a> ·
-  <a href="mailto:hemazyn@gmail.com"><b>Email</b></a>
+  <a href="mailto:immanueltofunmi@gmail.com"><b>Email</b></a>
 </div>
 
 ---
