@@ -1,4 +1,4 @@
-import { oyato1, oyato2, oyato3, oyato4, oyato5, spactrapay1, spactrapay2, spactrapay3, spactrapay4, omavon1, omavon2, omavon3, omavon4, omavon5, taskflow1, taskflow2, taskflow3, taskflow4, taskflow5, taskflow6, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, tip1, tip2, tip3 } from "../../public/project_image"
+import { oyato1, oyato2, oyato3, oyato4, oyato5, spactrapay1, spactrapay2, spactrapay3, spactrapay4, omavon1, omavon2, omavon3, omavon4, omavon5, taskflow1, taskflow2, taskflow3, taskflow4, taskflow5, taskflow6, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, weather4, weather5, tip1, tip2, tip3, tip4, scp1, scp2, cps1, cps2, cps3, cps4 } from "../../public/project_image"
 
 export const projectCategories = [
   { id: "all", name: "All" },
@@ -100,7 +100,7 @@ export const projectsData = [
     category: "tool",
     subtitle: "Real-time weather application",
     description: "A clean, fast weather forecast app with real-time data, location search, and responsive design.",
-    images: [weather1, weather2, weather3].map(img),
+    images: [weather1, weather2, weather3, weather4, weather5].map(img),
     liveUrl: "https://wforecast.vercel.app/",
     githubUrl: "https://github.com/Hemazyn/weather-forecast",
     technologies: ["React", "Tailwind CSS", "Weather API"],
@@ -113,10 +113,36 @@ export const projectsData = [
     category: "tool",
     subtitle: "Interview preparation platform",
     description: "A study tool for preparing for tech interviews with curated questions, topics, and practice resources.",
-    images: [tip1, tip2, tip3].map(img),
+    images: [tip1, tip2, tip3, tip4].map(img),
     liveUrl: "https://tipprep.vercel.app/",
     githubUrl: "https://github.com/Hemazyn/tech-interview",
     technologies: ["React", "Tailwind CSS"],
+    featured: false,
+  },
+  {
+    id: 9,
+    title: "Career Compass",
+    slug: "career-compass",
+    category: "tool",
+    subtitle: "Career guidance for Nigerian students",
+    description: "Live career maps for Nigerian students — from JSS3 stream choice to post-NYSC pivots. Reverse-engineers any career back to the JAMB subject combination, O'Level requirements, and stream decision needed today, with a RIASEC-based stream quiz, 22+ mapped careers, and a curated resource hub.",
+    images: [cps1, cps2, cps3, cps4].map(img),
+    liveUrl: "https://navigatepath.vercel.app/",
+    githubUrl: "https://github.com/Hemazyn/career-compass",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Zustand"],
+    featured: false,
+  },
+  {
+    id: 10,
+    title: "ScholarPath",
+    slug: "scholarpath",
+    category: "tool",
+    subtitle: "Scholarship discovery & application tracker",
+    description: "A scholarship platform with 10,000+ opportunities across 150+ countries. Powerful search and filtering, real-time alerts, a Kanban application tracker, a visa information center, and a smart eligibility checker that matches your profile to the right opportunities.",
+    images: [scp1, scp2].map(img),
+    liveUrl: "https://tryscholarpath.vercel.app/",
+    githubUrl: "https://github.com/Hemazyn/scholarpath",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     featured: false,
   },
 ]
