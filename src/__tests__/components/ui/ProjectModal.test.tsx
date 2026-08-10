@@ -47,4 +47,18 @@ describe("ProjectModal", () => {
     render(<ProjectModal project={project} isOpen={false} onClose={() => {}} />)
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
   })
+
+  it("shows a note when the project has no public source code", () => {
+    render(<ProjectModal project={project} isOpen onClose={() => {}} />)
+
+    expect(screen.getByText(/source code not public/i)).toBeInTheDocument()
+  })
+
+  it("hides the note and shows a source link when a GitHub URL is available", () => {
+    const projectWithRepo = { ...project, githubUrl: "https://github.com/example/repo" }
+    render(<ProjectModal project={projectWithRepo} isOpen onClose={() => {}} />)
+
+    expect(screen.queryByText(/source code not public/i)).not.toBeInTheDocument()
+    expect(screen.getByRole("link", { name: "Source" })).toHaveAttribute("href", "https://github.com/example/repo")
+  })
 })

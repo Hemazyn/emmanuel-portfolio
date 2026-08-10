@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, ExternalLink, Github, ChevronLeft, ChevronRight, Layers } from "lucide-react"
+import { X, ExternalLink, Github, ChevronLeft, ChevronRight, Layers, Lock } from "lucide-react"
 import Image from "next/image"
 
 interface ProjectData {
@@ -200,6 +200,13 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         <Github className="h-4 w-4" />
                         Source
                       </a>
+                    )}
+
+                    {!project.githubUrl && (
+                      <p className="text-dark-400/70 dark:text-light-400/60 flex items-center gap-1.5 text-[11px]">
+                        <Lock aria-hidden="true" className="h-3 w-3 shrink-0" />
+                        Company project — source code not public
+                      </p>
                     )}
                   </div>
                 )}
