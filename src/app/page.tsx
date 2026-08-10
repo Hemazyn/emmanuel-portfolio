@@ -5,8 +5,11 @@ import Footer from "@/components/layout/Footer"
 export default function Home() {
   return (
     <>
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
       <Navbar />
-      <main className="bg-light dark:bg-dark min-h-screen transition-colors duration-300">
+      <main id="main-content" className="bg-light dark:bg-dark min-h-screen transition-colors duration-300">
         <HomeContent />
       </main>
       <Footer />

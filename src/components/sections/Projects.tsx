@@ -1,5 +1,5 @@
 "use client"
-import { useMemo, useState } from "react"
+import { useMemo, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { ArrowUpRight, Github } from "lucide-react"
 import Image from "next/image"
@@ -29,6 +29,7 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<typeof projectsData[number] | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [showAll, setShowAll] = useState(false)
+  const closeTimer = useRef<number | null>(null)
 
   const filteredProjects = useMemo(() => {
     if (activeCategory === "all") return projectsData
@@ -38,13 +39,23 @@ export default function Projects() {
   const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 4)
 
   const handleViewDetails = (project: typeof projectsData[number]) => {
+    // Cancel any pending close — guards against the modal unmounting while a
+    // different project is being opened right after a close.
+    if (closeTimer.current !== null) {
+      window.clearTimeout(closeTimer.current)
+      closeTimer.current = null
+    }
     setSelectedProject(project)
     setIsModalOpen(true)
   }
 
   const handleCloseModal = () => {
     setIsModalOpen(false)
-    setTimeout(() => setSelectedProject(null), 300)
+    // Keep the project set while the exit animation plays, then clear it.
+    closeTimer.current = window.setTimeout(() => {
+      setSelectedProject(null)
+      closeTimer.current = null
+    }, 400)
   }
 
   return (
@@ -85,7 +96,19 @@ export default function Projects() {
         <motion.div layout className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <AnimatePresence mode="popLayout">
             {displayedProjects.map((project) => (
-              <motion.article key={project.id} layout initial={{ opacity: 0, y: 14, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }} onClick={() => handleViewDetails(project)} className="group border-light-300 hover:border-primary-500/20 dark:border-dark-400 dark:bg-dark-200/75 cursor-pointer overflow-hidden rounded-2xl border bg-white/75 transition-all duration-300">
+              <motion.article key={project.id} layout initial={{ opacity: 0, y: 14, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }} onClick={() => handleViewDetails(project)} className="group border-light-300 hover:border-primary-500/20 dark:border-dark-400 dark:bg-dark-200/75 relative cursor-pointer overflow-hidden rounded-2xl border bg-white/75 transition-all duration-300">
+                {/* Keyboard-accessible trigger stretched across the card */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleViewDetails(project)
+                  }}
+                  aria-label={`View details for ${project.title}`}
+                  aria-haspopup="dialog"
+                  className="absolute inset-0 z-10 cursor-pointer"
+                />
+
                 <div className="border-light-300 bg-light-100 dark:border-dark-400 dark:bg-dark-300 relative aspect-video overflow-hidden border-b">
                   {project.images?.[0] ? (
                     <Image src={project.images[0]} alt={project.title} fill className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw" />
@@ -99,7 +122,7 @@ export default function Projects() {
                     <span className="text-dark-400 dark:border-light/10 dark:bg-dark/70 dark:text-light-400 rounded-full border border-white/20 bg-white/80 px-2.5 py-1 text-[10px] font-medium backdrop-blur-sm">{getCategoryName(project.category)}</span>
                   </div>
 
-                  <div className="absolute top-3 right-3 flex items-center gap-2 opacity-100 transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100">
+                  <div className="absolute top-3 right-3 z-20 flex items-center gap-2 opacity-100 transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100">
                     {project.liveUrl && (
                       <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-dark-400 hover:text-primary-600 dark:border-light/10 dark:bg-dark/70 dark:text-light-400 dark:hover:text-primary-400 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/80 backdrop-blur-sm transition-colors" aria-label={`Visit ${project.title}`}>
                         <ArrowUpRight className="h-3.5 w-3.5" />
@@ -159,7 +182,7 @@ export default function Projects() {
         )}
       </div>
 
-      <ProjectModal project={selectedProject} isOpen={isModalOpen} onClose={handleCloseModal} />
+      <ProjectModal key={selectedProject?.id ?? "closed"} project={selectedProject} isOpen={isModalOpen} onClose={handleCloseModal} />
     </section>
   )
 }

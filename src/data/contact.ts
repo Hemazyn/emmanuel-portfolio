@@ -1,5 +1,5 @@
 export const contactInfo = {
-  email: "hemazyn@gmail.com",
+  email: "immanueltofunmi@gmail.com",
   phone: "+2349019487450",
   location: "Lagos, Nigeria",
   timezone: "GMT+1 (WAT)",
@@ -11,8 +11,8 @@ export const contactMethods = [
   {
     id: "email",
     title: "Email",
-    value: "hemazyn@gmail.com",
-    href: "mailto:hemazyn@gmail.com",
+    value: "immanueltofunmi@gmail.com",
+    href: "mailto:immanueltofunmi@gmail.com",
     note: "Best for project inquiries and detailed discussions",
   },
   {

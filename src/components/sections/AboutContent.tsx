@@ -2,6 +2,7 @@
 import { motion } from "framer-motion"
 import { ArrowRight, Download, Mail, MapPin } from "lucide-react"
 import { fadeUp } from "@/lib/animations"
+import { smoothScrollTo } from "@/lib/utils"
 
 interface AboutContentProps {
   email: string
@@ -49,7 +50,7 @@ export default function AboutContent({
             href="#projects"
             onClick={(e) => {
               e.preventDefault()
-              document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
+              smoothScrollTo("projects")
             }}
             className="group bg-primary-600 hover:bg-primary-700 hover:shadow-glow inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-all duration-300"
           >

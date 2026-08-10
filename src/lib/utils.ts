@@ -9,11 +9,11 @@ export function formatDate(dateString: string) {
   });
 }
 
-export function scrollToSection(sectionId: string) {
-  const element = document.getElementById(sectionId);
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
-  }
+export function smoothScrollTo(targetId: string, offset = 80) {
+  const element = document.getElementById(targetId);
+  if (!element) return;
+  const top = element.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top, behavior: "smooth" });
 }
 
 export function truncateText(text: string, maxLength: number) {

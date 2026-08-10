@@ -5,51 +5,8 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, MapPin } from "lucide-react"
 import { cn } from "@/lib/utils"
 import SectionHeader from "@/components/ui/SectionHeader"
 import SectionBackground from "@/components/ui/SectionBackground"
+import { fadeUp, cardVariants } from "@/lib/animations"
 import { experienceData, experienceStats } from "@/data/experience"
-
-const fadeUp = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-    filter: "blur(8px)",
-  },
-  visible: (delay = 0) => ({
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.6,
-      delay,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  }),
-}
-
-const cardVariants = {
-  initial: {
-    opacity: 0,
-    y: 18,
-    filter: "blur(10px)",
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: -18,
-    filter: "blur(8px)",
-    transition: {
-      duration: 0.35,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-}
 
 export default function Experience() {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -66,7 +23,7 @@ export default function Experience() {
   }
 
   return (
-    <section id="experience" className="bg-light-100 dark:bg-dark-100 lg:py28 sm:py24 relative overflow-hidden py-20">
+    <section id="experience" className="bg-light-100 dark:bg-dark-100 relative overflow-hidden py-20 sm:py-24 lg:py-28">
       {/* Background */}
       <SectionBackground />
       <div

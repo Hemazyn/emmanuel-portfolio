@@ -73,7 +73,7 @@ export default function Contact() {
               {/* Copy email */}
               <button type="button" onClick={handleCopyEmail} className="border-dark/8 dark:border-light/8 hover:border-primary-500/25 group flex w-full items-center justify-between rounded-2xl border px-4 py-3 transition-all duration-300">
                 <span className="text-dark-400 dark:text-light-400 text-sm">{contactInfo.email}</span>
-                <span className="text-dark-400 dark:text-light-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 flex items-center gap-1.5 text-xs transition-colors duration-300">
+                <span aria-live="polite" className="text-dark-400 dark:text-light-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 flex items-center gap-1.5 text-xs transition-colors duration-300">
                   {emailCopied ? (
                     <>
                       <Check className="h-3.5 w-3.5" />
