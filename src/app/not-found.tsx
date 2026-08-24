@@ -89,13 +89,13 @@ export default function NotFound() {
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-            <h2 className="text-dark dark:text-light font-heading mb-4 text-2xl font-bold md:text-3xl">Oops! Page Not Found</h2>
-            <p className="text-dark-400 dark:text-light-400 mx-auto mb-8 max-w-md">The page you&apos;re looking for seems to have wandered off into the digital void. Don&apos;t worry, let&apos;s get you back on track!</p>
+            <h2 className="text-ink font-heading mb-4 text-2xl font-bold md:text-3xl">Oops! Page Not Found</h2>
+            <p className="text-ink-soft mx-auto mb-8 max-w-md">The page you&apos;re looking for seems to have wandered off into the digital void. Don&apos;t worry, let&apos;s get you back on track!</p>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="mb-8 flex flex-wrap justify-center gap-4">
             {quickLinks.map((link, index) => (
               <motion.div key={link.name} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}>
-                <Link href={link.href} className="bg-light-200 dark:bg-dark-300 border-light-300 dark:border-dark-400 hover:border-primary-500 hover:shadow-glow text-dark dark:text-light flex items-center gap-2 rounded-xl border px-5 py-3 font-medium transition-all duration-300 hover:scale-105">
+                <Link href={link.href} className="bg-light-200 dark:bg-dark-300 border-light-300 dark:border-dark-400 hover:border-primary-500 hover:shadow-glow text-ink flex items-center gap-2 rounded-xl border px-5 py-3 font-medium transition-all duration-300 hover:scale-105">
                   <link.icon className="text-primary-500 h-5 w-5" />
                   {link.name}
                 </Link>
@@ -111,7 +111,7 @@ export default function NotFound() {
             </Link>
           </motion.div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.7 }} className="mt-12">
-            <p className="text-dark-400 dark:text-light-400 flex items-center justify-center gap-2 text-sm">
+            <p className="text-ink-mute flex items-center justify-center gap-2 text-sm">
               <RefreshCw className="h-4 w-4" />
               Lost? Try refreshing or head back home
             </p>

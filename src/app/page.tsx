@@ -9,7 +9,7 @@ export default function Home() {
         Skip to content
       </a>
       <Navbar />
-      <main id="main-content" className="bg-light dark:bg-dark min-h-screen transition-colors duration-300">
+      <main id="main-content" className="min-h-screen bg-bg transition-colors duration-200">
         <HomeContent />
       </main>
       <Footer />

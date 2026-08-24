@@ -1,7 +1,7 @@
 "use client"
 import { useMemo, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { ArrowUpRight, Github } from "lucide-react"
+import { ArrowUpRight, Github, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import SectionHeader from "@/components/ui/SectionHeader"
 import SectionBackground from "@/components/ui/SectionBackground"
@@ -36,11 +36,9 @@ export default function Projects() {
     return projectsData.filter((p) => p.category === activeCategory)
   }, [activeCategory])
 
-  const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 4)
+  const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 6)
 
   const handleViewDetails = (project: typeof projectsData[number]) => {
-    // Cancel any pending close — guards against the modal unmounting while a
-    // different project is being opened right after a close.
     if (closeTimer.current !== null) {
       window.clearTimeout(closeTimer.current)
       closeTimer.current = null
@@ -51,7 +49,6 @@ export default function Projects() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false)
-    // Keep the project set while the exit animation plays, then clear it.
     closeTimer.current = window.setTimeout(() => {
       setSelectedProject(null)
       closeTimer.current = null
@@ -59,18 +56,22 @@ export default function Projects() {
   }
 
   return (
-    <section id="projects" className="relative overflow-hidden py-20">
+    <section id="projects" className="relative overflow-hidden border-t border-rule-soft py-20">
       <SectionBackground variant="dots" />
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          background: "radial-gradient(ellipse at 20% 20%, rgba(16,185,129,0.04), transparent 35%)",
+          background: "radial-gradient(ellipse at 20% 20%, rgba(16,185,129,0.03), transparent 35%)",
         }}
       />
 
-      <div className="relative z-10 container mx-auto px-4 xl:px-0">
-        <SectionHeader title={{ main: "Selected", highlight: "work" }} subtitle="Product interfaces, platforms, and websites I've built for clients and companies." />
+      <div className="relative z-10 mx-auto max-w-[1200px] px-7">
+        <SectionHeader
+          title={{ main: "Selected", highlight: "work" }}
+          subtitle="Product interfaces, platforms, and websites I've built for clients and companies."
+        />
 
+        {/* Category filters — hard edge */}
         <motion.div custom={0.05} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="scrollbar-hide mb-8 flex gap-2 overflow-x-auto pb-1">
           {projectCategories.map((category) => {
             const value = getCategoryValue(category)
@@ -85,7 +86,11 @@ export default function Projects() {
                   setActiveCategory(value)
                   setShowAll(false)
                 }}
-                className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs transition-all duration-300 ${isActive ? "border-primary-500/20 bg-primary-500/10 text-primary-600 dark:text-primary-400" : "border-light-300 text-dark-400 hover:border-primary-500/20 hover:text-primary-600 dark:border-dark-400 dark:bg-dark-200/70 dark:text-light-400 dark:hover:text-primary-400 bg-white/70"}`}
+                className={`shrink-0 border px-3.5 py-1.5 font-mono text-xs uppercase tracking-wider transition-all duration-200 ${
+                  isActive
+                    ? "border-accent bg-accent-tint text-accent"
+                    : "border-rule-soft bg-bg-surface text-ink-soft hover:border-accent/40 hover:text-accent"
+                }`}
               >
                 {label}
               </button>
@@ -93,11 +98,21 @@ export default function Projects() {
           })}
         </motion.div>
 
-        <motion.div layout className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {/* Project grid — 3 columns on lg, more compact */}
+        <motion.div layout className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
-            {displayedProjects.map((project) => (
-              <motion.article key={project.id} layout initial={{ opacity: 0, y: 14, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }} onClick={() => handleViewDetails(project)} className="group border-light-300 hover:border-primary-500/20 dark:border-dark-400 dark:bg-dark-200/75 relative cursor-pointer overflow-hidden rounded-2xl border bg-white/75 transition-all duration-300">
-                {/* Keyboard-accessible trigger stretched across the card */}
+            {displayedProjects.map((project, index) => (
+              <motion.article
+                key={project.id}
+                layout
+                initial={{ opacity: 0, y: 14, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                transition={{ duration: 0.3, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] as const }}
+                onClick={() => handleViewDetails(project)}
+                className="group relative cursor-pointer border border-rule-soft bg-bg transition-all duration-200 hover:border-accent"
+              >
+                {/* Keyboard-accessible trigger */}
                 <button
                   type="button"
                   onClick={(e) => {
@@ -109,56 +124,105 @@ export default function Projects() {
                   className="absolute inset-0 z-10 cursor-pointer"
                 />
 
-                <div className="border-light-300 bg-light-100 dark:border-dark-400 dark:bg-dark-300 relative aspect-video overflow-hidden border-b">
+                {/* Green accent left border */}
+                <div className="absolute top-0 bottom-0 left-0 w-[3px] bg-accent/0 transition-colors duration-200 group-hover:bg-accent" />
+
+                {/* Image — shorter aspect ratio */}
+                <div className="relative aspect-[16/8] overflow-hidden border-b border-rule-soft bg-bg-surface">
                   {project.images?.[0] ? (
-                    <Image src={project.images[0]} alt={project.title} fill className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw" />
+                    <Image
+                      src={project.images[0]}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.12),transparent_40%)]">
-                      <span className="text-dark-400/40 dark:text-light-400/35 font-mono text-[10px] tracking-[0.28em] uppercase">Preview</span>
+                    <div className="flex h-full w-full items-center justify-center">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-mute/40">
+                        Preview
+                      </span>
                     </div>
                   )}
 
-                  <div className="absolute top-3 left-3">
-                    <span className="text-dark-400 dark:border-light/10 dark:bg-dark/70 dark:text-light-400 rounded-full border border-white/20 bg-white/80 px-2.5 py-1 text-[10px] font-medium backdrop-blur-sm">{getCategoryName(project.category)}</span>
+                  {/* Category badge — green accent */}
+                  <div className="absolute top-2.5 left-2.5">
+                    <span className="bg-accent px-2 py-0.5 font-mono text-[9px] font-medium uppercase tracking-wider text-white">
+                      {getCategoryName(project.category)}
+                    </span>
                   </div>
 
-                  <div className="absolute top-3 right-3 z-20 flex items-center gap-2 opacity-100 transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100">
+                  {/* Action buttons */}
+                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 opacity-100 transition-opacity duration-200 sm:opacity-0 sm:group-hover:opacity-100">
                     {project.liveUrl && (
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-dark-400 hover:text-primary-600 dark:border-light/10 dark:bg-dark/70 dark:text-light-400 dark:hover:text-primary-400 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/80 backdrop-blur-sm transition-colors" aria-label={`Visit ${project.title}`}>
-                        <ArrowUpRight className="h-3.5 w-3.5" />
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex h-7 w-7 items-center justify-center border border-rule-soft bg-bg/90 text-ink-mute transition-colors hover:border-accent hover:text-accent"
+                        aria-label={`Visit ${project.title}`}
+                      >
+                        <ExternalLink className="h-3 w-3" />
                       </a>
                     )}
 
                     {project.githubUrl && (
-                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-dark-400 hover:text-primary-600 dark:border-light/10 dark:bg-dark/70 dark:text-light-400 dark:hover:text-primary-400 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/80 backdrop-blur-sm transition-colors" aria-label={`${project.title} repository`}>
-                        <Github className="h-3.5 w-3.5" />
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex h-7 w-7 items-center justify-center border border-rule-soft bg-bg/90 text-ink-mute transition-colors hover:border-accent hover:text-accent"
+                        aria-label={`${project.title} repository`}
+                      >
+                        <Github className="h-3 w-3" />
                       </a>
                     )}
                   </div>
                 </div>
 
-                <div className="p-4">
-                  <div className="flex items-start justify-between gap-3">
+                {/* Card content — compact */}
+                <div className="p-3.5">
+                  <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <h3 className="font-heading text-dark dark:text-light text-sm font-semibold sm:text-base">{project.title}</h3>
-
-                      {project.subtitle && <p className="text-primary-600 dark:text-primary-400 mt-1 text-[11px] sm:text-xs">{project.subtitle}</p>}
+                      <h3 className="font-display text-base uppercase leading-tight tracking-wide text-ink">
+                        {project.title}
+                      </h3>
+                      {project.subtitle && (
+                        <p className="mt-0.5 text-[11px] leading-snug text-accent">
+                          {project.subtitle}
+                        </p>
+                      )}
                     </div>
 
-                    {project.featured && <span className="text-primary-600/60 dark:text-primary-400/60 shrink-0 font-mono text-[9px] tracking-[0.2em] uppercase">Featured</span>}
+                    {project.featured && (
+                      <span className="shrink-0 font-mono text-[8px] uppercase tracking-[0.18em] text-accent">
+                        ★
+                      </span>
+                    )}
                   </div>
 
-                  <p className="text-dark-400 dark:text-light-400 mt-2 line-clamp-2 text-xs leading-relaxed sm:text-sm">{project.description}</p>
+                  <p className="mt-2 line-clamp-2 text-[12px] leading-relaxed text-ink-mute">
+                    {project.description}
+                  </p>
 
+                  {/* Tech tags — compact */}
                   {!!project.technologies?.length && (
-                    <div className="mt-3 flex flex-wrap gap-1.5">
-                      {project.technologies.slice(0, 3).map((tech) => (
-                        <span key={tech} className="border-dark/6 bg-light-200/80 text-dark-400 dark:border-light/6 dark:bg-dark-300/80 dark:text-light-400 rounded-full border px-2 py-0.5 text-[10px]">
+                    <div className="mt-2.5 flex flex-wrap gap-1">
+                      {project.technologies.slice(0, 2).map((tech) => (
+                        <span
+                          key={tech}
+                          className="border border-rule-soft bg-bg-surface px-1.5 py-0.5 font-mono text-[9px] text-ink-mute"
+                        >
                           {tech}
                         </span>
                       ))}
-
-                      {project.technologies.length > 3 && <span className="border-primary-500/15 bg-primary-500/8 text-primary-600 dark:text-primary-400 rounded-full border px-2 py-0.5 text-[10px]">+{project.technologies.length - 3}</span>}
+                      {project.technologies.length > 2 && (
+                        <span className="border border-accent-tint-strong bg-accent-tint px-1.5 py-0.5 font-mono text-[9px] text-accent">
+                          +{project.technologies.length - 2}
+                        </span>
+                      )}
                     </div>
                   )}
                 </div>
@@ -168,14 +232,18 @@ export default function Projects() {
         </motion.div>
 
         {filteredProjects.length === 0 && (
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-dark-400 dark:text-light-400 py-10 text-center text-sm">
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-10 text-center text-sm text-ink-mute">
             No projects in this category.
           </motion.p>
         )}
 
-        {filteredProjects.length > 4 && (
+        {filteredProjects.length > 6 && (
           <div className="mt-8 text-center">
-            <button type="button" onClick={() => setShowAll((prev) => !prev)} className="border-dark/10 text-dark hover:border-primary-500/30 hover:text-primary-600 dark:border-light/10 dark:text-light dark:hover:border-primary-500/30 dark:hover:text-primary-400 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300">
+            <button
+              type="button"
+              onClick={() => setShowAll((prev) => !prev)}
+              className="btn btn-secondary inline-flex items-center gap-2"
+            >
               {showAll ? "Show less" : `View all (${filteredProjects.length})`}
             </button>
           </div>

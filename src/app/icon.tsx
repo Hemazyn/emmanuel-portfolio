@@ -17,15 +17,44 @@ export default async function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          borderRadius: 8,
-          background: "linear-gradient(135deg, #047857, #10b981)",
-          color: "#ffffff",
-          fontFamily: "Inter",
-          fontWeight: 700,
-          fontSize: 18,
+          background: "#fafaf5",
+          position: "relative",
         }}
       >
-        E
+        {/* Green border */}
+        <div
+          style={{
+            position: "absolute",
+            top: 2,
+            left: 2,
+            right: 2,
+            bottom: 2,
+            border: "1.5px solid #10b981",
+          }}
+        />
+        {/* Green accent square */}
+        <div
+          style={{
+            position: "absolute",
+            top: 2,
+            left: 2,
+            width: 6,
+            height: 6,
+            background: "#10b981",
+          }}
+        />
+        {/* Mono text */}
+        <span
+          style={{
+            fontFamily: "Inter",
+            fontWeight: 700,
+            fontSize: 11,
+            color: "#1a1a1a",
+            letterSpacing: 1,
+          }}
+        >
+          DE
+        </span>
       </div>
     ),
     { ...size, fonts }

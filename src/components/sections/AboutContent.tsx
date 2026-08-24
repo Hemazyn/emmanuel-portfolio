@@ -23,22 +23,50 @@ export default function AboutContent({
 }: AboutContentProps) {
   return (
     <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
-      {/* Main card */}
-      <motion.div custom={0.05} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} className="glass rounded-3xl p-6 sm:p-8">
-        <p className="text-primary-600 dark:text-primary-400 font-mono text-[11px] tracking-[0.3em] uppercase">About me</p>
+      {/* Main card — hard edge */}
+      <motion.div
+        custom={0.05}
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="glass p-6 sm:p-8"
+      >
+        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent">
+          About me
+        </p>
 
-        <h3 className="font-heading text-dark dark:text-light mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">I build product interfaces that are clear, scalable, and easy to use.</h3>
+        <h3 className="mt-4 font-display text-2xl uppercase tracking-wide text-ink sm:text-3xl">
+          I build product interfaces that are clear, scalable, and easy to use.
+        </h3>
 
-        <div className="text-dark-400 dark:text-light-400 mt-5 space-y-4 text-sm leading-relaxed sm:text-base">
-          <p>I&apos;m a frontend engineer focused on building polished user interfaces for modern digital products. My work covers CRM systems, admin dashboards, internal tools, high-end websites, and embedded widgets.</p>
-          <p>I care about clean implementation, thoughtful motion, strong usability, and the details that make products feel reliable and well crafted.</p>
+        <div className="mt-5 space-y-4 text-sm leading-relaxed text-ink-soft sm:text-base">
+          <p>
+            I&apos;m a frontend engineer focused on building polished user interfaces for modern
+            digital products. My work covers CRM systems, admin dashboards, internal tools,
+            high-end websites, and embedded widgets.
+          </p>
+          <p>
+            I care about clean implementation, thoughtful motion, strong usability, and the
+            details that make products feel reliable and well crafted.
+          </p>
         </div>
 
         <div className="mt-7">
-          <p className="text-dark-400 dark:text-light-400 font-mono text-[11px] tracking-[0.28em] uppercase">What I build</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ink-mute">
+            What I build
+          </p>
           <div className="mt-3 flex flex-wrap gap-2.5">
             {serviceAreas.map((item, index) => (
-              <motion.span key={item} custom={0.12 + index * 0.04} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="border-primary-500/15 bg-primary-500/8 text-primary-600 dark:text-primary-400 rounded-full border px-3 py-1.5 text-sm">
+              <motion.span
+                key={item}
+                custom={0.12 + index * 0.04}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="border border-accent-tint-strong bg-accent-tint px-3 py-1.5 text-sm font-mono text-accent"
+              >
                 {item}
               </motion.span>
             ))}
@@ -52,51 +80,79 @@ export default function AboutContent({
               e.preventDefault()
               smoothScrollTo("projects")
             }}
-            className="group bg-primary-600 hover:bg-primary-700 hover:shadow-glow inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-all duration-300"
+            className="group btn btn-primary inline-flex items-center gap-2"
           >
             View Projects
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
           </a>
 
-          <a href={resumeUrl} download={resumeFileName} className="border-dark/10 text-dark hover:border-primary-500/40 hover:text-primary-600 dark:border-light/10 dark:text-light dark:hover:border-primary-500/40 dark:hover:text-primary-400 inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-300">
+          <a
+            href={resumeUrl}
+            download={resumeFileName}
+            className="btn btn-secondary inline-flex items-center gap-2"
+          >
             <Download className="h-4 w-4" />
             Resume
           </a>
         </div>
       </motion.div>
 
-      {/* Side card */}
-      <motion.div custom={0.12} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} className="glass rounded-3xl p-6 sm:p-7">
-        <p className="text-primary-600 dark:text-primary-400 font-mono text-[11px] tracking-[0.3em] uppercase">Snapshot</p>
+      {/* Side card — hard edge */}
+      <motion.div
+        custom={0.12}
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="glass p-6 sm:p-7"
+      >
+        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent">
+          Snapshot
+        </p>
 
         <div className="mt-5 space-y-4">
-          <div className="border-dark/8 dark:border-light/8 flex items-start justify-between gap-4 border-b pb-4">
-            <span className="text-dark-400 dark:text-light-400 text-sm">Focus</span>
-            <span className="text-dark dark:text-light text-right text-sm font-medium">Product UI & Frontend Systems</span>
+          <div className="flex items-start justify-between gap-4 border-b border-rule-soft pb-4">
+            <span className="text-sm text-ink-mute">Focus</span>
+            <span className="text-right text-sm font-medium text-ink">
+              Product UI & Frontend Systems
+            </span>
           </div>
 
-          <div className="border-dark/8 dark:border-light/8 flex items-start justify-between gap-4 border-b pb-4">
-            <span className="text-dark-400 dark:text-light-400 text-sm">Location</span>
-            <span className="text-dark dark:text-light text-sm font-medium">{location}</span>
+          <div className="flex items-start justify-between gap-4 border-b border-rule-soft pb-4">
+            <span className="text-sm text-ink-mute">Location</span>
+            <span className="text-sm font-medium text-ink">{location}</span>
           </div>
 
-          <a href={`mailto:${email}`} className="group text-dark-400 hover:text-primary-600 dark:text-light-400 dark:hover:text-primary-400 flex items-center gap-3 pt-1 text-sm transition-colors duration-300">
+          <a
+            href={`mailto:${email}`}
+            className="group flex items-center gap-3 pt-1 text-sm text-ink-soft transition-colors duration-200 hover:text-accent"
+          >
             <Mail className="h-4 w-4" />
             <span className="truncate">{email}</span>
           </a>
 
-          <div className="text-dark-400 dark:text-light-400 flex items-center gap-3 text-sm">
-            <MapPin className="text-primary-500 h-4 w-4" />
+          <div className="flex items-center gap-3 text-sm text-ink-soft">
+            <MapPin className="h-4 w-4 text-accent" />
             <span>{location}</span>
           </div>
         </div>
 
-        <div className="border-dark/8 dark:border-light/8 mt-7 border-t pt-6">
-          <p className="text-dark-400 dark:text-light-400 font-mono text-[11px] tracking-[0.28em] uppercase">Selected stack</p>
+        <div className="mt-7 border-t border-rule-soft pt-6">
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ink-mute">
+            Selected stack
+          </p>
 
           <div className="mt-3 flex flex-wrap gap-2">
             {selectedStack.map((tech, index) => (
-              <motion.span key={tech} custom={0.18 + index * 0.02} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="border-dark/10 bg-light-100 text-dark-400 dark:border-light/10 dark:bg-dark-200 dark:text-light-400 rounded-full border px-3 py-1.5 text-sm">
+              <motion.span
+                key={tech}
+                custom={0.18 + index * 0.02}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="border border-rule-soft bg-bg-surface px-3 py-1.5 text-sm text-ink-soft"
+              >
                 {tech}
               </motion.span>
             ))}

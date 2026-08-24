@@ -41,21 +41,29 @@ export default function FooterContent({
 
   return (
     <>
-      <div className="relative z-10 container mx-auto px-4 xl:px-0">
+      <div className="relative z-10 mx-auto max-w-[1200px] px-7">
         <div className="py-14">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:gap-8">
             {/* Brand */}
             <motion.div custom={0.05} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
               <a href="#home" onClick={(e) => handleNavClick(e, "#home")} className="inline-block">
-                <span className="font-heading text-2xl font-bold">
-                  <span className="text-dark dark:text-light">Dev</span>
-                  <span className="gradient-text">Emma</span>
+                <span className="flex items-center gap-2">
+                  <span className="inline-block h-3 w-3 bg-accent" />
+                  <span className="font-display text-2xl uppercase tracking-wide text-ink">
+                    DevEmma
+                  </span>
                 </span>
               </a>
 
-              <p className="text-dark-400 dark:text-light-400 mt-4 max-w-sm text-sm leading-relaxed">Frontend engineer building clean, scalable interfaces for modern products, dashboards, and high-quality web experiences.</p>
+              <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-soft">
+                Frontend engineer building clean, scalable interfaces for modern products,
+                dashboards, and high-quality web experiences.
+              </p>
 
-              <a href={`mailto:${email}`} className="text-primary-600 dark:text-primary-400 mt-5 inline-flex items-center gap-2 text-sm font-medium transition-colors duration-300 hover:opacity-80">
+              <a
+                href={`mailto:${email}`}
+                className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-accent transition-colors duration-200 hover:opacity-80"
+              >
                 {email}
                 <ArrowUpRight className="h-4 w-4" />
               </a>
@@ -63,16 +71,27 @@ export default function FooterContent({
 
             {/* Navigation */}
             <motion.div custom={0.1} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <p className="text-dark-400 dark:text-light-400 font-mono text-[11px] tracking-[0.28em] uppercase">Navigation</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ink-mute">
+                Navigation
+              </p>
 
               <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3">
                 {navLinks.map((link) => (
-                  <a key={link.name} href={link.href} onClick={(e) => handleNavClick(e, link.href)} className="text-dark dark:text-light hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-colors duration-300">
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="text-sm text-ink transition-colors duration-200 hover:text-accent"
+                  >
                     {link.name}
                   </a>
                 ))}
 
-                <a href={resumeUrl} download={resumeFileName} className="text-dark dark:text-light hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-colors duration-300">
+                <a
+                  href={resumeUrl}
+                  download={resumeFileName}
+                  className="text-sm text-ink transition-colors duration-200 hover:text-accent"
+                >
                   Resume
                 </a>
               </div>
@@ -80,11 +99,13 @@ export default function FooterContent({
 
             {/* Contact / socials */}
             <motion.div custom={0.15} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <p className="text-dark-400 dark:text-light-400 font-mono text-[11px] tracking-[0.28em] uppercase">Presence</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ink-mute">
+                Presence
+              </p>
 
               <div className="mt-4 space-y-3">
-                <div className="text-dark-400 dark:text-light-400 flex items-center gap-2 text-sm">
-                  <MapPin className="text-primary-500 h-4 w-4" />
+                <div className="flex items-center gap-2 text-sm text-ink-soft">
+                  <MapPin className="h-4 w-4 text-accent" />
                   <span>{location}</span>
                 </div>
 
@@ -94,7 +115,14 @@ export default function FooterContent({
                     if (!Icon) return null
 
                     return (
-                      <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="border-light-300 text-dark-400 hover:border-primary-500/25 hover:text-primary-600 dark:border-dark-400 dark:bg-dark-200/70 dark:text-light-400 dark:hover:text-primary-400 flex h-9 w-9 items-center justify-center rounded-xl border bg-white/70 transition-all duration-300" aria-label={social.name}>
+                      <a
+                        key={social.name}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-9 w-9 items-center justify-center border border-rule-soft bg-bg-surface text-ink-mute transition-all duration-200 hover:border-accent hover:text-accent"
+                        aria-label={social.name}
+                      >
                         <Icon className="h-4 w-4" />
                       </a>
                     )
@@ -104,13 +132,26 @@ export default function FooterContent({
             </motion.div>
           </div>
 
-          {/* Bottom bar */}
-          <motion.div custom={0.2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="border-light-300 dark:border-dark-400 mt-12 flex flex-col items-start justify-between gap-4 border-t pt-6 sm:flex-row sm:items-center">
-            <p className="text-dark-400 dark:text-light-400 text-sm">© {currentYear} Emmanuel Tofunmi. Designed and built with care.</p>
+          {/* Bottom bar — hard edge */}
+          <motion.div
+            custom={0.2}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-rule-soft pt-6 sm:flex-row sm:items-center"
+          >
+            <p className="text-sm text-ink-mute">
+              © {currentYear} Emmanuel Tofunmi. All rights reserved.
+            </p>
 
-            <button type="button" onClick={scrollToTop} className="text-dark dark:text-light hover:text-primary-600 dark:hover:text-primary-400 inline-flex items-center gap-2 text-sm transition-colors duration-300">
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="inline-flex items-center gap-2 text-sm text-ink transition-colors duration-200 hover:text-accent"
+            >
               Back to top
-              <span className="border-light-300 dark:border-dark-400 dark:bg-dark-200/70 flex h-8 w-8 items-center justify-center rounded-lg border bg-white/70">
+              <span className="flex h-8 w-8 items-center justify-center border border-rule-soft bg-bg-surface">
                 <ArrowUpRight className="h-4 w-4 -rotate-45" />
               </span>
             </button>

@@ -17,27 +17,45 @@ export default async function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0a0a0a",
+          background: "#fafaf5",
           borderRadius: 40,
+          position: "relative",
         }}
       >
+        {/* Green border */}
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 140,
-            height: 140,
-            borderRadius: 36,
-            background: "linear-gradient(135deg, #047857, #10b981)",
-            color: "#ffffff",
+            position: "absolute",
+            top: 8,
+            left: 8,
+            right: 8,
+            bottom: 8,
+            border: "2px solid #10b981",
+          }}
+        />
+        {/* Green accent square */}
+        <div
+          style={{
+            position: "absolute",
+            top: 8,
+            left: 8,
+            width: 12,
+            height: 12,
+            background: "#10b981",
+          }}
+        />
+        {/* Mono text */}
+        <span
+          style={{
             fontFamily: "Inter",
             fontWeight: 700,
-            fontSize: 72,
+            fontSize: 64,
+            color: "#1a1a1a",
+            letterSpacing: 2,
           }}
         >
-          E
-        </div>
+          DE
+        </span>
       </div>
     ),
     { ...size, fonts }
