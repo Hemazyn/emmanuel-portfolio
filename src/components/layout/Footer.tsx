@@ -5,9 +5,9 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-light-100 dark:bg-dark-100 border-light-300 dark:border-dark-400 relative overflow-hidden border-t">
+    <footer className="relative overflow-hidden border-t border-rule-soft bg-bg-surface">
       <div className="pointer-events-none absolute inset-0">
-        <div className="grid-pattern absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" />
+        <div className="dot-pattern absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" />
       </div>
 
       <FooterContent

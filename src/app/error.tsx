@@ -27,8 +27,8 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           </div>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-          <h1 className="text-dark dark:text-light font-heading mb-4 text-3xl font-bold md:text-4xl">Something Went Wrong</h1>
-          <p className="text-dark-400 dark:text-light-400 mb-8">An unexpected error occurred. Don&apos;t worry, these things happen! Let&apos;s try to fix it.</p>
+          <h1 className="text-ink font-heading mb-4 text-3xl font-bold md:text-4xl">Something Went Wrong</h1>
+          <p className="text-ink-soft mb-8">An unexpected error occurred. Don&apos;t worry, these things happen! Let&apos;s try to fix it.</p>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="flex flex-wrap justify-center gap-4">
           <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => reset()} className="bg-primary-500 hover:bg-primary-600 flex items-center gap-2 rounded-xl px-6 py-3 font-medium text-white transition-all duration-300">
@@ -37,7 +37,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           </motion.button>
 
           <Link href="/">
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-light-200 dark:bg-dark-300 border-light-300 dark:border-dark-400 text-dark dark:text-light hover:border-primary-500 flex items-center gap-2 rounded-xl border px-6 py-3 font-medium transition-all duration-300">
+            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-light-200 dark:bg-dark-300 border-light-300 dark:border-dark-400 text-ink hover:border-primary-500 flex items-center gap-2 rounded-xl border px-6 py-3 font-medium transition-all duration-300">
               <Home className="h-5 w-5" />
               Go Home
             </motion.button>

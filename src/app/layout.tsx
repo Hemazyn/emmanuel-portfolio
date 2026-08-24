@@ -1,23 +1,27 @@
 import type { Metadata } from "next"
-import { Inter, Sora, Fira_Code } from "next/font/google"
+import { VT323, Source_Serif_4, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 import ClientLayout from "@/components/layout/ClientLayout"
 import JsonLd from "@/components/ui/JsonLd"
 
-const inter = Inter({
+const vt323 = VT323({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: "400",
+  variable: "--font-vt323",
+  display: "swap",
 })
 
-const sora = Sora({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
-  variable: "--font-sora",
+  variable: "--font-source-serif",
+  display: "swap",
 })
 
-const firaCode = Fira_Code({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-fira-code",
+  variable: "--font-jetbrains-mono",
+  display: "swap",
 })
 
 const BASE_URL = "https://iamtofunmi.vercel.app"
@@ -116,7 +120,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className={`${inter.variable} ${sora.variable} ${firaCode.variable} antialiased`}>
+      <body className={`${vt323.variable} ${sourceSerif.variable} ${jetbrainsMono.variable} antialiased`}>
         <JsonLd
           person={{
             name: "Emmanuel Tofunmi",

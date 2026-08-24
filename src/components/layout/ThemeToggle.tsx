@@ -18,7 +18,7 @@ export default function ThemeToggle({ className }: { className?: string }) {
   const isMounted = useIsMounted()
 
   if (!isMounted) {
-    return <div className={cn("bg-light-200 dark:bg-dark-300 border-light-300 dark:border-dark-400 h-10 w-28 animate-pulse rounded-xl border", className)} />
+    return <div className={cn("border-rule-soft bg-bg-surface h-10 w-28 animate-pulse border", className)} />
   }
 
   const themes = [
@@ -28,11 +28,11 @@ export default function ThemeToggle({ className }: { className?: string }) {
   ]
 
   return (
-    <div className={cn("flex items-center gap-1 rounded-xl p-1", "bg-light-200 dark:bg-dark-300", "border-light-300 dark:border-dark-400 border", className)}>
+    <div className={cn("border-rule-soft bg-bg-surface flex items-center gap-1 border p-1", className)}>
       {themes.map(({ id, icon: Icon, label }) => {
         const isActive = theme === id
         return (
-          <motion.button key={id} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setTheme(id)} className={cn("relative flex cursor-pointer h-8 w-8 items-center justify-center rounded-lg transition-all duration-300", isActive ? "bg-primary-500 shadow-glow text-white" : "text-dark-400 dark:text-light-400 hover:text-dark dark:hover:text-light hover:bg-light-300 dark:hover:bg-dark-400")} aria-label={`Set theme to ${label}`} title={label}>
+          <motion.button key={id} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setTheme(id)} className={cn("relative flex h-8 w-8 cursor-pointer items-center justify-center transition-all duration-200", isActive ? "bg-accent text-white" : "text-ink-mute hover:bg-bg-surface-hover hover:text-ink")} aria-label={`Set theme to ${label}`} title={label}>
             <Icon className="h-4 w-4" />
           </motion.button>
         )

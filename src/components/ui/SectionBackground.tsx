@@ -12,8 +12,8 @@ export default function SectionBackground({ variant = "grid", className }: Secti
         className={cn(
           "absolute inset-0",
           variant === "grid"
-            ? "grid-pattern opacity-[0.03] dark:opacity-[0.06]"
-            : "dot-pattern opacity-[0.08] dark:opacity-[0.05]"
+            ? "grid-pattern opacity-[0.04] dark:opacity-[0.06]"
+            : "dot-pattern opacity-[0.06] dark:opacity-[0.04]"
         )}
       />
     </div>
