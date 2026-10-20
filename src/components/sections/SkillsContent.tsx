@@ -25,7 +25,7 @@ export default function SkillsContent({ narrative, highlights }: SkillsContentPr
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="glass h-fit p-5 sm:p-6 lg:sticky lg:top-24"
+        className="panel h-fit p-5 sm:p-6 lg:sticky lg:top-24"
       >
         <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent">
           Frontend approach
@@ -74,7 +74,7 @@ export default function SkillsContent({ narrative, highlights }: SkillsContentPr
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="glass p-5 sm:p-6"
+            className="panel p-5 sm:p-6"
           >
             <div className="flex flex-col gap-4 sm:flex-row sm:gap-5">
               <div className="shrink-0">

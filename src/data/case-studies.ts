@@ -1,9 +1,22 @@
+/**
+ * TODO(metrics): `summary` and `impactStats` values below are conservative
+ * placeholders derived from project scope, NOT verified numbers.
+ * Swap each one for a real figure (users, %, ms, $, team size, screens shipped)
+ * before publishing. Anything you can't confirm, delete rather than keep.
+ */
+export interface CaseStudyImpactStat {
+  value: string
+  label: string
+}
+
 export interface CaseStudy {
   id: number
   projectId: number
   title: string
   subtitle: string
   category: string
+  summary: string
+  impactStats: CaseStudyImpactStat[]
   problem: string
   approach: string
   solution: string
@@ -22,6 +35,13 @@ export const caseStudies: CaseStudy[] = [
     title: "TaskFlow",
     subtitle: "Errand & service management CRM",
     category: "CRM / Admin",
+    // TODO(metrics): placeholder — confirm screens/flows count
+    summary: "Dual-interface CRM — customer booking plus admin operations — shipped end-to-end as a project engagement.",
+    impactStats: [
+      { value: "2", label: "interfaces shipped: customer + admin" },
+      { value: "15+", label: "operational screens built" },
+      { value: "100%", label: "of service flows digitized" },
+    ],
     problem: "TaskFlow needed a CRM platform for managing everyday errands and service operations, including market runs, grocery shopping, meal prep, and cleaning services. The product required a lightweight customer booking flow and an admin interface for scheduling, client management, and order coordination.",
     approach: "I focused on creating a clear separation between the customer journey and the operations experience — keeping the booking flow simple and intuitive for users, while making the admin side more comprehensive for internal coordination and service management.",
     solution: "Built the frontend for both the customer-facing booking experience and the admin dashboard using Next.js and React. Implemented service selection, scheduling, order tracking, and operational screens for managing clients, requests, and service workflows.",
@@ -38,6 +58,13 @@ export const caseStudies: CaseStudy[] = [
     title: "SpectraPay",
     subtitle: "Crypto wallet & payment platform",
     category: "Fintech",
+    // TODO(metrics): placeholder — confirm flows count and team size
+    summary: "Production fintech dashboard covering onboarding, KYC, wallet and payments — built as primary frontend owner in a pre-seed team.",
+    impactStats: [
+      { value: "10+", label: "core fintech flows supported" },
+      { value: "5+", label: "cross-functional contributors enabled" },
+      { value: "KYC → payout", label: "journeys shipped to production" },
+    ],
     problem: "SpectraPay needed a customer-facing dashboard that could handle complex fintech operations — wallet management, crypto-to-Naira conversions, KYC verification flows, gift card trading, and instant bank withdrawals — within a single cohesive interface. The challenge was balancing security-sensitive workflows with a smooth and intuitive user experience.",
     approach: "I worked directly with the founder in a pre-seed, cross-functional team, taking primary responsibility for the frontend experience while collaborating with other team members across product delivery. We mapped the core user journeys — onboarding, KYC, wallet management, and payments — and structured the dashboard to support fast iteration without overcomplicating the product.",
     solution: "Built a responsive Next.js dashboard with TypeScript to support complex fintech user flows. Implemented KYC submission interfaces, wallet and transaction views, payment-related screens, and admin-facing operational interfaces, using Tailwind CSS for fast and consistent UI development.",
@@ -51,13 +78,20 @@ export const caseStudies: CaseStudy[] = [
   {
     id: 3,
     projectId: 1,
-    title: "Oyato",
-    subtitle: "Full-scale e-commerce platform",
+    title: "E-Commerce Platform",
+    subtitle: "Full-scale storefront and admin dashboard",
     category: "E-Commerce",
-    problem: "Oyato needed a full e-commerce platform for electronics and mobile brands, including a product catalog, search and filtering, a Pay Later option, inventory visibility, and operational admin tools. The product also needed strong performance and SEO support for product discovery.",
+    // TODO(metrics): placeholder — confirm screen count and release phases
+    summary: "SSR-backed storefront and admin dashboard for a multi-brand electronics marketplace with Pay Later support.",
+    impactStats: [
+      { value: "SSR", label: "rendering for SEO-critical pages" },
+      { value: "30+", label: "catalog, checkout & admin screens" },
+      { value: "3+", label: "release phases delivered" },
+    ],
+    problem: "The client needed a full e-commerce platform for electronics and mobile brands, including a product catalog, search and filtering, a Pay Later option, inventory visibility, and operational admin tools. The product also needed strong performance and SEO support for product discovery.",
     approach: "Working as part of the Tech 201 team, I focused on the customer-facing website and admin dashboard, aligning frontend implementation with backend services and broader product requirements. A key decision was using SSR for SEO-critical pages while keeping interactive shopping flows responsive on the client side.",
-    solution: "Built and maintained the Oyato website and admin dashboard using Next.js and React. Implemented product listing and discovery flows, search and filtering, pay-later related user flows, and admin interfaces for managing products, inventory, and operational tasks.",
-    impact: ["Built the customer-facing website and admin dashboard for a production e-commerce platform", "Implemented product catalog, search, filtering, and shopping-related user flows", "Supported the Oyato Pay Later experience within the purchase journey", "Built admin interfaces for inventory visibility and operational management"],
+    solution: "Built and maintained the storefront and admin dashboard using Next.js and React. Implemented product listing and discovery flows, search and filtering, pay-later related user flows, and admin interfaces for managing products, inventory, and operational tasks.",
+    impact: ["Built the customer-facing website and admin dashboard for a production e-commerce platform", "Implemented product catalog, search, filtering, and shopping-related user flows", "Supported the Pay Later experience within the purchase journey", "Built admin interfaces for inventory visibility and operational management"],
     technologies: ["Next.js", "React", "Tailwind CSS", "REST APIs", "State Management"],
     architecture: ["SSR for SEO-critical product pages", "Client-side state for interactive shopping flows", "Optimized image and data loading strategies", "Admin dashboard architecture for product and inventory management"],
     role: "Frontend Developer",
@@ -67,10 +101,17 @@ export const caseStudies: CaseStudy[] = [
   {
     id: 4,
     projectId: 3,
-    title: "Omavon",
-    subtitle: "Crypto payment integration platform",
+    title: "Crypto Payment Platform",
+    subtitle: "Embeddable payment integration platform",
     category: "Fintech",
-    problem: "Omavon needed a platform that enables businesses to accept crypto payments through an embeddable experience that felt simple and familiar. The main challenge was supporting a lightweight widget integration while maintaining a secure and reliable payment flow for merchants and end users.",
+    // TODO(metrics): placeholder — confirm module count
+    summary: "Embeddable crypto payment widget and merchant dashboard with secure cross-origin transaction flows.",
+    impactStats: [
+      { value: "1", label: "embeddable widget integration pattern" },
+      { value: "4+", label: "merchant-facing modules built" },
+      { value: "2", label: "surfaces: embedded widget + dashboard" },
+    ],
+    problem: "The client needed a platform that enables businesses to accept crypto payments through an embeddable experience that felt simple and familiar. The main challenge was supporting a lightweight widget integration while maintaining a secure and reliable payment flow for merchants and end users.",
     approach: "As part of the Tech 201 team, I contributed to the frontend experience around the payment widget and merchant-facing interfaces. The focus was on keeping the integration flow straightforward for merchants while supporting secure embedded interactions and clear transaction visibility.",
     solution: "Built frontend interfaces for the payment widget and merchant dashboard, including payment flow screens, merchant configuration views, and transaction monitoring interfaces. Supported the embedded widget experience and merchant tools needed for managing crypto payment activity.",
     impact: ["Contributed to the embeddable widget experience for low-friction merchant integration", "Built merchant dashboard interfaces for transaction monitoring and widget management", "Supported secure interaction patterns for embedded payment flows", "Helped simplify crypto payments into a more familiar business checkout experience"],

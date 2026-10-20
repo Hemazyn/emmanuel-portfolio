@@ -13,12 +13,15 @@
   --color-rule: #1a1a1a;
   --color-rule-soft: rgba(26, 26, 26, 0.16);
 
-  --color-accent: #10b981;
-  --color-accent-hover: #059669;
-  --color-accent-tint: rgba(16, 185, 129, 0.08);
-  --color-accent-tint-strong: rgba(16, 185, 129, 0.18);
+  /* Accent is AA-safe as text on the paper background (light) / black (dark).
+     --color-on-accent is the ink color to use ON accent fills. */
+  --color-accent: #059669;
+  --color-accent-hover: #047857;
+  --color-accent-tint: rgba(5, 150, 105, 0.08);
+  --color-accent-tint-strong: rgba(5, 150, 105, 0.18);
+  --color-on-accent: #ffffff;
 
-  --color-status-complete: #10b981;
+  --color-status-complete: #059669;
   --color-status-planned: #b8b6ad;
   --color-warn: #b8870f;
 
@@ -27,33 +30,7 @@
   --color-overlay: rgba(26, 26, 26, 0.55);
   --color-header-bg: rgba(250, 250, 245, 0.94);
 
-  /* Tailwind color tokens — green palette */
-  --color-primary-50: #ecfdf5;
-  --color-primary-100: #d1fae5;
-  --color-primary-200: #a7f3d0;
-  --color-primary-300: #6ee7b7;
-  --color-primary-400: #34d399;
-  --color-primary-500: #10b981;
-  --color-primary-600: #059669;
-  --color-primary-700: #047857;
-  --color-primary-800: #065f46;
-  --color-primary-900: #064e3b;
-  --color-primary-950: #022c22;
 
-  /* Dark palette — pure black/gray, zero blue */
-  --color-dark: #0a0a0a;
-  --color-dark-100: #111111;
-  --color-dark-200: #1a1a1a;
-  --color-dark-300: #232323;
-  --color-dark-400: #a8a6a0;
-  --color-dark-500: #c8c6c0;
-
-  /* Light palette — warm neutral gray, ZERO blue tint */
-  --color-light: #ffffff;
-  --color-light-100: #f5f5f4;
-  --color-light-200: #e7e5e4;
-  --color-light-300: #d6d3d1;
-  --color-light-400: #a8a29e;
 
   /* ─── Fonts ─── */
   --font-sans: "Source Serif 4", "Source Serif Pro", Georgia, serif;
@@ -72,14 +49,14 @@
   --motion-feedback: 180ms;
   --motion-enter: 220ms;
   --motion-drawer: 250ms;
-  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  /* Matches EASE_OUT in src/lib/animations.ts — one easing across CSS + Framer Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 
+  /* Brutalist signature — hard offset shadows, no blur */
   --shadow-hard: 3px 3px 0 var(--color-ink);
   --shadow-hard-lg: 5px 5px 0 var(--color-ink);
-  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.3);
-  --shadow-glow-lg: 0 0 40px rgba(16, 185, 129, 0.4);
 }
 
 /* ─── Dark mode — pure black/gray, green accent ─── */
@@ -98,6 +75,7 @@ html.dark {
   --color-accent-hover: #6ee7b7;
   --color-accent-tint: rgba(52, 211, 153, 0.1);
   --color-accent-tint-strong: rgba(52, 211, 153, 0.2);
+  --color-on-accent: #0a0a0a;
 
   --color-status-complete: #34d399;
   --color-status-planned: #4a4a48;
@@ -105,23 +83,6 @@ html.dark {
   --color-code-bg: #141414;
   --color-overlay: rgba(0, 0, 0, 0.75);
   --color-header-bg: rgba(10, 10, 10, 0.94);
-
-  --color-primary-400: #6ee7b7;
-  --color-primary-500: #34d399;
-  --color-primary-600: #34d399;
-  --color-primary-700: #10b981;
-  --color-primary-800: #059669;
-  --color-primary-900: #047857;
-
-  /* Dark light palette — pure neutral gray, zero blue */
-  --color-light: #1a1a1a;
-  --color-light-100: #1e1e1e;
-  --color-light-200: #262626;
-  --color-light-300: #333333;
-  --color-light-400: #6b6b6b;
-
-  --shadow-glow: 0 0 20px rgba(52, 211, 153, 0.3);
-  --shadow-glow-lg: 0 0 40px rgba(52, 211, 153, 0.4);
 }
 
 a,
@@ -221,11 +182,7 @@ button {
 
   ::selection {
     background: var(--color-accent);
-    color: #fff;
-  }
-
-  html.dark ::selection {
-    color: #0a0a0a;
+    color: var(--color-on-accent);
   }
 
   *:focus-visible {
@@ -246,7 +203,7 @@ button {
     clip-path: inset(50%);
     white-space: nowrap;
     background: var(--color-accent);
-    color: #fff;
+    color: var(--color-on-accent);
     font-family: var(--font-mono);
     font-size: 0.9rem;
     text-decoration: none;
@@ -344,25 +301,34 @@ button {
 
   .btn-primary {
     background: var(--color-accent);
-    color: #fff;
+    color: var(--color-on-accent);
     border-color: var(--color-accent);
   }
 
+  /* Brutalist press: card lifts off the paper with a hard offset shadow */
   .btn-primary:hover {
     background: var(--color-accent-hover);
-    color: #fff;
+    color: var(--color-on-accent);
     border-color: var(--color-accent-hover);
+    box-shadow: var(--shadow-hard);
+    transform: translate(-2px, -2px);
   }
 
-  .btn-secondary {
-    background: transparent;
-    color: var(--color-ink);
-    border-color: var(--color-ink);
+  .btn-primary:active {
+    box-shadow: none;
+    transform: none;
   }
 
   .btn-secondary:hover {
     background: var(--color-ink);
     color: var(--color-bg);
+    box-shadow: var(--shadow-hard);
+    transform: translate(-2px, -2px);
+  }
+
+  .btn-secondary:active {
+    box-shadow: none;
+    transform: none;
   }
 
   .section {
@@ -390,23 +356,29 @@ button {
     margin-bottom: 40px;
   }
 
+  /* Surfaces: hard-edge panel on paper. ("glass" kept as an alias — no blur,
+     brutalist flat surface.) */
+  .panel,
   .glass {
     background: var(--color-bg-surface);
     border: 1px solid var(--color-rule-soft);
     border-radius: 0;
   }
 
+  html.dark .panel,
   html.dark .glass {
     background: var(--color-bg-surface);
     border-color: var(--color-rule-soft);
   }
 
+  .panel-strong,
   .glass-strong {
     background: var(--color-bg);
     border: 1px solid var(--color-rule-soft);
     border-radius: 0;
   }
 
+  /* Solid accent text — kept the legacy name as an alias for one release */
   .gradient-text {
     color: var(--color-accent);
   }
@@ -438,6 +410,7 @@ button {
     border-color: var(--color-accent);
   }
 
+  /* Flat accent button — same recipe as .btn.btn-primary; kept as an alias */
   .glow-button {
     position: relative;
     overflow: hidden;
@@ -449,10 +422,11 @@ button {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     background: var(--color-accent);
-    color: #fff;
+    color: var(--color-on-accent);
     border: 1px solid var(--color-accent);
     transition:
       transform var(--motion-press) var(--ease-out),
+      box-shadow var(--motion-press) var(--ease-out),
       background-color var(--motion-feedback) ease,
       color var(--motion-feedback) ease;
   }
@@ -460,10 +434,13 @@ button {
   .glow-button:hover {
     background: var(--color-accent-hover);
     border-color: var(--color-accent-hover);
+    box-shadow: var(--shadow-hard);
+    transform: translate(-2px, -2px);
   }
 
   .glow-button:active {
-    transform: scale(0.97);
+    box-shadow: none;
+    transform: none;
   }
 
   .tag {
@@ -518,11 +495,6 @@ button {
   .dot-pattern {
     background-image: radial-gradient(circle, var(--color-paper-dot) 1px, transparent 1px);
     background-size: 16px 16px;
-  }
-
-  .animated-gradient {
-    background: linear-gradient(-45deg, var(--color-accent), var(--color-accent-hover));
-    background-size: 400% 400%;
   }
 }
 

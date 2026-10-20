@@ -32,26 +32,19 @@ export default function Hero() {
       {/* Background — paper dot grid */}
       <div className="pointer-events-none absolute inset-0">
         <div className="dot-pattern absolute inset-0 opacity-[0.04] dark:opacity-[0.06]" />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at 30% 50%, rgba(16,185,129,0.06), transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(16,185,129,0.03), transparent 40%)",
-          }}
-        />
 
         {/* Decorative corner lines */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
-          className="from-primary-500/40 absolute top-1/3 left-0 hidden h-px w-32 origin-left bg-gradient-to-r to-transparent lg:block"
+          className="bg-accent/40 absolute top-1/3 left-0 hidden h-px w-32 origin-left lg:block"
         />
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 1.2, delay: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
-          className="from-primary-500/40 absolute right-0 bottom-1/3 hidden h-px w-32 origin-right bg-gradient-to-l to-transparent lg:block"
+          className="bg-accent/40 absolute right-0 bottom-1/3 hidden h-px w-32 origin-right lg:block"
         />
       </div>
 
@@ -69,10 +62,7 @@ export default function Hero() {
             animate="visible"
             className="mb-6 flex items-center gap-3 sm:mb-8"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="bg-primary-400 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
-              <span className="bg-primary-500 relative inline-flex h-2 w-2 rounded-full" />
-            </span>
+            <span className="bg-accent relative inline-flex h-2 w-2" />
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-mute sm:text-[11px]">
               Available for work
             </span>
@@ -100,7 +90,7 @@ export default function Hero() {
                 animate="visible"
                 className="font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.9] uppercase tracking-wide"
               >
-                <span className="text-primary-600 dark:text-primary-400">Frontend Engineer</span>
+                <span className="text-accent">Frontend Engineer</span>
                 <span className="text-ink/30"> for modern web</span>
               </motion.h2>
             </div>
@@ -135,16 +125,16 @@ export default function Hero() {
             <a
               href="#contact"
               onClick={(e) => handleScroll(e, "contact")}
-              className="group bg-primary-600 hover:bg-primary-700 hover:shadow-glow inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 sm:px-6 sm:py-3"
+              className="btn btn-primary group inline-flex items-center gap-2 text-sm"
             >
               Let&apos;s work together
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
             </a>
 
             <a
               href={personalInfo.resumeUrl}
               download={personalInfo.resumeFileName}
-              className="border-ink/10 text-ink hover:border-primary-500/50 hover:text-primary-600 inline-flex items-center gap-2 rounded-full border bg-transparent px-5 py-2.5 text-sm font-medium transition-all duration-300 sm:px-6 sm:py-3"
+              className="btn btn-secondary inline-flex items-center gap-2 text-sm"
             >
               <Download className="h-4 w-4" />
               Resume
@@ -168,7 +158,7 @@ export default function Hero() {
           <span className="font-mono text-[9px] uppercase tracking-[0.35em] text-ink-mute/40">
             Scroll
           </span>
-          <div className="from-primary-500/60 h-6 w-px bg-gradient-to-b to-transparent sm:h-8" />
+          <div className="bg-accent/60 h-6 w-px sm:h-8" />
         </motion.div>
       </motion.div>
     </section>

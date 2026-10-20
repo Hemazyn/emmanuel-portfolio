@@ -1,4 +1,4 @@
-import { oyato1, oyato2, oyato3, oyato4, oyato5, spactrapay1, spactrapay2, spactrapay3, spactrapay4, omavon1, omavon2, omavon3, omavon4, omavon5, taskflow1, taskflow2, taskflow3, taskflow4, taskflow5, taskflow6, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, weather4, weather5, tip1, tip2, tip3, tip4, scp1, scp2, cps1, cps2, cps3, cps4 } from "../../public/project_image"
+import { spactrapay1, spactrapay2, spactrapay3, spactrapay4, taskflow1, taskflow2, taskflow3, taskflow4, taskflow5, taskflow6, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, weather4, weather5, tip1, tip2, tip3, tip4, scp1, scp2, cps1, cps2, cps3, cps4, var1, var2, var3, cry1, cry2 } from "../../public/project_image"
 
 export const projectCategories = [
   { id: "all", name: "All" },
@@ -17,13 +17,13 @@ function img(source: string | { src?: string }): string {
 export const projectsData = [
   {
     id: 1,
-    title: "Oyato",
-    slug: "oyato",
+    title: "E-Commerce Platform",
+    slug: "e-commerce-platform",
     category: "e-commerce",
     subtitle: "Full-scale e-commerce platform",
-    description: "A complete e-commerce platform for top electronics and mobile brands. Features product catalog, Oyato Pay Later system, optimized caching, admin dashboard, and real-time inventory management.",
-    images: [oyato1, oyato2, oyato3, oyato4, oyato5].map(img),
-    liveUrl: "https://v2-sand-site.oyato.ng/",
+    description: "A complete e-commerce platform for top electronics and mobile brands. Features product catalog, Pay Later system, optimized caching, admin dashboard, and real-time inventory management.",
+    images: [var3, var2, var1].map(img),
+    liveUrl: null,
     githubUrl: null,
     technologies: ["Next.js", "React", "Tailwind CSS", "REST APIs"],
     featured: true,
@@ -43,13 +43,13 @@ export const projectsData = [
   },
   {
     id: 3,
-    title: "Omavon",
-    slug: "omavon",
+    title: "Crypto Payment Platform",
+    slug: "crypto-payment-platform",
     category: "fintech",
     subtitle: "Crypto payment integration platform",
     description: "A platform that lets businesses accept crypto payments as easily as credit cards. Features an embeddable iframe widget for seamless integration and enterprise-grade crypto payment solutions.",
-    images: [omavon1, omavon2, omavon3, omavon4, omavon5].map(img),
-    liveUrl: "https://withomavon.com/",
+    images: [cry1, cry2].map(img),
+    liveUrl: null,
     githubUrl: null,
     technologies: ["React", "Tailwind CSS", "Framer Motion"],
     featured: true,

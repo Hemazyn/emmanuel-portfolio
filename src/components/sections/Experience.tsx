@@ -22,16 +22,36 @@ export default function Experience() {
     setActiveIndex((prev) => (prev === total - 1 ? 0 : prev + 1))
   }
 
+  /** Arrow-key navigation for the tablists — activation follows focus. */
+  const handleTabKeyDown = (e: React.KeyboardEvent, index: number) => {
+    let next: number | null = null
+    switch (e.key) {
+      case "ArrowDown":
+      case "ArrowRight":
+        next = (index + 1) % total
+        break
+      case "ArrowUp":
+      case "ArrowLeft":
+        next = (index - 1 + total) % total
+        break
+      case "Home":
+        next = 0
+        break
+      case "End":
+        next = total - 1
+        break
+      default:
+        return
+    }
+    e.preventDefault()
+    setActiveIndex(next)
+    document.getElementById(`experience-tab-${experienceData[next].id}`)?.focus()
+  }
+
   return (
     <section id="experience" className="relative overflow-hidden border-t border-rule-soft py-20 sm:py-24 lg:py-28">
       {/* Background */}
       <SectionBackground />
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background: "radial-gradient(ellipse at 70% 0%, rgba(16,185,129,0.04), transparent 40%)",
-        }}
-      />
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-7">
         <SectionHeader
@@ -49,7 +69,7 @@ export default function Experience() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="glass inline-flex items-center gap-3 px-4 py-2.5"
+              className="panel inline-flex items-center gap-3 px-4 py-2.5"
             >
               <span className="font-display text-lg text-accent sm:text-xl">{stat.value}</span>
               <span className="text-xs text-ink-mute sm:text-sm">{stat.label}</span>
@@ -58,12 +78,18 @@ export default function Experience() {
         </motion.div>
 
         {/* Mobile company pills */}
-        <div className="scrollbar-hide mb-6 flex gap-2 overflow-x-auto pb-1 lg:hidden">
+        <div role="tablist" aria-label="Work experience" className="scrollbar-hide mb-6 flex gap-2 overflow-x-auto pb-1 lg:hidden">
           {experienceData.map((item, index) => (
             <button
               key={item.id}
+              id={`experience-tab-${item.id}`}
               type="button"
+              role="tab"
+              aria-selected={activeIndex === index}
+              aria-controls="experience-panel"
+              tabIndex={activeIndex === index ? 0 : -1}
               onClick={() => setActiveIndex(index)}
+              onKeyDown={(e) => handleTabKeyDown(e, index)}
               className={cn(
                 "shrink-0 border px-3 py-1.5 text-xs transition-all duration-200",
                 activeIndex === index
@@ -81,22 +107,28 @@ export default function Experience() {
           <motion.aside custom={0.1} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="relative hidden lg:block">
             <div className="absolute top-2 bottom-2 left-2.5 w-px bg-ink/8" />
 
-            <div className="space-y-2">
+            <div role="tablist" aria-label="Work experience" className="space-y-2">
               {experienceData.map((item, index) => {
                 const isActive = activeIndex === index
 
                 return (
                   <button
                     key={item.id}
+                    id={`experience-tab-${item.id}`}
                     type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-controls="experience-panel"
+                    tabIndex={isActive ? 0 : -1}
                     onClick={() => setActiveIndex(index)}
+                    onKeyDown={(e) => handleTabKeyDown(e, index)}
                     className="group relative block w-full pl-8 text-left"
                   >
                     <span
                       className={cn(
                         "absolute top-4 left-1.5 h-2.25 w-2.25 border-2 transition-all duration-200",
                         isActive
-                          ? "border-accent bg-accent shadow-[0_0_0_4px_rgba(16,185,129,0.10)]"
+                          ? "border-accent bg-accent shadow-[0_0_0_4px_var(--color-accent-tint)]"
                           : "border-ink/15 bg-bg"
                       )}
                     />
@@ -125,7 +157,13 @@ export default function Experience() {
 
           {/* Active card — hard edge */}
           <motion.div custom={0.16} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <div className="overflow-hidden border border-rule-soft bg-bg">
+            <div
+              id="experience-panel"
+              role="tabpanel"
+              aria-labelledby={`experience-tab-${activeExperience.id}`}
+              tabIndex={0}
+              className="overflow-hidden border border-rule-soft bg-bg"
+            >
               <AnimatePresence mode="wait">
                 <motion.article
                   key={activeExperience.id}
@@ -154,7 +192,7 @@ export default function Experience() {
 
                         {activeExperience.isCurrentRole && (
                           <span className="inline-flex items-center gap-1.5 border border-accent-tint-strong bg-accent-tint px-2.5 py-1 text-[11px] font-mono font-medium text-accent">
-                            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                            <span className="h-1.5 w-1.5 bg-accent" />
                             Current
                           </span>
                         )}
@@ -170,11 +208,11 @@ export default function Experience() {
                           {activeExperience.location}
                         </span>
 
-                        <span className="hidden h-1 w-1 rounded-full bg-ink/15 sm:block" />
+                        <span className="hidden h-1 w-1 bg-ink/15 sm:block" />
 
                         <span>{activeExperience.type}</span>
 
-                        <span className="hidden h-1 w-1 rounded-full bg-ink/15 sm:block" />
+                        <span className="hidden h-1 w-1 bg-ink/15 sm:block" />
 
                         <span className="font-mono text-[11px] uppercase tracking-[0.14em]">
                           {activeExperience.startDate} — {activeExperience.endDate}
