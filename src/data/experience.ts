@@ -9,9 +9,9 @@ export const experienceData = [
     startDate: "Jul 2025",
     endDate: "Present",
     isCurrentRole: true,
-    description: "Architected a hybrid SSR/ISR Next.js storefront with cached server-side data fetches and CDN image delivery via ImageKit. Led end-to-end delivery of Oyato, a full-stack e-commerce platform spanning a customer storefront and admin dashboard.",
+    description: "Architected a hybrid SSR/ISR Next.js storefront with cached server-side data fetches and CDN image delivery via ImageKit. Led end-to-end delivery of a full-stack e-commerce platform spanning a customer storefront and admin dashboard.",
     technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "REST APIs", "MongoDB"],
-    achievements: ["Held First Contentful Paint at 0.4s and admin dashboard LCP at 1.5s using SSR/ISR and CDN image delivery", "Shipped Oyato e-commerce platform with catalog search, BNPL checkout (Paystack/Flutterwave/Monify), order tracking, wishlist, referral flows, and Google + email auth", "Consolidated admin order management into a single view with status tabs, 5-way filtering, bulk cancel, Excel export, and one-click status progression", "Reduced production regression bugs by 25% across release cycles by implementing comprehensive Jest and React Testing Library coverage"],
+    achievements: ["Held First Contentful Paint at 0.4s and admin dashboard LCP at 1.5s using SSR/ISR and CDN image delivery", "Shipped an e-commerce platform with catalog search, BNPL checkout (Paystack/Flutterwave/Monify), order tracking, wishlist, referral flows, and Google + email auth", "Consolidated admin order management into a single view with status tabs, 5-way filtering, bulk cancel, Excel export, and one-click status progression", "Reduced production regression bugs by 25% across release cycles by implementing comprehensive Jest and React Testing Library coverage"],
   },
   {
     id: 2,

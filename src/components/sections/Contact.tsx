@@ -23,12 +23,6 @@ export default function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden border-t border-rule-soft bg-bg-surface py-20">
       <SectionBackground />
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background: "radial-gradient(ellipse at 15% 20%, rgba(16,185,129,0.03), transparent 35%), radial-gradient(ellipse at 85% 80%, rgba(16,185,129,0.02), transparent 35%)",
-        }}
-      />
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-7">
         <SectionHeader
@@ -44,15 +38,15 @@ export default function Contact() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="glass flex flex-col justify-between p-6 sm:p-8"
+            className="panel flex flex-col justify-between p-6 sm:p-8"
           >
             <div>
               {/* Status badges — hard edge */}
               <div className="mb-6 flex flex-wrap gap-2.5">
                 <span className="inline-flex items-center gap-2 border border-accent-tint-strong bg-accent-tint px-3 py-1.5 font-mono text-xs font-medium text-accent">
                   <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+                    <span className="absolute inline-flex h-full w-full animate-ping bg-accent opacity-75" />
+                    <span className="relative inline-flex h-1.5 w-1.5 bg-accent" />
                   </span>
                   {contactInfo.availability}
                 </span>
@@ -127,7 +121,7 @@ export default function Contact() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="glass flex flex-col p-6 sm:p-7"
+            className="panel flex flex-col p-6 sm:p-7"
           >
             {/* Location */}
             <div className="flex items-center gap-3 border-b border-rule-soft pb-5">

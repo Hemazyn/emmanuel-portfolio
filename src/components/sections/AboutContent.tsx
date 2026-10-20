@@ -30,7 +30,7 @@ export default function AboutContent({
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="glass p-6 sm:p-8"
+        className="panel p-6 sm:p-8"
       >
         <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent">
           About me
@@ -104,7 +104,7 @@ export default function AboutContent({
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="glass p-6 sm:p-7"
+        className="panel p-6 sm:p-7"
       >
         <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent">
           Snapshot

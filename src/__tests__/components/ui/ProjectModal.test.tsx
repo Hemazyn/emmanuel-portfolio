@@ -11,11 +11,11 @@ vi.mock("next/image", () => ({
 
 const project = {
   id: 1,
-  title: "Oyato",
-  slug: "oyato",
+  title: "E-Commerce Platform",
+  slug: "e-commerce-platform",
   category: "e-commerce",
   description: "A complete e-commerce platform.",
-  images: ["/oyato1.png", "/oyato2.png"],
+  images: ["/var1.png", "/var2.png"],
   technologies: ["Next.js", "React"],
   liveUrl: "https://example.com",
   githubUrl: null,
@@ -28,7 +28,7 @@ describe("ProjectModal", () => {
 
     const dialog = screen.getByRole("dialog")
     expect(dialog).toHaveAttribute("aria-modal", "true")
-    expect(dialog).toHaveAccessibleName("Oyato")
+    expect(dialog).toHaveAccessibleName("E-Commerce Platform")
     expect(screen.getByRole("button", { name: "Close project details" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Previous image" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Next image" })).toBeInTheDocument()

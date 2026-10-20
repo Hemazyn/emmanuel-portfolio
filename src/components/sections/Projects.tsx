@@ -58,12 +58,6 @@ export default function Projects() {
   return (
     <section id="projects" className="relative overflow-hidden border-t border-rule-soft py-20">
       <SectionBackground variant="dots" />
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background: "radial-gradient(ellipse at 20% 20%, rgba(16,185,129,0.03), transparent 35%)",
-        }}
-      />
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-7">
         <SectionHeader
@@ -112,18 +106,6 @@ export default function Projects() {
                 onClick={() => handleViewDetails(project)}
                 className="group relative cursor-pointer border border-rule-soft bg-bg transition-all duration-200 hover:border-accent"
               >
-                {/* Keyboard-accessible trigger */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleViewDetails(project)
-                  }}
-                  aria-label={`View details for ${project.title}`}
-                  aria-haspopup="dialog"
-                  className="absolute inset-0 z-10 cursor-pointer"
-                />
-
                 {/* Green accent left border */}
                 <div className="absolute top-0 bottom-0 left-0 w-[3px] bg-accent/0 transition-colors duration-200 group-hover:bg-accent" />
 
@@ -147,7 +129,7 @@ export default function Projects() {
 
                   {/* Category badge — green accent */}
                   <div className="absolute top-2.5 left-2.5">
-                    <span className="bg-accent px-2 py-0.5 font-mono text-[9px] font-medium uppercase tracking-wider text-white">
+                    <span className="bg-accent px-2 py-0.5 font-mono text-[9px] font-medium uppercase tracking-wider text-[var(--color-on-accent)]">
                       {getCategoryName(project.category)}
                     </span>
                   </div>
@@ -187,7 +169,19 @@ export default function Projects() {
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
                       <h3 className="font-display text-base uppercase leading-tight tracking-wide text-ink">
-                        {project.title}
+                        {/* Real accessible trigger for the modal (replaces the old
+                            invisible full-card button) */}
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleViewDetails(project)
+                          }}
+                          aria-haspopup="dialog"
+                          className="text-left transition-colors duration-200 hover:text-accent"
+                        >
+                          {project.title}
+                        </button>
                       </h3>
                       {project.subtitle && (
                         <p className="mt-0.5 text-[11px] leading-snug text-accent">
