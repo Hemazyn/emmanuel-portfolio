@@ -1,4 +1,4 @@
-import { spactrapay1, spactrapay2, spactrapay3, spactrapay4, taskflow1, taskflow2, taskflow3, taskflow4, taskflow5, taskflow6, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, weather4, weather5, tip1, tip2, tip3, tip4, scp1, scp2, cps1, cps2, cps3, cps4, var1, var2, var3, cry1, cry2 } from "../../public/project_image"
+import { spactrapay1, spactrapay2, spactrapay3, spactrapay4, taskflow1, taskflow2, taskflow3, taskflow4, taskflow5, taskflow6, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, weather4, weather5, tip1, tip2, tip3, tip4, scp1, scp2, cps1, cps2, cps3, cps4, var1, var2, var3, cry1, cry2, trc1, trc2, trc3, trc4 } from "../../public/project_image"
 
 export const projectCategories = [
   { id: "all", name: "All" },
@@ -143,6 +143,19 @@ export const projectsData = [
     liveUrl: "https://tryscholarpath.vercel.app/",
     githubUrl: "https://github.com/Hemazyn/scholarpath",
     technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    featured: false,
+  },
+  {
+    id: 11,
+    title: "TruthCap",
+    slug: "truthcap",
+    category: "tool",
+    subtitle: "Shared agreement capture tool",
+    description: "Turns everyday agreements into shared, timestamped records both people acknowledge. Between a chat screenshot and a formal contract. No account needed.",
+    images: [trc1, trc2, trc3, trc4].map(img),
+    liveUrl: "https://truthcap.vercel.app",
+    githubUrl: "https://github.com/Hemazyn/truthcap",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Zustand"],
     featured: false,
   },
 ]
