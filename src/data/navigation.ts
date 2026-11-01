@@ -25,6 +25,11 @@ export const socialLinks = [
     icon: "Twitter",
   },
   {
+    name: "Discord",
+    href: "https://discordapp.com/users/dev_emma",
+    icon: "FaDiscord",
+  },
+  {
     name: "Email",
     href: "mailto:immanueltofunmi@gmail.com",
     icon: "Mail",
@@ -38,11 +43,12 @@ export const personalInfo = {
   phone: "+2349019487450",
   location: "Lagos, Nigeria",
   website: "https://iamtofunmi.vercel.app/",
-  resumeUrl: "/resume/Emmanuel_Tofunmi_Resume.pdf",
+  resumeUrl: "/resume/Immanuel_Tofunmi.pdf",
   resumeFileName: "Immanuel_Tofunmi.pdf",
   socials: [
     { name: "GitHub", url: "https://github.com/hemazyn" },
     { name: "LinkedIn", url: "https://www.linkedin.com/in/devemma/" },
     { name: "Twitter", url: "https://x.com/imanuel_tofunmi" },
+    { name: "Discord", url: "https://discordapp.com/users/dev_emma" },
   ],
 }

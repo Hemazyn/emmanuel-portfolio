@@ -1,16 +1,9 @@
-/**
- * Generates src/app/favicon.ico — a real ICO with embedded PNG entries
- * (16x16 and 32x32) matching the ImageResponse-generated icon design.
- *
- * Run with: node scripts/generate-favicon.mjs
- * Requires no dependencies (uses node:zlib only).
- */
 import { deflateSync } from "node:zlib"
 import { writeFileSync, mkdirSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { dirname, join } from "node:path"
 
-// --- PNG encoding ---------------------------------------------------------
+// PNG encoding
 
 const CRC_TABLE = (() => {
   const table = new Uint32Array(256)
@@ -53,7 +46,7 @@ function encodePNG(width, height, rgba) {
   return Buffer.concat([sig, chunk("IHDR", ihdr), chunk("IDAT", deflateSync(raw)), chunk("IEND", Buffer.alloc(0))])
 }
 
-// --- Drawing ---------------------------------------------------------------
+// Drawing
 
 function inRoundedRect(x, y, minX, minY, maxX, maxY, r) {
   if (x < minX || x > maxX || y < minY || y > maxY) return false
@@ -126,7 +119,7 @@ function drawIcon(size) {
   return encodePNG(size, size, px)
 }
 
-// --- ICO assembly -----------------------------------------------------------
+// ICO assembly
 
 function encodeICO(images) {
   const header = Buffer.alloc(6)
@@ -152,7 +145,7 @@ function encodeICO(images) {
   return Buffer.concat([header, ...entries, ...images.map((img) => img.png)])
 }
 
-// --- Main --------------------------------------------------------------------
+// Main
 
 const here = dirname(fileURLToPath(import.meta.url))
 const outDir = join(here, "..", "src", "app")
