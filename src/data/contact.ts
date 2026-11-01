@@ -47,4 +47,9 @@ export const socialLinks = [
     url: "https://x.com/imanuel_tofunmi",
     username: "Emmanuel Tofunmi",
   },
+  {
+    name: "Discord",
+    url: "https://discordapp.com/users/dev_emma",
+    username: "@dev_emma",
+  },
 ]

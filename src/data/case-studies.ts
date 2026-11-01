@@ -1,9 +1,3 @@
-/**
- * TODO(metrics): `summary` and `impactStats` values below are conservative
- * placeholders derived from project scope, NOT verified numbers.
- * Swap each one for a real figure (users, %, ms, $, team size, screens shipped)
- * before publishing. Anything you can't confirm, delete rather than keep.
- */
 export interface CaseStudyImpactStat {
   value: string
   label: string
