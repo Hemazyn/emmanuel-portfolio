@@ -43,7 +43,7 @@ export default function Contact() {
             <div>
               {/* Status badges — hard edge */}
               <div className="mb-6 flex flex-wrap gap-2.5">
-                <span className="inline-flex items-center gap-2 border border-accent-tint-strong bg-accent-tint px-3 py-1.5 font-mono text-xs font-medium text-accent">
+                <span className="inline-flex items-center gap-2 border border-accent-tint-strong bg-accent-tint px-3 py-1.5 font-mono text-xs font-medium tracking-[0.08em] text-accent">
                   <span className="relative flex h-1.5 w-1.5">
                     <span className="absolute inline-flex h-full w-full animate-ping bg-accent opacity-75" />
                     <span className="relative inline-flex h-1.5 w-1.5 bg-accent" />
@@ -51,7 +51,7 @@ export default function Contact() {
                   {contactInfo.availability}
                 </span>
 
-                <span className="inline-flex border border-rule-soft px-3 py-1.5 font-mono text-xs text-ink-mute">
+                <span className="inline-flex border border-rule-soft px-3 py-1.5 font-mono text-xs tracking-[0.08em] text-ink-mute">
                   {contactInfo.responseTime}
                 </span>
               </div>

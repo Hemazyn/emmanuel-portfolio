@@ -44,7 +44,7 @@ export default async function OpenGraphImage() {
           left: 0,
           right: 0,
           height: 3,
-          background: "#059669",
+          background: "#047857",
         }}
       />
 
@@ -56,7 +56,7 @@ export default async function OpenGraphImage() {
           left: 0,
           bottom: 0,
           width: 3,
-          background: "#059669",
+          background: "#047857",
         }}
       />
 
@@ -78,7 +78,7 @@ export default async function OpenGraphImage() {
               width: 40,
               height: 40,
               background: "#fafaf5",
-              border: "2px solid #059669",
+              border: "2px solid #047857",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -93,7 +93,7 @@ export default async function OpenGraphImage() {
                 left: -2,
                 width: 10,
                 height: 10,
-                background: "#059669",
+                background: "#047857",
               }}
             />
             <span
@@ -131,7 +131,7 @@ export default async function OpenGraphImage() {
                 fontSize: 11,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "#7a7a78",
+                color: "#6e6e6b",
               }}
             >
               Frontend Engineer
@@ -149,8 +149,8 @@ export default async function OpenGraphImage() {
             fontSize: 11,
             letterSpacing: "0.1em",
             textTransform: "uppercase",
-            color: "#059669",
-            border: "1px solid rgba(5,150,105,0.3)",
+            color: "#047857",
+            border: "1px solid rgba(4,120,87,0.3)",
             padding: "8px 16px",
           }}
         >
@@ -158,14 +158,14 @@ export default async function OpenGraphImage() {
             style={{
               width: 8,
               height: 8,
-              background: "#059669",
+              background: "#047857",
             }}
           />
           Available for work
         </div>
       </div>
 
-      {/* ASCII rule — matches globals.css .ascii-rule */}
+      {/* Accent rule */}
       <div
         style={{
           display: "flex",
@@ -179,7 +179,7 @@ export default async function OpenGraphImage() {
           style={{
             width: "100%",
             height: 3,
-            backgroundImage: "repeating-linear-gradient(to right, #059669 0, #059669 4px, transparent 4px, transparent 8px)",
+            backgroundImage: "repeating-linear-gradient(to right, #047857 0, #047857 4px, transparent 4px, transparent 8px)",
             marginTop: 1,
           }}
         />
@@ -187,7 +187,7 @@ export default async function OpenGraphImage() {
           style={{
             width: "100%",
             height: 3,
-            backgroundImage: "repeating-linear-gradient(to right, transparent 0, transparent 8px, rgba(5,150,105,0.18) 8px, rgba(5,150,105,0.18) 14px)",
+            backgroundImage: "repeating-linear-gradient(to right, transparent 0, transparent 8px, rgba(4,120,87,0.18) 8px, rgba(4,120,87,0.18) 14px)",
             marginTop: 1,
           }}
         />
@@ -226,7 +226,7 @@ export default async function OpenGraphImage() {
             letterSpacing: "0.02em",
             lineHeight: 0.9,
             textTransform: "uppercase",
-            color: "#059669",
+            color: "#047857",
           }}
         >
           frontend systems.
@@ -267,9 +267,9 @@ export default async function OpenGraphImage() {
                 fontWeight: 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "#059669",
-                background: "rgba(5,150,105,0.08)",
-                border: "1px solid rgba(5,150,105,0.18)",
+                color: "#047857",
+                background: "rgba(4,120,87,0.08)",
+                border: "1px solid rgba(4,120,87,0.18)",
                 padding: "5px 12px",
               }}
             >
@@ -283,7 +283,7 @@ export default async function OpenGraphImage() {
             fontFamily: "JetBrains Mono",
             fontSize: 11,
             letterSpacing: "0.1em",
-            color: "#7a7a78",
+            color: "#6e6e6b",
           }}
         >
           © {new Date().getFullYear()} Emmanuel Tofunmi

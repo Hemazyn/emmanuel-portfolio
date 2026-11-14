@@ -42,10 +42,6 @@ export default function SectionHeader({ badge, title, subtitle, align = "center"
         {title.highlight && <span className="text-accent">{title.highlight}</span>}
       </h2>
 
-      {/* ASCII rule — inline under the heading text */}
-      <div className={cn("flex", align === "center" ? "justify-center" : align === "right" ? "justify-end" : "justify-start")}>
-        <div className="ascii-rule w-48" />
-      </div>
 
       {subtitle && (
         <p className={cn("section-subtitle", align === "center" && "mx-auto")}>

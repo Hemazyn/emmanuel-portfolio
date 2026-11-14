@@ -17,8 +17,8 @@ export default function NotFound() {
       {/* Background — paper dot grid */}
       <div className="pointer-events-none absolute inset-0">
         <div className="dot-pattern absolute inset-0 opacity-[0.04] dark:opacity-[0.06]" />
-        <div className="bg-accent/40 absolute top-1/3 left-0 hidden h-px w-32 lg:block" />
-        <div className="bg-accent/40 absolute right-0 bottom-1/3 hidden h-px w-32 lg:block" />
+        <div className="bg-rule-soft absolute top-1/3 left-0 hidden h-px w-32 lg:block" />
+        <div className="bg-rule-soft absolute right-0 bottom-1/3 hidden h-px w-32 lg:block" />
       </div>
 
       <div className="absolute top-6 right-6 z-50">
@@ -49,7 +49,7 @@ export default function NotFound() {
             animate="visible"
             className="relative inline-block"
           >
-            <h1 className="font-display text-[clamp(5rem,18vw,10rem)] leading-none tracking-wide text-ink">
+            <h1 className="font-display text-[clamp(5rem,18vw,10rem)] uppercase leading-none tracking-wide text-ink">
               4<span className="text-accent">0</span>4
             </h1>
             <div className="border-accent-tint-strong bg-accent-tint absolute -top-3 -right-6 flex h-12 w-12 items-center justify-center border md:-right-10 md:h-16 md:w-16">
@@ -63,8 +63,6 @@ export default function NotFound() {
             initial="hidden"
             animate="visible"
           >
-            <div className="ascii-rule mx-auto my-6 w-48" />
-
             <h2 className="font-display text-2xl uppercase tracking-wide text-ink sm:text-3xl">
               This route doesn&apos;t exist
             </h2>
@@ -105,7 +103,7 @@ export default function NotFound() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7, duration: 0.5 }}
-        className="relative z-10 pb-8 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-ink-mute/50"
+        className="relative z-10 pb-8 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-ink-mute"
       >
         Lost? Try refreshing or head back home
       </motion.p>

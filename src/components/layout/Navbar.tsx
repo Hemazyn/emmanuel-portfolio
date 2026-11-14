@@ -140,9 +140,9 @@ export default function Navbar() {
                     return (
                       <motion.li key={link.name} custom={i} variants={navItemVariants} initial="closed" animate="open" exit="exit">
                         <a href={link.href} onClick={(e) => handleNavClick(e, link.href)} className="group flex items-center gap-4 py-3 sm:gap-6 sm:py-4">
-                          <span className={cn("font-mono text-[11px] tracking-[0.2em] transition-colors duration-300", isActive ? "text-accent" : "text-ink-mute/30 group-hover:text-accent/60")}>{String(i + 1).padStart(2, "0")}</span>
+                          <span className={cn("font-mono text-[11px] tracking-[0.2em] transition-colors duration-300", isActive ? "text-accent" : "text-ink-mute group-hover:text-accent")}>{String(i + 1).padStart(2, "0")}</span>
 
-                          <span className={cn("font-heading text-3xl tracking-tight transition-all duration-300 sm:text-4xl lg:text-5xl", isActive ? "text-accent" : "text-ink/70 group-hover:text-ink group-hover:translate-x-2")}>{link.name}</span>
+                          <span className={cn("font-heading text-3xl tracking-tight transition-all duration-300 sm:text-4xl lg:text-5xl", isActive ? "text-accent" : "text-ink-soft group-hover:text-ink group-hover:translate-x-2")}>{link.name}</span>
 
                           {isActive && (
                             <motion.span
@@ -156,7 +156,7 @@ export default function Navbar() {
                             />
                           )}
 
-                          <span className={cn("hidden h-px flex-1 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100 sm:block", isActive ? "bg-accent/30" : "bg-ink/10")} />
+                          <span className={cn("hidden h-px flex-1 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100 sm:block", isActive ? "bg-accent" : "bg-rule-soft")} />
                         </a>
                       </motion.li>
                     )
@@ -164,15 +164,15 @@ export default function Navbar() {
                 </ul>
               </nav>
 
-              <motion.div variants={footerVariants} initial="closed" animate="open" className="border-ink/10 container mx-auto flex flex-col gap-6 border-t px-4 pt-6 sm:flex-row sm:items-center sm:justify-between xl:px-0">
+              <motion.div variants={footerVariants} initial="closed" animate="open" className="border-rule-soft container mx-auto flex flex-col gap-6 border-t px-4 pt-6 sm:flex-row sm:items-center sm:justify-between xl:px-0">
                 <motion.a href={personalInfo.resumeUrl} download={personalInfo.resumeFileName} className="btn btn-primary flex w-fit items-center gap-2 text-sm sm:hidden" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                   <Download className="h-4 w-4" />
                   Download Resume
                 </motion.a>
 
                 <div className="flex flex-col gap-1">
-                  <span className="text-ink-mute/40 font-mono text-[10px] tracking-[0.35em] uppercase">Get in touch</span>
-                  <a href={`mailto:${personalInfo.email}`} className="text-ink-mute/70 hover:text-accent text-sm transition-colors duration-300">
+                  <span className="text-ink-mute font-mono text-[10px] tracking-[0.35em] uppercase">Get in touch</span>
+                  <a href={`mailto:${personalInfo.email}`} className="text-ink-mute hover:text-accent text-sm transition-colors duration-300">
                     {personalInfo.email}
                   </a>
                 </div>
@@ -180,14 +180,14 @@ export default function Navbar() {
                 {personalInfo.socials && (
                   <div className="flex items-center gap-4">
                     {personalInfo.socials.map((social) => (
-                      <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" className="text-ink-mute/40 hover:text-accent font-mono text-[10px] tracking-[0.25em] uppercase transition-colors duration-300">
+                      <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" className="text-ink-mute hover:text-accent font-mono text-[10px] tracking-[0.25em] uppercase transition-colors duration-300">
                         {social.name}
                       </a>
                     ))}
                   </div>
                 )}
 
-                <span className="text-ink-mute/25 font-mono text-[10px] tracking-[0.3em]">©{currentYear}</span>
+                <span className="text-ink-mute font-mono text-[10px] tracking-[0.3em]">©{currentYear}</span>
               </motion.div>
             </div>
           </motion.div>

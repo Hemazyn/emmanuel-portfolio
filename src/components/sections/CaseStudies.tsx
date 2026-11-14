@@ -75,7 +75,7 @@ export default function CaseStudies() {
                     <div className="mt-4 grid gap-x-6 gap-y-3 sm:grid-cols-3">
                       {study.impactStats.map((stat) => (
                         <div key={stat.label}>
-                          <p className="font-display text-xl leading-none text-accent">
+                          <p className="font-display text-xl uppercase leading-none text-accent">
                             {stat.value}
                           </p>
                           <p className="mt-1.5 font-mono text-[11px] leading-snug tracking-[0.08em] text-ink-mute">

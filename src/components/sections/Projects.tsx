@@ -83,7 +83,7 @@ export default function Projects() {
                 className={`shrink-0 border px-3.5 py-1.5 font-mono text-xs uppercase tracking-wider transition-all duration-200 ${
                   isActive
                     ? "border-accent bg-accent-tint text-accent"
-                    : "border-rule-soft bg-bg-surface text-ink-soft hover:border-accent/40 hover:text-accent"
+                    : "border-rule-soft bg-bg-surface text-ink-soft hover:border-accent hover:text-accent"
                 }`}
               >
                 {label}
@@ -121,7 +121,7 @@ export default function Projects() {
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-mute/40">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-mute">
                         Preview
                       </span>
                     </div>
@@ -142,7 +142,7 @@ export default function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="flex h-7 w-7 items-center justify-center border border-rule-soft bg-bg/90 text-ink-mute transition-colors hover:border-accent hover:text-accent"
+                        className="flex h-7 w-7 items-center justify-center border border-rule-soft bg-bg-surface text-ink-mute transition-colors hover:border-accent hover:text-accent"
                         aria-label={`Visit ${project.title}`}
                       >
                         <ExternalLink className="h-3 w-3" />
@@ -155,7 +155,7 @@ export default function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="flex h-7 w-7 items-center justify-center border border-rule-soft bg-bg/90 text-ink-mute transition-colors hover:border-accent hover:text-accent"
+                        className="flex h-7 w-7 items-center justify-center border border-rule-soft bg-bg-surface text-ink-mute transition-colors hover:border-accent hover:text-accent"
                         aria-label={`${project.title} repository`}
                       >
                         <Github className="h-3 w-3" />
@@ -207,13 +207,13 @@ export default function Projects() {
                       {project.technologies.slice(0, 2).map((tech) => (
                         <span
                           key={tech}
-                          className="border border-rule-soft bg-bg-surface px-1.5 py-0.5 font-mono text-[9px] text-ink-mute"
+                          className="border border-rule-soft bg-bg-surface px-1.5 py-0.5 font-mono text-[9px] tracking-[0.08em] text-ink-mute"
                         >
                           {tech}
                         </span>
                       ))}
                       {project.technologies.length > 2 && (
-                        <span className="border border-accent-tint-strong bg-accent-tint px-1.5 py-0.5 font-mono text-[9px] text-accent">
+                        <span                          className="border border-accent-tint-strong bg-accent-tint px-1.5 py-0.5 font-mono text-[9px] tracking-[0.08em] text-accent">
                           +{project.technologies.length - 2}
                         </span>
                       )}

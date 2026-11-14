@@ -38,7 +38,7 @@ export default function Hero() {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
-          className="bg-accent/40 absolute top-1/3 left-0 hidden h-px w-32 origin-left lg:block"
+          className="bg-rule-soft absolute top-1/3 left-0 hidden h-px w-32 origin-left lg:block"
         />
         <motion.div
           initial={{ scaleX: 0 }}
@@ -91,15 +91,10 @@ export default function Hero() {
                 className="font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.9] uppercase tracking-wide"
               >
                 <span className="text-accent">Frontend Engineer</span>
-                <span className="text-ink/30"> for modern web</span>
+                <span className="text-ink-mute"> for modern web</span>
               </motion.h2>
             </div>
           </div>
-
-          {/* ASCII Rule */}
-          <motion.div custom={0.45} variants={fadeUp} initial="hidden" animate="visible">
-            <div className="ascii-rule my-6 max-w-md" />
-          </motion.div>
 
           {/* Description — Source Serif body */}
           <motion.p
@@ -154,11 +149,10 @@ export default function Hero() {
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           className="flex flex-col items-center gap-2"
-        >
-          <span className="font-mono text-[9px] uppercase tracking-[0.35em] text-ink-mute/40">
+        >            <span className="font-mono text-[9px] uppercase tracking-[0.35em] text-ink-mute">
             Scroll
           </span>
-          <div className="bg-accent/60 h-6 w-px sm:h-8" />
+          <div className="bg-ink-mute h-6 w-px sm:h-8" />
         </motion.div>
       </motion.div>
     </section>

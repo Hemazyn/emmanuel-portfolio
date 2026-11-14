@@ -29,7 +29,7 @@ export default async function Icon() {
             left: 2,
             right: 2,
             bottom: 2,
-            border: "1.5px solid #059669",
+            border: "1.5px solid #047857",
           }}
         />
         {/* Green accent square */}
@@ -40,7 +40,7 @@ export default async function Icon() {
             left: 2,
             width: 6,
             height: 6,
-            background: "#059669",
+            background: "#047857",
           }}
         />
         {/* Mono text */}

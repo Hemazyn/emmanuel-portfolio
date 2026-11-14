@@ -297,7 +297,6 @@ The project uses a brutalist design language with green accent — inspired by e
 - `.btn` / `.btn-primary` / `.btn-secondary` — Hard-edge buttons with mono font, uppercase text
 - `.glow-button` — Primary CTA with green background
 - `.tag` — Hard-edge label/category badges with green tint
-- `.ascii-rule` — Decorative dashed divider (green accent)
 - `.dot-pattern` / `.grid-pattern` — Subtle background textures
 
 ### Design Principles

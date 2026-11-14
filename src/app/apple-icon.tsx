@@ -18,7 +18,7 @@ export default async function AppleIcon() {
           alignItems: "center",
           justifyContent: "center",
           background: "#fafaf5",
-          borderRadius: 40,
+          borderRadius: 0,
           position: "relative",
         }}
       >
@@ -30,7 +30,7 @@ export default async function AppleIcon() {
             left: 8,
             right: 8,
             bottom: 8,
-            border: "2px solid #059669",
+            border: "2px solid #047857",
           }}
         />
         {/* Green accent square */}
@@ -41,7 +41,7 @@ export default async function AppleIcon() {
             left: 8,
             width: 12,
             height: 12,
-            background: "#059669",
+            background: "#047857",
           }}
         />
         {/* Mono text */}

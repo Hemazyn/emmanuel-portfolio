@@ -105,7 +105,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.97 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] as const }}
-            className="relative z-10 max-h-[80vh] w-full max-w-2xl overflow-hidden border border-rule-soft bg-bg shadow-2xl outline-none"
+            className="relative z-10 max-h-[80vh] w-full max-w-2xl overflow-hidden border border-rule-soft bg-bg shadow-[var(--shadow-hard-lg)] outline-none"
           >
             {/* Close button — hard edge */}
             <button
@@ -141,7 +141,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   </AnimatePresence>
                 ) : (
                   <div className="flex h-full w-full items-center justify-center">
-                    <Layers className="h-12 w-12 text-accent/30" />
+                    <Layers className="h-12 w-12 text-ink-mute" />
                   </div>
                 )}
 
@@ -152,7 +152,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       type="button"
                       onClick={prevImage}
                       aria-label="Previous image"
-                      className="absolute top-1/2 left-3 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center border border-rule-soft bg-bg/80 text-ink-mute transition-colors hover:border-accent hover:text-accent"
+                      className="absolute top-1/2 left-3 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center border border-rule-soft bg-bg-surface text-ink-mute transition-colors hover:border-accent hover:text-accent"
                     >
                       <ChevronLeft className="h-4 w-4" />
                     </button>
@@ -161,7 +161,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       type="button"
                       onClick={nextImage}
                       aria-label="Next image"
-                      className="absolute top-1/2 right-3 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center border border-rule-soft bg-bg/80 text-ink-mute transition-colors hover:border-accent hover:text-accent"
+                      className="absolute top-1/2 right-3 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center border border-rule-soft bg-bg-surface text-ink-mute transition-colors hover:border-accent hover:text-accent"
                     >
                       <ChevronRight className="h-4 w-4" />
                     </button>
@@ -176,7 +176,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                           aria-label={`Go to image ${i + 1}`}
                           aria-current={i === activeImage}
                           className={`h-1.5 transition-all duration-200 ${
-                            i === activeImage ? "w-5 bg-accent" : "w-1.5 bg-ink/20 hover:bg-ink/40"
+                            i === activeImage ? "w-5 bg-accent" : "w-1.5 bg-ink-mute hover:bg-ink"
                           }`}
                         />
                       ))}
@@ -255,7 +255,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     )}
 
                     {!project.githubUrl && (
-                      <p className="flex items-center gap-1.5 text-[11px] text-ink-mute/70">
+                      <p className="flex items-center gap-1.5 text-[11px] text-ink-mute">
                         <Lock aria-hidden="true" className="h-3 w-3 shrink-0" />
                         Company project — source code not public
                       </p>

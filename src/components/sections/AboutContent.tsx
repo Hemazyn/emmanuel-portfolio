@@ -65,7 +65,7 @@ export default function AboutContent({
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="border border-accent-tint-strong bg-accent-tint px-3 py-1.5 text-sm font-mono text-accent"
+                className="border border-accent-tint-strong bg-accent-tint px-3 py-1.5 text-sm font-mono tracking-[0.08em] text-accent"
               >
                 {item}
               </motion.span>

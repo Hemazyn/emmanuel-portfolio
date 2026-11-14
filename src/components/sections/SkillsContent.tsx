@@ -55,7 +55,7 @@ export default function SkillsContent({ narrative, highlights }: SkillsContentPr
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="border border-rule-soft bg-bg-surface px-2.5 py-1 font-mono text-[11px] text-ink-mute"
+                className="border border-rule-soft bg-bg-surface px-2.5 py-1 font-mono text-[11px] tracking-[0.08em] text-ink-mute"
               >
                 {item}
               </motion.span>
@@ -97,7 +97,7 @@ export default function SkillsContent({ narrative, highlights }: SkillsContentPr
                   {item.stack.map((tech) => (
                     <span
                       key={tech}
-                      className="border border-accent-tint-strong bg-accent-tint px-2.5 py-1 font-mono text-[11px] text-accent"
+                      className="border border-accent-tint-strong bg-accent-tint px-2.5 py-1 font-mono text-[11px] tracking-[0.08em] text-accent"
                     >
                       {tech}
                     </span>

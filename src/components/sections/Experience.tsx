@@ -71,7 +71,7 @@ export default function Experience() {
               viewport={{ once: true }}
               className="panel inline-flex items-center gap-3 px-4 py-2.5"
             >
-              <span className="font-display text-lg text-accent sm:text-xl">{stat.value}</span>
+              <span className="font-display text-lg uppercase text-accent sm:text-xl">{stat.value}</span>
               <span className="text-xs text-ink-mute sm:text-sm">{stat.label}</span>
             </motion.div>
           ))}
@@ -94,7 +94,7 @@ export default function Experience() {
                 "shrink-0 border px-3 py-1.5 text-xs transition-all duration-200",
                 activeIndex === index
                   ? "border-accent bg-accent-tint text-accent"
-                  : "border-rule-soft bg-bg-surface text-ink-soft hover:border-accent/40"
+                  : "border-rule-soft bg-bg-surface text-ink-soft hover:border-accent"
               )}
             >
               {item.company}
@@ -105,7 +105,7 @@ export default function Experience() {
         <div className="grid gap-6 lg:grid-cols-[240px_1fr] lg:gap-8">
           {/* Desktop vertical rail */}
           <motion.aside custom={0.1} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="relative hidden lg:block">
-            <div className="absolute top-2 bottom-2 left-2.5 w-px bg-ink/8" />
+            <div className="absolute top-2 bottom-2 left-2.5 w-px bg-rule-soft" />
 
             <div role="tablist" aria-label="Work experience" className="space-y-2">
               {experienceData.map((item, index) => {
@@ -129,14 +129,14 @@ export default function Experience() {
                         "absolute top-4 left-1.5 h-2.25 w-2.25 border-2 transition-all duration-200",
                         isActive
                           ? "border-accent bg-accent shadow-[0_0_0_4px_var(--color-accent-tint)]"
-                          : "border-ink/15 bg-bg"
+                          : "border-rule-soft bg-bg"
                       )}
                     />
 
                     <div
                       className={cn(
                         "px-4 py-3 transition-all duration-200",
-                        isActive ? "bg-accent-tint" : "hover:bg-ink/2"
+                        isActive ? "bg-accent-tint" : "hover:bg-bg-surface-hover"
                       )}
                     >
                       <p className={cn(
@@ -145,7 +145,7 @@ export default function Experience() {
                       )}>
                         {item.company}
                       </p>
-                      <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-mute/60">
+                      <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-mute">
                         {item.startDate} — {item.endDate}
                       </p>
                     </div>
@@ -208,11 +208,11 @@ export default function Experience() {
                           {activeExperience.location}
                         </span>
 
-                        <span className="hidden h-1 w-1 bg-ink/15 sm:block" />
+                        <span className="hidden h-1 w-1 bg-rule-soft sm:block" />
 
                         <span>{activeExperience.type}</span>
 
-                        <span className="hidden h-1 w-1 bg-ink/15 sm:block" />
+                        <span className="hidden h-1 w-1 bg-rule-soft sm:block" />
 
                         <span className="font-mono text-[11px] uppercase tracking-[0.14em]">
                           {activeExperience.startDate} — {activeExperience.endDate}
@@ -220,7 +220,7 @@ export default function Experience() {
                       </div>
                     </div>
 
-                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-mute/50">
+                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-mute">
                       {String(activeIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
                     </div>
                   </div>

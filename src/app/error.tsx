@@ -16,8 +16,8 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
       {/* Background — paper dot grid */}
       <div className="pointer-events-none absolute inset-0">
         <div className="dot-pattern absolute inset-0 opacity-[0.04] dark:opacity-[0.06]" />
-        <div className="bg-accent/40 absolute top-1/3 left-0 hidden h-px w-32 lg:block" />
-        <div className="bg-accent/40 absolute right-0 bottom-1/3 hidden h-px w-32 lg:block" />
+        <div className="bg-rule-soft absolute top-1/3 left-0 hidden h-px w-32 lg:block" />
+        <div className="bg-rule-soft absolute right-0 bottom-1/3 hidden h-px w-32 lg:block" />
       </div>
 
       <div className="absolute top-6 right-6 z-50">
@@ -57,8 +57,6 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
             initial="hidden"
             animate="visible"
           >
-            <div className="ascii-rule mx-auto my-6 w-48" />
-
             <h1 className="font-display text-3xl uppercase tracking-wide text-ink sm:text-4xl">
               Something went wrong
             </h1>

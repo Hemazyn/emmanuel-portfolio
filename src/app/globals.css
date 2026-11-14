@@ -9,21 +9,21 @@
   --color-bg-surface-hover: #ece9dc;
   --color-ink: #1a1a1a;
   --color-ink-soft: #4a4a4a;
-  --color-ink-mute: #7a7a78;
+  --color-ink-mute: #6e6e6b;
   --color-rule: #1a1a1a;
   --color-rule-soft: rgba(26, 26, 26, 0.16);
 
   /* Accent is AA-safe as text on the paper background (light) / black (dark).
      --color-on-accent is the ink color to use ON accent fills. */
-  --color-accent: #059669;
-  --color-accent-hover: #047857;
-  --color-accent-tint: rgba(5, 150, 105, 0.08);
-  --color-accent-tint-strong: rgba(5, 150, 105, 0.18);
+  --color-accent: #047857;
+  --color-accent-hover: #065f46;
+  --color-accent-tint: rgba(4, 120, 87, 0.08);
+  --color-accent-tint-strong: rgba(4, 120, 87, 0.18);
   --color-on-accent: #ffffff;
 
-  --color-status-complete: #059669;
-  --color-status-planned: #b8b6ad;
-  --color-warn: #b8870f;
+  --color-status-complete: #047857;
+  --color-status-planned: #6e6c66;
+  --color-warn: #8a6400;
 
   --color-paper-dot: rgba(26, 26, 26, 0.08);
   --color-code-bg: #efece0;
@@ -66,7 +66,7 @@ html.dark {
   --color-bg-surface-hover: #1e1e1e;
   --color-ink: #e8e6dc;
   --color-ink-soft: #a8a6a0;
-  --color-ink-mute: #7a7878;
+  --color-ink-mute: #858381;
   --color-rule: #e8e6dc;
   --color-rule-soft: rgba(232, 230, 220, 0.15);
   --color-paper-dot: rgba(232, 230, 220, 0.06);
@@ -78,7 +78,7 @@ html.dark {
   --color-on-accent: #0a0a0a;
 
   --color-status-complete: #34d399;
-  --color-status-planned: #4a4a48;
+  --color-status-planned: #807e7c;
 
   --color-code-bg: #141414;
   --color-overlay: rgba(0, 0, 0, 0.75);
@@ -225,32 +225,6 @@ button {
 }
 
 @layer components {
-  .ascii-rule {
-    display: block;
-    width: 100%;
-    height: 6px;
-    margin: 16px 0;
-    background-image:
-      repeating-linear-gradient(
-        to right,
-        var(--color-accent) 0,
-        var(--color-accent) 4px,
-        transparent 4px,
-        transparent 8px
-      ),
-      repeating-linear-gradient(
-        to right,
-        transparent 0,
-        transparent 8px,
-        var(--color-accent-tint-strong) 8px,
-        var(--color-accent-tint-strong) 14px
-      );
-    background-size: 100% 3px, 100% 3px;
-    background-position: 0 0, 0 3px;
-    background-repeat: no-repeat;
-    user-select: none;
-  }
-
   .label {
     font-family: var(--font-mono);
     font-size: 0.72rem;
