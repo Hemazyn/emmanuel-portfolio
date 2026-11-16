@@ -178,6 +178,7 @@ export default function Projects() {
                             handleViewDetails(project)
                           }}
                           aria-haspopup="dialog"
+                          aria-label={`View details for ${project.title}`}
                           className="text-left transition-colors duration-200 hover:text-accent"
                         >
                           {project.title}
