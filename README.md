@@ -210,7 +210,7 @@ emmanuel-portfolio/
 ### Prerequisites
 
 - **Node.js** 18.18 or later (LTS recommended)
-- **npm**, **yarn**, **pnpm**, or **bun**
+- **pnpm** (the project's lockfile is `pnpm-lock.yaml`)
 
 ### Installation
 
@@ -220,10 +220,10 @@ git clone https://github.com/hemazyn/emmanuel-portfolio.git
 cd emmanuel-portfolio
 
 # Install dependencies
-npm install
+pnpm install
 
 # Start the development server
-npm run dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser. The page auto-updates as you edit source files.
