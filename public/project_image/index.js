@@ -51,4 +51,6 @@ import trc2 from "../project_image/trc2.png"
 import trc3 from "../project_image/trc3.png"
 import trc4 from "../project_image/trc4.png"
 
-export { spactrapay1, spactrapay2, spactrapay3, spactrapay4, taskflow1, taskflow2, taskflow3, taskflow4, taskflow5, taskflow6, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, weather4, weather5, tip1, tip2, tip3, tip4, scp1, scp2, cps1, cps2, cps3, cps4, var1, var2, var3, cry1, cry2, trc1, trc2, trc3, trc4 }
+import scm1 from "../project_image/scm1.png"
+
+export { spactrapay1, spactrapay2, spactrapay3, spactrapay4, taskflow1, taskflow2, taskflow3, taskflow4, taskflow5, taskflow6, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, weather4, weather5, tip1, tip2, tip3, tip4, scp1, scp2, cps1, cps2, cps3, cps4, var1, var2, var3, cry1, cry2, trc1, trc2, trc3, trc4, scm1 }

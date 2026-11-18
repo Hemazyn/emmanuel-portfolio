@@ -1,4 +1,4 @@
-import { spactrapay1, spactrapay2, spactrapay3, spactrapay4, taskflow1, taskflow2, taskflow3, taskflow4, taskflow5, taskflow6, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, weather4, weather5, tip1, tip2, tip3, tip4, scp1, scp2, cps1, cps2, cps3, cps4, var1, var2, var3, cry1, cry2, trc1, trc2, trc3, trc4 } from "../../public/project_image"
+import { spactrapay1, spactrapay2, spactrapay3, spactrapay4, taskflow1, taskflow2, taskflow3, taskflow4, taskflow5, taskflow6, rent1, rent2, digi1, digi2, digi3, digi4, digi5, digi6, weather1, weather2, weather3, weather4, weather5, tip1, tip2, tip3, tip4, scp1, scp2, cps1, cps2, cps3, cps4, var1, var2, var3, cry1, cry2, trc1, trc2, trc3, trc4, scm1 } from "../../public/project_image"
 
 export const projectCategories = [
   { id: "all", name: "All" },
@@ -157,5 +157,18 @@ export const projectsData = [
     githubUrl: "https://github.com/Hemazyn/truthcap",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Zustand"],
     featured: false,
+  },
+  {
+    id: 12,
+    title: "SchoolCRM",
+    slug: "school-crm",
+    category: "crm",
+    subtitle: "Multi-tenant school management platform",
+    description: "A multi-tenant SaaS CRM for K–12 schools. One codebase serves five experiences (grand admin, school admin, teacher, parent, student) with per-school branding, role-based access, and live multi-tenant data. Covers students, teachers, parents, academics, attendance, exams, grades, fees, timetable, library, transport, and communications, plus a platform layer managing every school.",
+    images: [scm1].map(img),
+    liveUrl: null,
+    githubUrl: null,
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Zustand"],
+    featured: true,
   },
 ]
